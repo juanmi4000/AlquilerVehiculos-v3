@@ -13,12 +13,28 @@ public class MainApp {
 
 	public static void main(String[] args) throws OperationNotSupportedException {
 		Modelo modelo = new ModeloCascada(FactoriaFuenteDatos.FICHEROS);
-		Vista vista = FactoriaVista.TEXTO.crear();
+		Vista vista = procesarArgumentosVista(args);
 
 		Controlador controlador = new Controlador(modelo, vista);
 
 		controlador.comenzar();
 
 	}
+	
+	private static Vista procesarArgumentosVista(String[] args) {
+		
+		Vista vista = FactoriaVista.GRAFICOS.crear();
+		for (String argumentos : args) {
+			if (argumentos.equals("-vgraficos")) {
+				vista = FactoriaVista.GRAFICOS.crear();
+			} else {
+				vista = FactoriaVista.TEXTO.crear();
+			}
+		}
+		
+		return vista;
+	}
+	
+	
 
 }
