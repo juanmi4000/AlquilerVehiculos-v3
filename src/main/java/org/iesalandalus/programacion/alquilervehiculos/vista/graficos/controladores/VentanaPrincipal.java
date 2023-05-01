@@ -15,8 +15,8 @@ public class VentanaPrincipal extends Controlador{
 	    @FXML
 	    void saludar() {
 	    	System.out.println("Botón pulsado");
-	    	Controlador controladorListar = Controladores.get("vistas/ListarClientes.fxml", "Listar Clintes", getEscenario());
-	    	ListarClientes listarClientes = (ListarClientes) ListarClientes.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
+	    	ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml", "Listar Clintes", getEscenario());
+	    	controladorListar.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
 	    	controladorListar.getEscenario().showAndWait();
 	    
 	    }

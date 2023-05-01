@@ -7,7 +7,7 @@ import org.iesalandalus.programacion.alquilervehiculos.controlador.Controlador;
 public abstract class Vista {
 	private Controlador controlador;
 
-	protected Controlador getControlador() {
+	public Controlador getControlador() {
 		return controlador;
 	}
 
