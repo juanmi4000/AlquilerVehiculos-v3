@@ -13,11 +13,9 @@ import javafx.scene.control.MenuItem;
 
 public class VentanaPrincipal extends Controlador{
 
-    @FXML
-    private Button btLeerCliente;
+    @FXML private Button btLeerCliente;
 
-    @FXML
-    private MenuItem confirmarSalida;
+    @FXML private MenuItem confirmarSalida;
 
     @FXML
     void leerCliente(ActionEvent event) {
