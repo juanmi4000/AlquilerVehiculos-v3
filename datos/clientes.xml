@@ -5,4 +5,5 @@
     <cliente dni="12345678Z" nombre="Juan" telefono="657575757"/>
     <cliente dni="00987654B" nombre="Maria" telefono="953756756"/>
     <cliente dni="12349876A" nombre="Antonia" telefono="643295623"/>
+    <cliente dni="26515544V" nombre="Pepe Esponja" telefono="654309844"/>
 </clientes>

@@ -15,14 +15,18 @@ public class LanzadorVentanaPrincipal extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-
+			
 			Controlador ventanaPrincipal = Controladores.get("vistas/VentanaPrincipal.fxml", TITULO, null);
-			// Dialogos.setHojasEstilos(ventanaPrincipal).getEscenario().getScene().getRoot().getStylesheets().get(0));
 			ventanaPrincipal.getEscenario().setOnCloseRequest(e -> confirmarSalida(ventanaPrincipal.getEscenario(), e));
+			ventanaPrincipal.getEscenario().show();
+
+			//Controlador ventanaPrincipal = Controladores.get("vistas/VentanaPrincipal.fxml", TITULO, null);
+			// Dialogos.setHojasEstilos(ventanaPrincipal).getEscenario().getScene().getRoot().getStylesheets().get(0));
+			//ventanaPrincipal.getEscenario().setOnCloseRequest(e -> confirmarSalida(ventanaPrincipal.getEscenario(), e));
 			// Image icono = new Image
 			// (LocalizadorRecursos.class.getResourceAsStream("imagenes/iconoVehiculos.png"));
 			// ventanaPrincipal.getEscenario().getIcons().add(icono);
-			ventanaPrincipal.getEscenario().show();
+			//ventanaPrincipal.getEscenario().show();
 			/*
 			FXMLLoader cargadorVentanaPrincipal = new FXMLLoader(
 					LocalizadorRecursos.class.getResource("vistas/VentanaPrincipal.fxml")); // dice de donde lo tiene
