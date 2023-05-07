@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="40.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.VentanaPrincipal">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" spacing="40.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.VentanaPrincipal">
    <children>
       <MenuBar>
          <menus>
@@ -23,11 +26,54 @@
             </Menu>
          </menus>
       </MenuBar>
-      <HBox alignment="CENTER" spacing="40.0">
+      <HBox alignment="CENTER" prefHeight="267.0" prefWidth="500.0" spacing="30.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#listarCliente" text="Listar Cliente" />
-            <Button fx:id="btLeerCliente" mnemonicParsing="false" onAction="#leerCliente" text="Leer cliente" />
+            <VBox alignment="TOP_CENTER" prefHeight="258.0" prefWidth="144.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER" prefHeight="24.0" prefWidth="124.0" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label text="CLIENTES" />
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Insertar cliente" />
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Listar clientes" />
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Borrar cliente" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="258.0" prefWidth="144.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="8.0" prefWidth="6.0" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label text="ALQUILERES" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="btLeerCliente" mnemonicParsing="false" onAction="#leerCliente" prefHeight="60.0" prefWidth="100.0" text="Insertar alquiler" />
+                  <Button mnemonicParsing="false" onAction="#listarCliente" prefHeight="60.0" prefWidth="100.0" text="Listar alquileres" />
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Borrar alquiler" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="144.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="27.0" prefWidth="102.0" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label text="VEHICULOS" />
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Insertar vehiculo" />
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Listar vehiculos" />
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Borrar vehiculo" />
+               </children>
+            </VBox>
          </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
       </HBox>
    </children>
 </VBox>
