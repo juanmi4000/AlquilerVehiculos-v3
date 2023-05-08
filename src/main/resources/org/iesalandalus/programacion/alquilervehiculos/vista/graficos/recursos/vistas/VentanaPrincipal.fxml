@@ -39,8 +39,8 @@
                         <Label text="CLIENTES" />
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Insertar cliente" />
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Listar clientes" />
+                  <Button mnemonicParsing="false" onAction="#leerCliente" prefHeight="60.0" prefWidth="100.0" text="Insertar cliente" />
+                  <Button mnemonicParsing="false" onAction="#listarClientes" prefHeight="60.0" prefWidth="100.0" text="Listar clientes" />
                   <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Borrar cliente" />
                </children>
             </VBox>
@@ -52,8 +52,8 @@
                         <Label text="ALQUILERES" />
                      </children>
                   </HBox>
-                  <Button fx:id="btLeerCliente" mnemonicParsing="false" onAction="#leerCliente" prefHeight="60.0" prefWidth="100.0" text="Insertar alquiler" />
-                  <Button mnemonicParsing="false" onAction="#listarCliente" prefHeight="60.0" prefWidth="100.0" text="Listar alquileres" />
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Insertar alquiler" />
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Listar alquileres" />
                   <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Borrar alquiler" />
                </children>
             </VBox>
@@ -67,7 +67,6 @@
                   </HBox>
                   <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Insertar vehiculo" />
                   <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Listar vehiculos" />
-                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Borrar vehiculo" />
                </children>
             </VBox>
          </children>

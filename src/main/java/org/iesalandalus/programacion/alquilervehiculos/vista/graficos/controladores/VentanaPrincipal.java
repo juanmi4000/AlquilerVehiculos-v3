@@ -8,14 +8,12 @@ import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 
 public class VentanaPrincipal extends Controlador{
 
-    @FXML private Button btLeerCliente;
-
-    @FXML private MenuItem confirmarSalida;
+    @FXML
+    private MenuItem confirmarSalida;
 
     @FXML
     void leerCliente(ActionEvent event) {
@@ -32,12 +30,10 @@ public class VentanaPrincipal extends Controlador{
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("Error al insertar el cliente", e.getMessage(), getEscenario());
 		}
-    	
-    	
     }
 
     @FXML
-    void listarCliente(ActionEvent event) {
+    void listarClientes(ActionEvent event) {
     	ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml", "Listar Clintes", getEscenario());
     	controladorListar.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
     	controladorListar.getEscenario().showAndWait();
