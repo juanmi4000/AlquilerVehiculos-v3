@@ -14,9 +14,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 public class LeerVehiculo extends Controlador {
-
+	
+	private static final String FURGONETA = "Furgoneta";
 	private static final ObservableList<String> TIPOS_VEHICULOS = FXCollections.observableArrayList("Turismo",
-			"Furgoneta", "Autobus");
+			FURGONETA, "Autobus");
 
 	@FXML
 	private ChoiceBox<String> cbTipo;

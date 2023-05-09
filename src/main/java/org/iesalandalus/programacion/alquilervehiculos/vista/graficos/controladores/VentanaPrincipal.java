@@ -54,7 +54,9 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void listarAlquileres(ActionEvent event) {
-
+		ListarAlquileres listarAlquileres = (ListarAlquileres) Controladores.get("vistas/ListarAlquileres.fxml", "LISTAR ALQUILERES", getEscenario());
+		listarAlquileres.actualizar(VistaGraficos.getInstancia().getControlador().getAlquileres());
+		listarAlquileres.getEscenario().showAndWait();
 	}
 
 	@FXML

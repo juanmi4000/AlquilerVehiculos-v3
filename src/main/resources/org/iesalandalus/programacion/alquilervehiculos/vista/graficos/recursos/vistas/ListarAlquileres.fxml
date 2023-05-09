@@ -45,7 +45,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="909.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.ListarAlquileres">
    <children>
       <MenuBar>
         <menus>
@@ -104,13 +104,13 @@
                         <Label fx:id="cambiarNombre" prefHeight="18.0" prefWidth="172.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="199.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="199.0" spacing="5.0">
                      <children>
                         <Label prefHeight="18.0" prefWidth="30.0" text="Dni:" />
                         <Label fx:id="cambiarDni" prefHeight="18.0" prefWidth="200.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="199.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="199.0" spacing="5.0">
                      <children>
                         <Label text="Teléfono:" />
                         <Label fx:id="cambiarTelefono" prefHeight="18.0" prefWidth="110.0" />
@@ -118,38 +118,50 @@
                   </HBox>
                   <Separator prefWidth="200.0" />
                   <Label text="VEHICULO" />
-                  <HBox alignment="CENTER_LEFT" prefHeight="21.0" prefWidth="263.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="250.0" spacing="5.0">
                      <children>
                         <Label text="Tipo:" />
                         <Label fx:id="cambiarTipo" prefHeight="18.0" prefWidth="129.0" />
                      </children>
                   </HBox>
-                  <HBox fx:id="cambiarMarca" alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="263.0" spacing="5.0">
+                  <HBox fx:id="cambiarMarca" alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="263.0" spacing="5.0">
                      <children>
                         <Label text="Marca:" />
                         <Label prefHeight="18.0" prefWidth="161.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="263.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="263.0" spacing="5.0">
                      <children>
                         <Label text="Modelo:" />
                         <Label fx:id="cambiarModelo" prefHeight="18.0" prefWidth="150.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="263.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="263.0" spacing="5.0">
                      <children>
                         <Label text="Matricula:" />
                         <Label fx:id="cambiarMatricula" prefHeight="18.0" prefWidth="99.0" />
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Label text="Cilindrada:" />
+                        <Label prefHeight="18.0" prefWidth="68.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" spacing="5.0">
+                     <children>
+                        <Label text="P.M.A:" />
+                        <Label prefHeight="18.0" prefWidth="94.0" />
+                     </children>
+                  </HBox>
                   <Separator prefWidth="200.0" />
-                  <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="263.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="263.0" spacing="5.0">
                      <children>
                         <Label text="Fecha alquiler:" />
                         <Label fx:id="cambiarFechaAlquiler" prefHeight="18.0" prefWidth="125.0" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="263.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="263.0" spacing="5.0">
                      <children>
                         <Label text="Fecha devolución:" />
                         <Label fx:id="cambiarFechaDevolucion" prefHeight="18.0" prefWidth="119.0" />
