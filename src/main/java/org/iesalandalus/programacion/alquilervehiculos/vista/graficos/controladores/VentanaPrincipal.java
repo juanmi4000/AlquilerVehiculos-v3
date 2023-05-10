@@ -97,7 +97,7 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void salir(ActionEvent event) {
-
+		getEscenario().close();
 	}
 
 	@FXML
