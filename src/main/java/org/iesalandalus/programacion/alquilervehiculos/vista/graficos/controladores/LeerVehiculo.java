@@ -16,7 +16,8 @@ import javafx.scene.control.TextField;
 public class LeerVehiculo extends Controlador {
 	
 	private static final String FURGONETA = "Furgoneta";
-	private static final ObservableList<String> TIPOS_VEHICULOS = FXCollections.observableArrayList("Turismo",
+	private static final String TURISMO = "Turismo";
+	private static final ObservableList<String> TIPOS_VEHICULOS = FXCollections.observableArrayList(TURISMO,
 			FURGONETA, "Autobus");
 
 	@FXML
@@ -48,7 +49,7 @@ public class LeerVehiculo extends Controlador {
 		tfCilindrada.setDisable(false);
 		tfPlazas.setDisable(false);
 		tfPma.setDisable(false);
-		cbTipo.selectionModelProperty().addListener((ob, ol, ne) -> comprobarValor());
+		cbTipo.valueProperty().addListener((ob, ol, ne) -> comprobarValor());
 	}
 
 	@FXML
@@ -69,10 +70,10 @@ public class LeerVehiculo extends Controlador {
 		String marca = tfMarca.getText();
 		String modelo = tfModelo.getText();
 		String matricula = tfMatricula.getText();
-		if (valor.equals("Turismo")) {
+		if (valor.equals(TURISMO)) {
 			int cilindrada = Integer.parseInt(tfCilindrada.getText());
 			vehiculo = new Turismo(marca, modelo, cilindrada, matricula);
-		} else if (valor.equals("Furgoneta")) {
+		} else if (valor.equals(FURGONETA)) {
 			int plazas = Integer.parseInt(tfPlazas.getText());
 			int pma = Integer.parseInt(tfPma.getText());
 			vehiculo = new Furgoneta(marca, modelo, pma, plazas, matricula);
@@ -85,11 +86,11 @@ public class LeerVehiculo extends Controlador {
 
 	private void comprobarValor() {
 		String valor = cbTipo.valueProperty().getValue();
-		if (valor.equals("Turismo")) {
+		if (valor.equals(TURISMO)) {
 			tfCilindrada.setDisable(true);
 			tfPlazas.setDisable(false);
 			tfPma.setDisable(false);
-		} else if (valor.equals("Furgoneta")) {
+		} else if (valor.equals(FURGONETA)) {
 			tfPlazas.setDisable(true);
 			tfPma.setDisable(true);
 			tfCilindrada.setDisable(false);

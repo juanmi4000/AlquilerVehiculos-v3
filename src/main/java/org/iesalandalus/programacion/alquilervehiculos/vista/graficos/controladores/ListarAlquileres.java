@@ -6,6 +6,7 @@ import java.util.List;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controlador;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class ListarAlquileres extends Controlador{
     @FXML private Label cambiarTelefono;
     @FXML private Label cambiarTipo;
     @FXML private TableColumn<Alquiler, String> tcCliente;
-    @FXML private TableColumn<Alquiler, String> tcFechaAquiler;
+    @FXML private TableColumn<Alquiler, LocalDate> tcFechaAquiler;
     @FXML private TableColumn<Alquiler, LocalDate> tcFechaDevolucion;
     @FXML private TableColumn<Alquiler, String> tcVehiculo;
     @FXML private TableView<Alquiler> tvListarAlquiler;
@@ -35,11 +36,14 @@ public class ListarAlquileres extends Controlador{
     private void initialize() {
     	tcCliente.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getCliente().getDni()));
     	tcVehiculo.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getVehiculo().getMatricula()));
-    	tcFechaAquiler.setCellValueFactory(fila -> new SimpleStringProperty(String.format("%s", fila.getValue().getFechaAlquiler())));
-    	/*tcFechaDevolucion.setCellValueFactory(fila -> {
-    		LocalDate fechaDevolucion = fila.getValue().getFechaDevolucion();
-    		return fechaDevolucion == null ? "" : new SimpleStringProperty(String.format("%s", fechaDevolucion));
-    	});*/
+    	tcFechaAquiler.setCellValueFactory(fila -> new SimpleObjectProperty<LocalDate>(fila.getValue().getFechaAlquiler()));
+    	tcFechaDevolucion.setCellValueFactory(fila -> new SimpleObjectProperty<LocalDate>(fila.getValue().getFechaDevolucion()));
+//    	Alquiler alquiler = tvListarAlquiler.getSelectionModel().getSelectedItem();
+//    	Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(alquiler.getCliente());
+//    	Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador().buscar(alquiler.getVehiculo());
+//    	cambiarDni.setText(cliente.getDni());
+//    	cambiarNombre.setText(cliente.getNombre());
+//    	cambiarTelefono.setText(cliente.getNombre());
     }
     
     @FXML

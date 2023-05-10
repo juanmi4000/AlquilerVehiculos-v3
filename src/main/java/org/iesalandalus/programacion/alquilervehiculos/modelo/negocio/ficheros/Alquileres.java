@@ -83,13 +83,13 @@ public class Alquileres implements IAlquileres {
 		Cliente clienteEncontrado = Clientes.getInstancia()
 				.buscar(Cliente.getClienteConDni(elemento.getAttribute(CLIENTE)));
 		if (clienteEncontrado == null) {
-			throw new NullPointerException("ERROR: no existe ese cliente con dni.");
+			throw new NullPointerException("ERROR: no existe ningún cliente con dni.");
 		}
 		Vehiculo vehiculoEncontrado = Vehiculos.getInstancia()
 				.buscar(Vehiculo.getVehiculoConMatricula(elemento.getAttribute(VEHICULO)));
 
 		if (vehiculoEncontrado == null) {
-			throw new NullPointerException("ERROR: no existe ese cliente con dni.");
+			throw new NullPointerException("ERROR: no existe ningún vehiculo con esa matricula");
 		}
 		// fecha de alquiler lo pongo en una variable para que no me salga un chorizo
 		LocalDate fechaAlquiler = LocalDate.parse(elemento.getAttribute(FECHA_ALQUILER), FORMATO_FECHA);

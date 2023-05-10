@@ -69,7 +69,7 @@ public class LeerCliente extends Controlador{
     }
     
     public Cliente getCliente() {
-    	String nombre = tfNombre.getText();
+    	String nombre = tfNombre.getText();     
     	String dni = tfDni.getText();
     	String telefono = tfTelefono.getText();
     	return cancelado ? null : new Cliente(nombre, dni, telefono);

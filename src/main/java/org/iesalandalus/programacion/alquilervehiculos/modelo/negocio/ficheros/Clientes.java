@@ -155,9 +155,17 @@ public class Clientes implements IClientes {
 		}
 		if (nombre != null && !nombre.isBlank()) {
 			clienteEncontrado.setNombre(nombre);
+		} else {
+			if (nombre.isBlank()) {
+				throw new IllegalArgumentException("ERROR: el nombre no puede estar vacio.");
+			}
 		}
 		if (telefono != null && !telefono.isBlank()) {
 			clienteEncontrado.setTelefono(telefono);
+		} else {
+			if (telefono.isBlank()) {
+				throw new IllegalArgumentException("ERROR: el teléfono no puede estar vacio.");
+			}
 		}
 
 	}

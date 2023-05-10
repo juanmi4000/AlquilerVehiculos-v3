@@ -17,6 +17,7 @@ public class LanzadorVentanaPrincipal extends Application {
 		try {
 			
 			Controlador ventanaPrincipal = Controladores.get("vistas/VentanaPrincipal.fxml", TITULO, null);
+			//ventanaPrincipal.getEscenario().getIcons().add("imagenes/Coche.jpg");
 			ventanaPrincipal.getEscenario().setOnCloseRequest(e -> confirmarSalida(ventanaPrincipal.getEscenario(), e));
 			ventanaPrincipal.getEscenario().show();
 
@@ -27,17 +28,6 @@ public class LanzadorVentanaPrincipal extends Application {
 			// (LocalizadorRecursos.class.getResourceAsStream("imagenes/iconoVehiculos.png"));
 			// ventanaPrincipal.getEscenario().getIcons().add(icono);
 			//ventanaPrincipal.getEscenario().show();
-			/*
-			FXMLLoader cargadorVentanaPrincipal = new FXMLLoader(
-					LocalizadorRecursos.class.getResource("vistas/VentanaPrincipal.fxml")); // dice de donde lo tiene
-																							// que coger
-			Parent raiz = cargadorVentanaPrincipal.load(); // lo carga y lo traducia a la gerarquia de nodos
-
-			Scene escena = new Scene(raiz);
-			primaryStage.setTitle("Vista grafica para el alquiler de vehiculos");
-			primaryStage.setScene(escena);
-			primaryStage.show();
-			*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
