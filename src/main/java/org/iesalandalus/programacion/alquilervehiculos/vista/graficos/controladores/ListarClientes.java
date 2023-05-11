@@ -13,7 +13,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,14 +23,14 @@ public class ListarClientes extends Controlador{
 	private static final String ERROR = "Ha ocurrido un error inesperado al abrir la página.";
 	private static final String MODIFICAR_CLIENTE = "Modificar cliente";
 
-    @FXML
-    private Label cambiarDni;
+	 @FXML
+	 private TextField tfCambiarDni;
 
-    @FXML
-    private Label cambiarNombre;
+	 @FXML
+	 private TextField tfCambiarNombre;
 
-    @FXML
-    private Label cambiarTelefono;
+	 @FXML
+	 private TextField tfCambiarTelefono;
     
     @FXML
     private TextField tfListarAlquileresCliente;
@@ -65,9 +64,13 @@ public class ListarClientes extends Controlador{
     	tfNombreEncontrado.setDisable(true);
     	tfDniEncontrado.setDisable(true);
     	tfTelefonoEncontrado.setDisable(true);
+    	tfCambiarNombre.setDisable(true);
+    	tfCambiarDni.setDisable(true);
+    	tfCambiarTelefono.setDisable(true);
 		tcNombre.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getNombre()));
 		tcDni.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getDni()));
 		tcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+		tvListaClientes.getSelectionModel().selectedItemProperty().addListener((ob, oldValue, newValue) -> filaSeleccionada(newValue));
 	}
 
     @FXML
@@ -94,7 +97,7 @@ public class ListarClientes extends Controlador{
 			Cliente cliente = getCliente();
 			tfNombreEncontrado.setText(cliente.getNombre());
 			tfDniEncontrado.setText(cliente.getDni());
-			tfDniEncontrado.setText(cliente.getTelefono());
+			tfTelefonoEncontrado.setText(cliente.getTelefono());
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
 		}	
@@ -130,7 +133,8 @@ public class ListarClientes extends Controlador{
 
     @FXML
     void listarVehiculos(ActionEvent event) {
-    	
+    	ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos", "LISTAR VEHICULOS", getEscenario());
+    	listarVehiculos.getEscenario().showAndWait();
     }
 
     @FXML
@@ -153,6 +157,16 @@ public class ListarClientes extends Controlador{
     }
 
     @FXML
+    void estadisticasAnuales(ActionEvent event) {
+
+    }
+
+    @FXML
+    void estadisticasMensuales(ActionEvent event) {
+
+    }
+
+    @FXML
     void salir(ActionEvent event) {
     	getEscenario().close();
     }
@@ -171,6 +185,13 @@ public class ListarClientes extends Controlador{
     private Cliente getCliente() {
 		return VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(tfDni.getText()));
 	}
+    
+    @FXML
+    private void filaSeleccionada(Cliente cliente) {
+    	tfCambiarNombre.setText(cliente.getNombre());
+    	tfCambiarDni.setText(cliente.getDni());
+    	tfCambiarTelefono.setText(cliente.getTelefono());
+    }
 
 }
 

@@ -46,12 +46,21 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void borrarCliente(ActionEvent event) {
+		try {
+			PedirDni pedirDni = (PedirDni) Controladores.get("vistas/PedirDni.fxml", "BORRAR CLIENTE", getEscenario());
+			pedirDni.limpiar();
+			pedirDni.getEscenario().showAndWait();
+			VistaGraficos.getInstancia().getControlador().borrar(pedirDni.getCliente());
+			Dialogos.mostrarDialogoAdvertencia("BORRAR CLIENTE", "El cliente se ha borrado correctamente.", getEscenario());
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError("ERROR AL BORRAR", e.getMessage(), getEscenario()); 
+		}
 		
 	}
 
 	@FXML
 	void leerAlquiler(ActionEvent event) {
-
+		
 	}
 
 	@FXML
@@ -87,7 +96,7 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void listarVehiculos(ActionEvent event) {
-
+		
 	}
 
 	@FXML

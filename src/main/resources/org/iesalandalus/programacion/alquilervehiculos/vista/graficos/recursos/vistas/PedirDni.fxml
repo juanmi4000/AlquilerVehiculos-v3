@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="127.0" prefWidth="225.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="127.0" prefWidth="225.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.PedirDni">
    <children>
       <GridPane prefHeight="30.0" prefWidth="413.0">
         <columnConstraints>
@@ -27,12 +26,12 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <TextField maxWidth="150.0" prefHeight="26.0" prefWidth="243.0" GridPane.columnIndex="1" />
+            <TextField fx:id="tfDni" maxWidth="150.0" prefHeight="26.0" prefWidth="243.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="186.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#buscar" text="Buscar" />
+            <Button mnemonicParsing="false" onAction="#borrar" text="Borrar" />
             <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
          </children>
       </HBox>

@@ -11,13 +11,10 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.ListarClientes">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.ListarVehiculos">
    <children>
       <MenuBar>
          <menus>
@@ -31,12 +28,6 @@
                   <MenuItem mnemonicParsing="false" onAction="#listarVehiculos" text="Listar vehiculos" />
                   <MenuItem mnemonicParsing="false" onAction="#listarAlquileres" text="Listar alquileres" />
                </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Estadisticas">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#estadisticasMensuales" text="Mensuales" />
-                  <MenuItem mnemonicParsing="false" onAction="#estadisticasAnuales" text="Anuales" />
-              </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Ayuda">
                <items>
@@ -71,26 +62,24 @@
                            </children>
                         </HBox>
                         <Separator prefWidth="200.0" />
-                        <GridPane>
-                          <columnConstraints>
-                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="91.33333587646484" minWidth="10.0" prefWidth="51.33333206176758" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.66666793823242" minWidth="10.0" prefWidth="145.66666793823242" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                        <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="197.0" spacing="5.0">
                            <children>
                               <Label text="Nombre:" />
-                              <TextField fx:id="tfNombreEncontrado" prefHeight="25.0" prefWidth="142.0" GridPane.columnIndex="1" />
-                              <TextField fx:id="tfDniEncontrado" maxWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="tfTelefonoEncontrado" maxWidth="100.0" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="Dni:" GridPane.rowIndex="1" />
-                              <Label text="Telefono:" GridPane.rowIndex="2" />
+                              <TextField fx:id="tfNombreEncontrado" prefHeight="25.0" prefWidth="142.0" />
                            </children>
-                        </GridPane>
-                        <Separator prefWidth="200.0" />
+                        </HBox>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Label text="Dni:" />
+                              <TextField fx:id="tfDniEncontrado" maxWidth="100.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="197.0" spacing="5.0">
+                           <children>
+                              <Label text="Telefono:" />
+                              <TextField fx:id="tfTelefonoEncontrado" maxWidth="100.0" prefHeight="25.0" prefWidth="100.0" />
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -108,44 +97,42 @@
                      </columns>
                      <contextMenu>
                         <ContextMenu>
-                          <items>
-                            <MenuItem mnemonicParsing="false" text="Borrar cliente" />
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#borrarClienteTabla" text="Borrar cliente" />
                               <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-                          </items>
+                           </items>
                         </ContextMenu>
                      </contextMenu>
                   </TableView>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="474.0" prefWidth="237.0" spacing="10.0">
+            <VBox alignment="TOP_CENTER" prefHeight="480.0" prefWidth="237.0" spacing="10.0">
                <children>
                   <Label text="CLIENTE MARCADO" />
-                  <Separator prefWidth="200.0" />
-                  <GridPane>
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="91.33332824707031" minWidth="10.0" prefWidth="50.66668701171875" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.33331298828125" minWidth="10.0" prefWidth="146.33331298828125" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="230.0" spacing="5.0">
                      <children>
-                        <TextField fx:id="tfCambiarNombre" prefHeight="25.0" prefWidth="141.0" GridPane.columnIndex="1" />
-                        <TextField fx:id="tfCambiarDni" maxWidth="100.0" prefHeight="25.0" prefWidth="138.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfCambiarTelefono" maxWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Nombre:" />
-                        <Label text="DNI:" GridPane.rowIndex="1" />
-                        <Label text="Telefono:" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfCambiarNombre" prefHeight="25.0" prefWidth="141.0" />
                      </children>
-                  </GridPane>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="230.0" spacing="5.0">
+                     <children>
+                        <Label text="DNI:" />
+                        <TextField fx:id="tfCambiarDni" maxWidth="100.0" prefHeight="25.0" prefWidth="138.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="230.0" spacing="5.0">
+                     <children>
+                        <Label text="Telefono:" />
+                        <TextField fx:id="tfCambiarTelefono" maxWidth="100.0" />
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
                   <VBox alignment="CENTER" prefHeight="295.0" prefWidth="197.0" spacing="30.0">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                      <children>
-                        <Separator prefWidth="200.0" />
                         <Button mnemonicParsing="false" text="Insertar cliente" />
                         <Button mnemonicParsing="false" onAction="#modificarCliente" text="Modificar cliente" />
                         <Separator prefWidth="200.0" />
