@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores;
 
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.VistaGraficos;
@@ -20,7 +21,6 @@ public class VentanaPrincipal extends Controlador {
 	void leerCliente(ActionEvent event) {
 		LeerCliente controladorLeerCliente = (LeerCliente) Controladores.get("vistas/LeerCliente.fxml", "Leer cliente",
 				getEscenario());
-
 		controladorLeerCliente.limpiar();
 		controladorLeerCliente.getEscenario().showAndWait();
 		try {
@@ -64,7 +64,18 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void leerAlquiler(ActionEvent event) {
-
+		LeerAlquiler leerAlquiler = (LeerAlquiler) Controladores.get("vistas/LeerCliente.fxml", "INSERTAR ALQUILER", getEscenario());
+		leerAlquiler.limpiar();
+		leerAlquiler.getEscenario().showAndWait();
+		try {
+			Alquiler alquiler = leerAlquiler.getAlquiler();
+			if(alquiler != null) {
+				VistaGraficos.getInstancia().getControlador().insertar(alquiler);
+				Dialogos.mostrarDialogoAdvertencia("INSERTAR ALQUILER", "El alquiler ha sido insertado correctamente.", getEscenario());
+			}
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
+		}
 	}
 
 	@FXML
@@ -77,7 +88,7 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void borrarAlquiler(ActionEvent event) {
-
+		
 	}
 
 	@FXML

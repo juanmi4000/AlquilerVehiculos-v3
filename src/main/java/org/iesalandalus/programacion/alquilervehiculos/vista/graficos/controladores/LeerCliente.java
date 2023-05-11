@@ -18,11 +18,7 @@ public class LeerCliente extends Controlador{
     @FXML
     void initialize () {
     	tfNombre.textProperty().addListener((ob, ol, ne) -> comprobarNombre());
-    	tfDni.textProperty().addListener((ob, ol, ne) -> comprobarDni());
-    	tfTelefono.textProperty().addListener((ob, ol, ne) -> comprobarTelefono());
     }
-
-    
 
     @FXML
     void aceptar(ActionEvent event) {
@@ -34,18 +30,6 @@ public class LeerCliente extends Controlador{
     void cancelar(ActionEvent event) {
     	cancelado = true;
     	getEscenario().close();
-    	
-    	
-    }
-
-    @FXML
-    void comprobarDni() {
-    	String dni = tfDni.getText();
-    	if (dni.matches("\\d{8}[A-HJ-NP-TV-Z]")) {
-    		tfDni.setStyle("-fx-border-color: green");
-		} else {
-			tfDni.setStyle("-fx-border-color: red");
-		}
     }
 
     @FXML
@@ -55,16 +39,6 @@ public class LeerCliente extends Controlador{
     		tfNombre.setStyle("-fx-border-color: green");
 		} else {
 			tfNombre.setStyle("-fx-border-color: red");
-		}
-    }
-
-    @FXML
-    void comprobarTelefono() {
-    	String telefono = tfTelefono.getText();
-    	if (telefono.matches("[6|9]\\d{8}")) {
-    		tfTelefono.setStyle("-fx-border-color: green");
-		} else {
-			tfTelefono.setStyle("-fx-border-color: red");
 		}
     }
     

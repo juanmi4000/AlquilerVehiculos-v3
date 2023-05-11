@@ -22,7 +22,6 @@
           <RowConstraints minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Cliente:" GridPane.valignment="CENTER" />
@@ -30,8 +29,6 @@
             <Label text="Fecha alquiler:" GridPane.rowIndex="2" />
             <TextField fx:id="tfCliente" maxWidth="300.0" prefHeight="26.0" prefWidth="109.0" GridPane.columnIndex="1" />
             <TextField fx:id="tfVehiculo" maxWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Fecha devolucion:" GridPane.rowIndex="3" />
-            <DatePicker fx:id="dpFechaDevolucion" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <DatePicker fx:id="dpFechaAlquiler" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <padding>
