@@ -109,8 +109,7 @@
                      <contextMenu>
                         <ContextMenu>
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Borrar cliente" />
-                              <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                            <MenuItem mnemonicParsing="false" onAction="#borrarClienteTabla" text="Borrar cliente" />
                           </items>
                         </ContextMenu>
                      </contextMenu>
@@ -146,7 +145,7 @@
                      </VBox.margin>
                      <children>
                         <Separator prefWidth="200.0" />
-                        <Button mnemonicParsing="false" text="Insertar cliente" />
+                        <Button mnemonicParsing="false" onAction="#leerCliente" text="Insertar cliente" />
                         <Button mnemonicParsing="false" onAction="#modificarCliente" text="Modificar cliente" />
                         <Separator prefWidth="200.0" />
                         <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="176.0" spacing="5.0">

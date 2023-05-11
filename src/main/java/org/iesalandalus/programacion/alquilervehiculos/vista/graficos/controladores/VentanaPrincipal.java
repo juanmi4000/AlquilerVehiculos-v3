@@ -20,7 +20,7 @@ public class VentanaPrincipal extends Controlador {
 	void leerCliente(ActionEvent event) {
 		LeerCliente controladorLeerCliente = (LeerCliente) Controladores.get("vistas/LeerCliente.fxml", "Leer cliente",
 				getEscenario());
-		
+
 		controladorLeerCliente.limpiar();
 		controladorLeerCliente.getEscenario().showAndWait();
 		try {
@@ -46,33 +46,38 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void borrarCliente(ActionEvent event) {
+		PedirDni pedirDni = (PedirDni) Controladores.get("vistas/PedirDni.fxml", "BORRAR CLIENTE", getEscenario());
+		pedirDni.limpiar();
+		pedirDni.getEscenario().showAndWait();
 		try {
-			PedirDni pedirDni = (PedirDni) Controladores.get("vistas/PedirDni.fxml", "BORRAR CLIENTE", getEscenario());
-			pedirDni.limpiar();
-			pedirDni.getEscenario().showAndWait();
-			VistaGraficos.getInstancia().getControlador().borrar(pedirDni.getCliente());
-			Dialogos.mostrarDialogoAdvertencia("BORRAR CLIENTE", "El cliente se ha borrado correctamente.", getEscenario());
+			Cliente cliente = pedirDni.getCliente();
+			if (cliente != null) {
+				VistaGraficos.getInstancia().getControlador().borrar(cliente);
+				Dialogos.mostrarDialogoAdvertencia("BORRAR CLIENTE", "El cliente se ha borrado correctamente.",
+						getEscenario());
+			}
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("ERROR AL BORRAR", e.getMessage(), getEscenario()); 
+			Dialogos.mostrarDialogoError("ERROR AL BORRAR", e.getMessage(), getEscenario());
 		}
-		
+
 	}
 
 	@FXML
 	void leerAlquiler(ActionEvent event) {
-		
+
 	}
 
 	@FXML
 	void listarAlquileres(ActionEvent event) {
-		ListarAlquileres listarAlquileres = (ListarAlquileres) Controladores.get("vistas/ListarAlquileres.fxml", "LISTAR ALQUILERES", getEscenario());
+		ListarAlquileres listarAlquileres = (ListarAlquileres) Controladores.get("vistas/ListarAlquileres.fxml",
+				"LISTAR ALQUILERES", getEscenario());
 		listarAlquileres.actualizar(VistaGraficos.getInstancia().getControlador().getAlquileres());
 		listarAlquileres.getEscenario().showAndWait();
 	}
 
 	@FXML
 	void borrarAlquiler(ActionEvent event) {
-		
+
 	}
 
 	@FXML
@@ -96,7 +101,7 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void listarVehiculos(ActionEvent event) {
-		
+
 	}
 
 	@FXML
