@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ListarClientes extends Controlador{
 	
 	private static final String ERROR = "Ha ocurrido un error inesperado al abrir la página.";
+	private static final String MODIFICAR_CLIENTE = "Modificar cliente";
 
     @FXML
     private Label cambiarDni;
@@ -31,12 +32,18 @@ public class ListarClientes extends Controlador{
 
     @FXML
     private Label cambiarTelefono;
+    
+    @FXML
+    private TextField tfListarAlquileresCliente;
 
     @FXML
-    private Label dniEncontrado;
+    private TextField tfDniEncontrado;
 
     @FXML
-    private Label nombreBuscado;
+    private TextField tfNombreEncontrado;
+
+    @FXML
+    private TextField tfTelefonoEncontrado;
 
     @FXML
     private TableColumn<Cliente, String> tcDni;
@@ -48,9 +55,6 @@ public class ListarClientes extends Controlador{
     private TableColumn<Cliente, String> tcTelefono;
 
     @FXML
-    private Label telefonoBuscado;
-
-    @FXML
     private TextField tfDni;
 
     @FXML
@@ -58,6 +62,9 @@ public class ListarClientes extends Controlador{
     
     @FXML
 	void initialize() {
+    	tfNombreEncontrado.setDisable(true);
+    	tfDniEncontrado.setDisable(true);
+    	tfTelefonoEncontrado.setDisable(true);
 		tcNombre.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getNombre()));
 		tcDni.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getDni()));
 		tcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
@@ -74,7 +81,7 @@ public class ListarClientes extends Controlador{
     	try {
 			Cliente cliente = getCliente();
 			VistaGraficos.getInstancia().getControlador().borrar(cliente);
-			//limpiar();
+			limpiar();
 			Dialogos.mostrarDialogoAdvertencia("Borrar cliente", "El cliente se ha borrado correctamente.", getEscenario());
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
@@ -85,9 +92,9 @@ public class ListarClientes extends Controlador{
     void buscarCliente(ActionEvent event) {
     	try {
 			Cliente cliente = getCliente();
-			nombreBuscado.setText(cliente.getNombre());
-			dniEncontrado.setText(cliente.getDni());
-			telefonoBuscado.setText(cliente.getTelefono());
+			tfNombreEncontrado.setText(cliente.getNombre());
+			tfDniEncontrado.setText(cliente.getDni());
+			tfDniEncontrado.setText(cliente.getTelefono());
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
 		}	
@@ -114,7 +121,11 @@ public class ListarClientes extends Controlador{
 
     @FXML
     void listarAlquileresCliente(ActionEvent event) {
-
+    	Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(tfListarAlquileresCliente.getText()));
+    	ListarAlquileresCliente listarAlquileresCliente = (ListarAlquileresCliente) Controladores.get("vistas/ListarAlquileresCliente.fxml", "ALQUILERES DEL CLIENTE", getEscenario());
+    	listarAlquileresCliente.actualizar(VistaGraficos.getInstancia().getControlador().getAlquileres(cliente));
+    	listarAlquileresCliente.getEscenario().showAndWait();
+    	tfListarAlquileresCliente.setText("");
     }
 
     @FXML
@@ -124,8 +135,9 @@ public class ListarClientes extends Controlador{
 
     @FXML
     void modificarCliente(ActionEvent event) {
-    	ModificarCliente modificarCliente = (ModificarCliente) Controladores.get("vistas/ModificarCliente.fxml",
-				"Modificar cliente", getEscenario());
+    	
+		ModificarCliente modificarCliente = (ModificarCliente) Controladores.get("vistas/ModificarCliente.fxml",
+				MODIFICAR_CLIENTE, getEscenario());
 		modificarCliente.limpiar();
 		modificarCliente.getEscenario().showAndWait();
 		
@@ -134,9 +146,9 @@ public class ListarClientes extends Controlador{
 			String nombre = modificarCliente.getTelefono();
 			String telefono = modificarCliente.getNombre();
 			VistaGraficos.getInstancia().getControlador().modificar(cliente, nombre, telefono);
-			Dialogos.mostrarDialogoAdvertencia("Modificar cliente", "El cliente se ha modificado correctamente", getEscenario());
+			Dialogos.mostrarDialogoAdvertencia(MODIFICAR_CLIENTE, "El cliente se ha modificado correctamente", getEscenario());
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("Modificar cliente", e.getMessage(), getEscenario());
+			Dialogos.mostrarDialogoError(MODIFICAR_CLIENTE, e.getMessage(), getEscenario());
 		}
     }
 
@@ -161,3 +173,4 @@ public class ListarClientes extends Controlador{
 	}
 
 }
+

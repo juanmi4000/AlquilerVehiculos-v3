@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.ListarAlquileresCliente">
+   <children>
+      <TableView fx:id="tvListarAlquileresCliente" prefHeight="400.0" prefWidth="584.0">
+        <columns>
+          <TableColumn fx:id="tcCliente" prefWidth="130.0" text="Cliente" />
+          <TableColumn fx:id="tcVehiculo" prefWidth="130.0" text="Vehiculo" />
+            <TableColumn fx:id="tcFechaAlquiler" prefWidth="130.0" text="Fecha alquiler" />
+            <TableColumn fx:id="tcFechaDevolucion" prefWidth="130.0" text="Fecha devolucion" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>
