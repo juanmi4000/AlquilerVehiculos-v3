@@ -46,6 +46,7 @@ public class LeerVehiculo extends Controlador {
 	@FXML
 	void initialize() {
 		cbTipo.setItems(TIPOS_VEHICULOS);
+		cbTipo.getSelectionModel().select("Elige un vehiculo:");
 		tfCilindrada.setDisable(false);
 		tfPlazas.setDisable(false);
 		tfPma.setDisable(false);

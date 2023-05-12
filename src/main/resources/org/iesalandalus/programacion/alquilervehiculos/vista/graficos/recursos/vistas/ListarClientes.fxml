@@ -11,6 +11,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -169,7 +171,14 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="922.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#gitHub" prefHeight="25.0" prefWidth="31.0" />
+            <Button mnemonicParsing="false" onAction="#gitHub" prefHeight="25.0" prefWidth="31.0">
+               <graphic>
+                  <ImageView fitHeight="19.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/GitHub.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
       </HBox>
    </children>

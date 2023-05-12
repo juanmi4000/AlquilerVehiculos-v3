@@ -73,7 +73,6 @@ public class ListarClientes extends Controlador {
 		tvListaClientes.getSelectionModel().selectedItemProperty()
 				.addListener((ob, oldValue, newValue) -> filaSeleccionada(newValue));
 	}
-	// para que se actulize constantemente tengo que borrarlo de los ficheros y tambien del modelo asociado a esa tabla
 
 	@FXML
 	void acercaDe(ActionEvent event) {
@@ -89,6 +88,7 @@ public class ListarClientes extends Controlador {
 			limpiar();
 			Dialogos.mostrarDialogoAdvertencia("Borrar cliente", "El cliente se ha borrado correctamente.",
 					getEscenario());
+			tvListaClientes.getItems().remove(cliente);
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
 		}
@@ -144,14 +144,13 @@ public class ListarClientes extends Controlador {
 
 	@FXML
 	void listarVehiculos(ActionEvent event) {
-		ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos",
+		ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos.fxml",
 				"LISTAR VEHICULOS", getEscenario());
 		listarVehiculos.getEscenario().showAndWait();
 	}
 
 	@FXML
 	void modificarCliente(ActionEvent event) {
-
 		ModificarCliente modificarCliente = (ModificarCliente) Controladores.get("vistas/ModificarCliente.fxml",
 				MODIFICAR_CLIENTE, getEscenario());
 		modificarCliente.limpiar();
@@ -185,7 +184,6 @@ public class ListarClientes extends Controlador {
 	void leerCliente(ActionEvent event) {
 		LeerCliente controladorLeerCliente = (LeerCliente) Controladores.get("vistas/LeerCliente.fxml", "Leer cliente",
 				getEscenario());
-
 		controladorLeerCliente.limpiar();
 		controladorLeerCliente.getEscenario().showAndWait();
 		try {
@@ -194,6 +192,7 @@ public class ListarClientes extends Controlador {
 				VistaGraficos.getInstancia().getControlador().insertar(cliente);
 				Dialogos.mostrarDialogoAdvertencia("Insertar cliente", "El cliente se ha insertado correctamente",
 						getEscenario());
+				tvListaClientes.getItems().add(cliente);
 			}
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("Error al insertar el cliente", e.getMessage(), getEscenario());
@@ -207,6 +206,7 @@ public class ListarClientes extends Controlador {
 			VistaGraficos.getInstancia().getControlador().borrar(cliente);
 			Dialogos.mostrarDialogoAdvertencia("BORRAR CLIENTE", "El cliente ha sido borrado correctamente.",
 					getEscenario());
+			tvListaClientes.getItems().remove(tvListaClientes.getSelectionModel().getSelectedIndex());
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
 		}
@@ -239,5 +239,4 @@ public class ListarClientes extends Controlador {
 		tfCambiarDni.setText(cliente.getDni());
 		tfCambiarTelefono.setText(cliente.getTelefono());
 	}
-
 }

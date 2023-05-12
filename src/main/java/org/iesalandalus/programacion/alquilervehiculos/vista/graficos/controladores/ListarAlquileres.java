@@ -5,6 +5,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Autobus;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Furgoneta;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.VistaGraficos;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controlador;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controladores;
@@ -92,6 +97,9 @@ public class ListarAlquileres extends Controlador{
     private TextField tfMatricula;
 
     @FXML
+    private TextField tfPrecio;
+    
+    @FXML
     private TextField tfOpDni;
 
     @FXML
@@ -111,6 +119,7 @@ public class ListarAlquileres extends Controlador{
 				.setCellValueFactory(fila -> new SimpleObjectProperty<LocalDate>(fila.getValue().getFechaAlquiler()));
 		tcFechaDevolucion
 				.setCellValueFactory(fila -> new SimpleObjectProperty<LocalDate>(fila.getValue().getFechaDevolucion()));
+		tvListarAlquiler.getSelectionModel().selectedItemProperty().addListener((ob, oldValue, newValue) -> filaSeleccionada(newValue));
 
 	}
 
@@ -123,6 +132,9 @@ public class ListarAlquileres extends Controlador{
     @FXML
     void borrarAlquiler(ActionEvent event) {
     	
+    	
+    	
+    	limpiarOperaciones();
     }
 
     @FXML
@@ -139,12 +151,28 @@ public class ListarAlquileres extends Controlador{
 
     @FXML
     void buscarAlquiler(ActionEvent event) {
-
+    	//Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(tfDni.getText()));
+    	
+    	limpiarOperaciones();
     }
 
     @FXML
     void devolverAlquiler(ActionEvent event) {
-
+    	String dni = tfDni.getText();
+    	String matricula = tfMatricula.getText();
+    	LocalDate fechaDevolucion = dpFechaDevolucion.getValue();
+    	try {
+    		if (!dni.isBlank()) {
+    			Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(dni));
+    			VistaGraficos.getInstancia().getControlador().devolver(cliente, fechaDevolucion);
+    		} else {
+				Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador().buscar(Vehiculo.getVehiculoConMatricula(matricula));
+				VistaGraficos.getInstancia().getControlador().devolver(vehiculo, fechaDevolucion);
+			}
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
+		}
+    	limpiarDevolver();
     }
 
     @FXML
@@ -181,7 +209,9 @@ public class ListarAlquileres extends Controlador{
 
     @FXML
     void listarVehiculos(ActionEvent event) {
-
+    	ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos.fxml",
+				"LISTAR VEHICULOS", getEscenario());
+		listarVehiculos.getEscenario().showAndWait();
     }
 
     @FXML
@@ -211,6 +241,8 @@ public class ListarAlquileres extends Controlador{
 		tfCambiarPlazas.setDisable(true);
 		tfCambiarFecAlq.setDisable(true);
 		tfCambiarFecDev.setDisable(true);
+		tfPrecio.setDisable(true);
+		cbDevolver.getSelectionModel().select("Elige una opcion:");
 	}
     
     @FXML
@@ -225,5 +257,62 @@ public class ListarAlquileres extends Controlador{
 			dpFechaDevolucion.setDisable(false);
 		}
 	}
+    
+    @FXML 
+    private void filaSeleccionada (Alquiler alquiler) {
+    	Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(alquiler.getCliente());
+    	Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador().buscar(alquiler.getVehiculo());
+    	LocalDate fechaAlquiler = alquiler.getFechaAlquiler();
+    	LocalDate fechaDevolucion = alquiler.getFechaDevolucion();
+    	tfCambiarNombre.setText(cliente.getNombre());
+		tfCambiarDni.setText(cliente.getDni());
+		tfCambiarTelefono.setText(cliente.getTelefono());
+		tipoVehiculo(vehiculo);
+		tfCambiarFecAlq.setText(String.format("%s", fechaAlquiler));
+		if (fechaDevolucion == null) {
+			tfCambiarFecDev.setText("Aún no está devuelto");
+			tfPrecio.setText("---------------");
+		} else {
+			tfCambiarFecDev.setText(String.format("%s", fechaDevolucion));
+			tfPrecio.setText(String.format("%s", vehiculo.getFactorPrecio()));
+		}    	
+    }
 
+    @FXML
+    private void tipoVehiculo (Vehiculo vehiculo) {
+    	tfCambiarMarca.setText(vehiculo.getMarca());
+    	tfCambiarModelo.setText(vehiculo.getModelo());
+		tfCambiarMatricula.setText(vehiculo.getMatricula());
+    	if (vehiculo instanceof Turismo turismo) {
+    		tfCambiarTipo.setText("Turismo");
+    		tfCambiarCilindrada.setText(String.format("%s", turismo.getCilindrada()));
+    		tfCambiarPma.setText("-----------");
+    		tfCambiarPlazas.setText("-----------");
+		} else if (vehiculo instanceof Furgoneta furgoneta) {
+			tfCambiarTipo.setText("Furgoneta");
+			tfCambiarCilindrada.setText("-----------");
+			tfCambiarPma.setText(String.format("%s", furgoneta.getPma()));
+			tfCambiarPlazas.setText(String.format("%s", furgoneta.getPlazas()));
+		} else if (vehiculo instanceof Autobus autobus){
+			tfCambiarTipo.setText("Autobus");
+			tfCambiarCilindrada.setText("-----------");
+			tfCambiarPma.setText("-----------");
+    		tfCambiarPlazas.setText(String.format("%s", autobus.getPlazas()));
+			
+		}
+    }
+    
+    @FXML
+	void limpiarDevolver() {
+		tfDni.setText("");
+		tfMatricula.setText("");
+		dpFechaDevolucion.setValue(null);
+	}
+    
+    @FXML
+	void limpiarOperaciones() {
+		tfOpDni.setText("");
+		tfOpMat.setText("");
+		dpFechaAlquiler.setValue(null);
+	}
 }
