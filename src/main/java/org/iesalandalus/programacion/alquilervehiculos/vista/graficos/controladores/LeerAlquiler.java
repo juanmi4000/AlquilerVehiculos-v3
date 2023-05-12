@@ -10,16 +10,12 @@ import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class LeerAlquiler extends Controlador{
 	
 	private boolean cancelado;
-
-    @FXML
-    private Button btCancelar;
 
     @FXML
     private DatePicker dpFechaAlquiler;
@@ -29,21 +25,16 @@ public class LeerAlquiler extends Controlador{
 
     @FXML
     private TextField tfVehiculo;
-    
+
     @FXML
-    private void initialize() {
-    	
-    }
-    
-    @FXML
-    void cancelar(ActionEvent event) {
-    	cancelado = true;
+    void aceptar(ActionEvent event) {
+    	cancelado = false;
     	getEscenario().close();
     }
 
     @FXML
-    void insertarAlquiler(ActionEvent event) {
-    	cancelado = false;
+    void cancelar(ActionEvent event) {
+    	cancelado = true;
     	getEscenario().close();
     }
     
@@ -64,5 +55,4 @@ public class LeerAlquiler extends Controlador{
     }
 
 }
-
 

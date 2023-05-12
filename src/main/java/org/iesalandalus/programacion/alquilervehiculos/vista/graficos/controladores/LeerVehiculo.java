@@ -49,7 +49,7 @@ public class LeerVehiculo extends Controlador {
 		tfCilindrada.setDisable(false);
 		tfPlazas.setDisable(false);
 		tfPma.setDisable(false);
-		cbTipo.valueProperty().addListener((ob, ol, ne) -> comprobarValor());
+		cbTipo.valueProperty().addListener((ob, ol, ne) -> comprobarValor(ne));
 	}
 
 	@FXML
@@ -84,13 +84,13 @@ public class LeerVehiculo extends Controlador {
 		return cancelado ? null : vehiculo;
 	}
 
-	private void comprobarValor() {
-		String valor = cbTipo.valueProperty().getValue();
-		if (valor.equals(TURISMO)) {
+	private void comprobarValor(String cadena) {
+		//String valor = cbTipo.valueProperty().getValue();
+		if (cadena.equals(TURISMO)) {
 			tfCilindrada.setDisable(true);
 			tfPlazas.setDisable(false);
 			tfPma.setDisable(false);
-		} else if (valor.equals(FURGONETA)) {
+		} else if (cadena.equals(FURGONETA)) {
 			tfPlazas.setDisable(true);
 			tfPma.setDisable(true);
 			tfCilindrada.setDisable(false);

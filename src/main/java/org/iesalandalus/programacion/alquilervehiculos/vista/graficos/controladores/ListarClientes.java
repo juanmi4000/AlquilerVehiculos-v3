@@ -73,6 +73,7 @@ public class ListarClientes extends Controlador {
 		tvListaClientes.getSelectionModel().selectedItemProperty()
 				.addListener((ob, oldValue, newValue) -> filaSeleccionada(newValue));
 	}
+	// para que se actulize constantemente tengo que borrarlo de los ficheros y tambien del modelo asociado a esa tabla
 
 	@FXML
 	void acercaDe(ActionEvent event) {

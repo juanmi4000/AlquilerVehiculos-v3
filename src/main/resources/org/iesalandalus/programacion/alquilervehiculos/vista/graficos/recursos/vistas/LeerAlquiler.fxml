@@ -37,8 +37,8 @@
       </GridPane>
       <HBox alignment="CENTER" maxWidth="521.0" prefHeight="27.0" prefWidth="521.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#insertarAlquiler" text="Insertar alquiler" />
-            <Button fx:id="btCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Button mnemonicParsing="false" onAction="#aceptar" text="Aceptar" />
+            <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
          </children>
       </HBox>
    </children>

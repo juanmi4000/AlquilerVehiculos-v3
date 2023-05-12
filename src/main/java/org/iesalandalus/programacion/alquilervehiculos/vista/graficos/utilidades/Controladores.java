@@ -34,7 +34,6 @@ public class Controladores {
 			controlador.setEscenario(escenario);
 			escenario.initOwner(propietario);
 			escenario.initModality(Modality.APPLICATION_MODAL);
-			//escenario.initModality(Modality.WINDOW_MODAL);
 			escenario.setTitle(titulo);
 			escenario.setScene(new Scene(raiz));
 			escenario.getIcons().add(new Image(LocalizadorRecursos.class.getResourceAsStream("imagenes/Coche.jpg")));

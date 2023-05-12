@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 
 public class VentanaPrincipal extends Controlador {
+	
+	private static final String ERROR = "ERROR";
 
 	@FXML
 	private MenuItem confirmarSalida;
@@ -31,7 +33,7 @@ public class VentanaPrincipal extends Controlador {
 						getEscenario());
 			}
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("Error al insertar el cliente", e.getMessage(), getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 	}
 
@@ -57,24 +59,26 @@ public class VentanaPrincipal extends Controlador {
 						getEscenario());
 			}
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("ERROR AL BORRAR", e.getMessage(), getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 
 	}
 
 	@FXML
 	void leerAlquiler(ActionEvent event) {
-		LeerAlquiler leerAlquiler = (LeerAlquiler) Controladores.get("vistas/LeerCliente.fxml", "INSERTAR ALQUILER", getEscenario());
+		LeerAlquiler leerAlquiler = (LeerAlquiler) Controladores.get("vistas/LeerAlquiler.fxml", "INSERTAR ALQUILER",
+				getEscenario());
 		leerAlquiler.limpiar();
 		leerAlquiler.getEscenario().showAndWait();
 		try {
 			Alquiler alquiler = leerAlquiler.getAlquiler();
-			if(alquiler != null) {
+			if (alquiler != null) {
 				VistaGraficos.getInstancia().getControlador().insertar(alquiler);
-				Dialogos.mostrarDialogoAdvertencia("INSERTAR ALQUILER", "El alquiler ha sido insertado correctamente.", getEscenario());
+				Dialogos.mostrarDialogoAdvertencia("INSERTAR ALQUILER", "El alquiler ha sido insertado correctamente.",
+						getEscenario());
 			}
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 	}
 
@@ -88,7 +92,20 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void borrarAlquiler(ActionEvent event) {
-		
+		LeerAlquiler leerAlquiler = (LeerAlquiler) Controladores.get("vistas/LeerAlquiler.fxml", "BORRAR ALQUILER",
+				getEscenario());
+		leerAlquiler.limpiar();
+		leerAlquiler.getEscenario().showAndWait();
+		try {
+			Alquiler alquiler = VistaGraficos.getInstancia().getControlador().buscar(leerAlquiler.getAlquiler());
+			if (alquiler != null) {
+				VistaGraficos.getInstancia().getControlador().borrar(alquiler);
+				Dialogos.mostrarDialogoAdvertencia("BORRAR ALQUILER", "El alquiler ha sido borrado correctamente.",
+						getEscenario());
+			}
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
+		}
 	}
 
 	@FXML
@@ -105,19 +122,32 @@ public class VentanaPrincipal extends Controlador {
 						getEscenario());
 			}
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("Error al insertar el vehiculo", e.getMessage(), getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 
 	}
 
 	@FXML
 	void listarVehiculos(ActionEvent event) {
-
+		ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos",
+				"LISTAR VEHICULOS", getEscenario());
+		listarVehiculos.getEscenario().showAndWait();
 	}
 
 	@FXML
 	void borrarVehiculo(ActionEvent event) {
-
+		PedirMatricula pedirMatricula = (PedirMatricula) Controladores.get("vistas/PedirMatricula.fxml", "BORRAR VEHICULO", getEscenario());
+		pedirMatricula.limpiar();
+		pedirMatricula.getEscenario().showAndWait();
+		try {
+			Vehiculo vehiculo = pedirMatricula.getVehiculo();
+			if (vehiculo != null) {
+				VistaGraficos.getInstancia().getControlador().borrar(vehiculo);
+				Dialogos.mostrarDialogoAdvertencia("BORRAR VEHICULO", "El vehículo ha sido borrado correctamente.", getEscenario());
+			}
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
+		}
 	}
 
 	@FXML
@@ -130,5 +160,4 @@ public class VentanaPrincipal extends Controlador {
 		AcercaDe acercaDe = (AcercaDe) Controladores.get("vistas/AcercaDe.fxml", "Acerca de", getEscenario());
 		acercaDe.getEscenario().showAndWait();
 	}
-
 }
