@@ -13,6 +13,7 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.VistaGraficos;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controlador;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controladores;
+import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controles;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Dialogos;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -27,88 +28,88 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class ListarAlquileres extends Controlador{
-	
+public class ListarAlquileres extends Controlador {
+
 	private static final String ERROR = "ERROR";
 	private static final ObservableList<String> DEVOLVER = FXCollections.observableArrayList("Devolver por cliente",
 			"Devolver por vehiculo");
 
-    @FXML
-    private ChoiceBox<String> cbDevolver;
+	@FXML
+	private ChoiceBox<String> cbDevolver;
 
-    @FXML
-    private DatePicker dpFechaAlquiler;
+	@FXML
+	private DatePicker dpFechaAlquiler;
 
-    @FXML
-    private DatePicker dpFechaDevolucion;
+	@FXML
+	private DatePicker dpFechaDevolucion;
 
-    @FXML
-    private TableColumn<Alquiler, String> tcCliente;
+	@FXML
+	private TableColumn<Alquiler, String> tcCliente;
 
-    @FXML
-    private TableColumn<Alquiler, LocalDate> tcFechaAquiler;
+	@FXML
+	private TableColumn<Alquiler, LocalDate> tcFechaAquiler;
 
-    @FXML
-    private TableColumn<Alquiler, LocalDate> tcFechaDevolucion;
+	@FXML
+	private TableColumn<Alquiler, LocalDate> tcFechaDevolucion;
 
-    @FXML
-    private TableColumn<Alquiler, String> tcVehiculo;
+	@FXML
+	private TableColumn<Alquiler, String> tcVehiculo;
 
-    @FXML
-    private TextField tfCambiarCilindrada;
+	@FXML
+	private TextField tfCambiarCilindrada;
 
-    @FXML
-    private TextField tfCambiarDni;
+	@FXML
+	private TextField tfCambiarDni;
 
-    @FXML
-    private TextField tfCambiarFecAlq;
+	@FXML
+	private TextField tfCambiarFecAlq;
 
-    @FXML
-    private TextField tfCambiarFecDev;
+	@FXML
+	private TextField tfCambiarFecDev;
 
-    @FXML
-    private TextField tfCambiarMarca;
+	@FXML
+	private TextField tfCambiarMarca;
 
-    @FXML
-    private TextField tfCambiarMatricula;
+	@FXML
+	private TextField tfCambiarMatricula;
 
-    @FXML
-    private TextField tfCambiarModelo;
+	@FXML
+	private TextField tfCambiarModelo;
 
-    @FXML
-    private TextField tfCambiarNombre;
+	@FXML
+	private TextField tfCambiarNombre;
 
-    @FXML
-    private TextField tfCambiarPlazas;
+	@FXML
+	private TextField tfCambiarPlazas;
 
-    @FXML
-    private TextField tfCambiarPma;
+	@FXML
+	private TextField tfCambiarPma;
 
-    @FXML
-    private TextField tfCambiarTelefono;
+	@FXML
+	private TextField tfCambiarTelefono;
 
-    @FXML
-    private TextField tfCambiarTipo;
+	@FXML
+	private TextField tfCambiarTipo;
 
-    @FXML
-    private TextField tfDni;
+	@FXML
+	private TextField tfDni;
 
-    @FXML
-    private TextField tfMatricula;
+	@FXML
+	private TextField tfMatricula;
 
-    @FXML
-    private TextField tfPrecio;
-    
-    @FXML
-    private TextField tfOpDni;
+	@FXML
+	private TextField tfPrecio;
 
-    @FXML
-    private TextField tfOpMat;
+	@FXML
+	private TextField tfOpDni;
 
-    @FXML
-    private TableView<Alquiler> tvListarAlquiler;
-    
-    @FXML
+	@FXML
+	private TextField tfOpMat;
+
+	@FXML
+	private TableView<Alquiler> tvListarAlquiler;
+
+	@FXML
 	private void initialize() {
 		deshabilitar();
 		cbDevolver.setItems(DEVOLVER);
@@ -119,75 +120,111 @@ public class ListarAlquileres extends Controlador{
 				.setCellValueFactory(fila -> new SimpleObjectProperty<LocalDate>(fila.getValue().getFechaAlquiler()));
 		tcFechaDevolucion
 				.setCellValueFactory(fila -> new SimpleObjectProperty<LocalDate>(fila.getValue().getFechaDevolucion()));
-		tvListarAlquiler.getSelectionModel().selectedItemProperty().addListener((ob, oldValue, newValue) -> filaSeleccionada(newValue));
+		tvListarAlquiler.getSelectionModel().selectedItemProperty()
+				.addListener((ob, oldValue, newValue) -> filaSeleccionada(newValue));
 
 	}
 
-    @FXML
-    void acercaDe(ActionEvent event) {
-    	AcercaDe acercaDe = (AcercaDe) Controladores.get("vistas/AcercaDe.fxml", "Acerca de", getEscenario());
+	@FXML
+	void acercaDe(ActionEvent event) {
+		AcercaDe acercaDe = (AcercaDe) Controladores.get("vistas/AcercaDe.fxml", "Acerca de", getEscenario());
 		acercaDe.getEscenario().showAndWait();
-    }
+	}
 
-    @FXML
-    void borrarAlquiler(ActionEvent event) {
-    	
-    	
-    	
-    	limpiarOperaciones();
-    }
+	@FXML
+	void borrarAlquiler(ActionEvent event) {
+		try {
+			Alquiler alquiler = getAlquiler(true);
+			VistaGraficos.getInstancia().getControlador().borrar(alquiler);
+			tvListarAlquiler.getItems().remove(alquiler);
+			Dialogos.mostrarDialogoAdvertencia("BORRAR ALQUILER", "El alquiler ha sido borrado correctamente.", getEscenario());
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
+		}
+		
+		
+		limpiarOperaciones();
+	}
 
-    @FXML
-    void borrarAlquilerTablas(ActionEvent event) {
-    	Alquiler alquiler = tvListarAlquiler.getSelectionModel().getSelectedItem();
+	@FXML
+	void borrarAlquilerTablas(ActionEvent event) {
+		Alquiler alquiler = tvListarAlquiler.getSelectionModel().getSelectedItem();
 		try {
 			VistaGraficos.getInstancia().getControlador().borrar(alquiler);
+			tvListarAlquiler.getItems().remove(tvListarAlquiler.getSelectionModel().getSelectedIndex());
 			Dialogos.mostrarDialogoAdvertencia("BORRAR ALQUILER", "El alquiler se ha borrado correctamente.",
 					getEscenario());
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
-    }
+	}
 
-    @FXML
-    void buscarAlquiler(ActionEvent event) {
-    	//Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(tfDni.getText()));
-    	
-    	limpiarOperaciones();
-    }
+	@FXML
+	void buscarAlquiler(ActionEvent event) {
+		try {
+			Alquiler alquiler = getAlquiler(true);
+			if (alquiler != null) {
+				BuscarAlquiler buscarAlquiler = (BuscarAlquiler) Controladores.get("vistas/BuscarAlquiler.fxml",
+						"ALQUILER BUSCADO", getEscenario());
+				buscarAlquiler.limpiar();
+				buscarAlquiler.cambiarValores(alquiler);
+				buscarAlquiler.getEscenario().showAndWait();
+			}
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
+		}
+		limpiarOperaciones();
+	}
 
-    @FXML
-    void devolverAlquiler(ActionEvent event) {
-    	String dni = tfDni.getText();
-    	String matricula = tfMatricula.getText();
-    	LocalDate fechaDevolucion = dpFechaDevolucion.getValue();
-    	try {
-    		if (!dni.isBlank()) {
-    			Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(dni));
-    			VistaGraficos.getInstancia().getControlador().devolver(cliente, fechaDevolucion);
-    		} else {
-				Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador().buscar(Vehiculo.getVehiculoConMatricula(matricula));
+	@FXML
+	void devolverAlquiler(ActionEvent event) {
+		String dni = tfDni.getText();
+		String matricula = tfMatricula.getText();
+		LocalDate fechaDevolucion = dpFechaDevolucion.getValue();
+		try {
+			if (!dni.isBlank()) {
+				Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(dni));
+				VistaGraficos.getInstancia().getControlador().devolver(cliente, fechaDevolucion);
+			} else {
+				Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
+						.buscar(Vehiculo.getVehiculoConMatricula(matricula));
 				VistaGraficos.getInstancia().getControlador().devolver(vehiculo, fechaDevolucion);
 			}
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
-    	limpiarDevolver();
-    }
+		limpiarDevolver();
+	}
 
-    @FXML
-    void estadisticasAnuales(ActionEvent event) {
+	@FXML
+	void estadisticasAnuales(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void estadisticasMensuales(ActionEvent event) {
+	@FXML
+	void estadisticasMensuales(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void gitHub(ActionEvent event) {
-    	String link = "https://github.com/juanmi4000/AlquilerVehiculos-v3.git";
+	@FXML
+	void leerAlquiler(ActionEvent event) {
+		try {
+			Alquiler alquiler = getAlquiler(false);
+			if (alquiler != null) {
+				VistaGraficos.getInstancia().getControlador().insertar(alquiler);
+				tvListarAlquiler.getItems().add(alquiler);
+				Dialogos.mostrarDialogoAdvertencia("INSERTAR ALQUILER", "El alquiler se ha insertado correctamente.",
+						getEscenario());
+			}
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
+		}
+
+	}
+
+	@FXML
+	void gitHub(ActionEvent event) {
+		String link = "https://github.com/juanmi4000/AlquilerVehiculos-v3.git";
 		try {
 			Desktop deskpot = Desktop.getDesktop();
 			deskpot.browse(java.net.URI.create(link));
@@ -196,35 +233,35 @@ public class ListarAlquileres extends Controlador{
 					getEscenario());
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void listarClientes(ActionEvent event) {
-    	ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
+	@FXML
+	void listarClientes(ActionEvent event) {
+		ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
 				"Listar Clintes", getEscenario());
 		controladorListar.limpiar();
 		controladorListar.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
 		controladorListar.getEscenario().showAndWait();
-    }
+	}
 
-    @FXML
-    void listarVehiculos(ActionEvent event) {
-    	ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos.fxml",
+	@FXML
+	void listarVehiculos(ActionEvent event) {
+		ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos.fxml",
 				"LISTAR VEHICULOS", getEscenario());
 		listarVehiculos.getEscenario().showAndWait();
-    }
+	}
 
-    @FXML
-    void salir(ActionEvent event) {
-    	getEscenario().close();
-    }
-    
-    @FXML
+	@FXML
+	void salir(ActionEvent event) {
+		getEscenario().close();
+	}
+
+	@FXML
 	void actualizar(List<Alquiler> alquileres) {
 		tvListarAlquiler.setItems(FXCollections.observableArrayList(alquileres));
 	}
-    
-    @FXML
+
+	@FXML
 	void deshabilitar() {
 		tfDni.setDisable(true);
 		tfMatricula.setDisable(true);
@@ -244,10 +281,10 @@ public class ListarAlquileres extends Controlador{
 		tfPrecio.setDisable(true);
 		cbDevolver.getSelectionModel().select("Elige una opcion:");
 	}
-    
-    @FXML
-	private void comprobarValor (String cadena) {
-		 if (cadena.equals("Devolver por cliente")) {
+
+	@FXML
+	private void comprobarValor(String cadena) {
+		if (cadena.equals("Devolver por cliente")) {
 			tfDni.setDisable(false);
 			tfMatricula.setDisable(true);
 			dpFechaDevolucion.setDisable(false);
@@ -257,14 +294,14 @@ public class ListarAlquileres extends Controlador{
 			dpFechaDevolucion.setDisable(false);
 		}
 	}
-    
-    @FXML 
-    private void filaSeleccionada (Alquiler alquiler) {
-    	Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(alquiler.getCliente());
-    	Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador().buscar(alquiler.getVehiculo());
-    	LocalDate fechaAlquiler = alquiler.getFechaAlquiler();
-    	LocalDate fechaDevolucion = alquiler.getFechaDevolucion();
-    	tfCambiarNombre.setText(cliente.getNombre());
+
+	@FXML
+	private void filaSeleccionada(Alquiler alquiler) {
+		Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(alquiler.getCliente());
+		Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador().buscar(alquiler.getVehiculo());
+		LocalDate fechaAlquiler = alquiler.getFechaAlquiler();
+		LocalDate fechaDevolucion = alquiler.getFechaDevolucion();
+		tfCambiarNombre.setText(cliente.getNombre());
 		tfCambiarDni.setText(cliente.getDni());
 		tfCambiarTelefono.setText(cliente.getTelefono());
 		tipoVehiculo(vehiculo);
@@ -275,44 +312,55 @@ public class ListarAlquileres extends Controlador{
 		} else {
 			tfCambiarFecDev.setText(String.format("%s", fechaDevolucion));
 			tfPrecio.setText(String.format("%s", vehiculo.getFactorPrecio()));
-		}    	
-    }
+		}
+	}
 
-    @FXML
-    private void tipoVehiculo (Vehiculo vehiculo) {
-    	tfCambiarMarca.setText(vehiculo.getMarca());
-    	tfCambiarModelo.setText(vehiculo.getModelo());
+	@FXML
+	private void tipoVehiculo(Vehiculo vehiculo) {
+		tfCambiarMarca.setText(vehiculo.getMarca());
+		tfCambiarModelo.setText(vehiculo.getModelo());
 		tfCambiarMatricula.setText(vehiculo.getMatricula());
-    	if (vehiculo instanceof Turismo turismo) {
-    		tfCambiarTipo.setText("Turismo");
-    		tfCambiarCilindrada.setText(String.format("%s", turismo.getCilindrada()));
-    		tfCambiarPma.setText("-----------");
-    		tfCambiarPlazas.setText("-----------");
+		if (vehiculo instanceof Turismo turismo) {
+			tfCambiarTipo.setText("Turismo");
+			tfCambiarCilindrada.setText(String.format("%s", turismo.getCilindrada()));
+			tfCambiarPma.setText("-----------");
+			tfCambiarPlazas.setText("-----------");
 		} else if (vehiculo instanceof Furgoneta furgoneta) {
 			tfCambiarTipo.setText("Furgoneta");
 			tfCambiarCilindrada.setText("-----------");
 			tfCambiarPma.setText(String.format("%s", furgoneta.getPma()));
 			tfCambiarPlazas.setText(String.format("%s", furgoneta.getPlazas()));
-		} else if (vehiculo instanceof Autobus autobus){
+		} else if (vehiculo instanceof Autobus autobus) {
 			tfCambiarTipo.setText("Autobus");
 			tfCambiarCilindrada.setText("-----------");
 			tfCambiarPma.setText("-----------");
-    		tfCambiarPlazas.setText(String.format("%s", autobus.getPlazas()));
-			
+			tfCambiarPlazas.setText(String.format("%s", autobus.getPlazas()));
+
 		}
-    }
-    
-    @FXML
+	}
+
+	@FXML
+	Alquiler getAlquiler(boolean buscar) {
+		Cliente cliente = VistaGraficos.getInstancia().getControlador()
+				.buscar(Cliente.getClienteConDni(tfOpDni.getText()));
+		Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
+				.buscar(Vehiculo.getVehiculoConMatricula(tfOpMat.getText()));
+		LocalDate fechaAlquiler = dpFechaAlquiler.getValue();
+		Alquiler alquiler = new Alquiler(cliente, vehiculo, fechaAlquiler);
+		return buscar ? VistaGraficos.getInstancia().getControlador().buscar(alquiler) : alquiler ;
+
+	}
+
+	@FXML
 	void limpiarDevolver() {
-		tfDni.setText("");
-		tfMatricula.setText("");
+		Controles.limpiarCamposTexto(tfDni, tfMatricula);
 		dpFechaDevolucion.setValue(null);
 	}
-    
-    @FXML
+
+	@FXML
 	void limpiarOperaciones() {
-		tfOpDni.setText("");
-		tfOpMat.setText("");
+		Controles.limpiarCamposTexto(tfOpDni, tfOpMat);
 		dpFechaAlquiler.setValue(null);
 	}
+
 }

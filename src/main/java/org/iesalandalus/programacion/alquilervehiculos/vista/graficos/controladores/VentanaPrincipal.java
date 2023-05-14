@@ -129,8 +129,9 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void listarVehiculos(ActionEvent event) {
-		ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos",
+		ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos.fxml",
 				"LISTAR VEHICULOS", getEscenario());
+		listarVehiculos.actualizar(VistaGraficos.getInstancia().getControlador().getVehiculos());
 		listarVehiculos.getEscenario().showAndWait();
 	}
 

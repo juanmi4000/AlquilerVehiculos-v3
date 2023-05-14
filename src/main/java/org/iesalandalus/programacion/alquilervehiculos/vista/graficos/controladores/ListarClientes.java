@@ -128,7 +128,7 @@ public class ListarClientes extends Controlador {
 
 	@FXML
 	void listarAlquileresCliente(ActionEvent event) {
-		ListarAlquileresCliente listarAlquileresCliente = (ListarAlquileresCliente) Controladores
+		ListarAlquileresClienVehi listarAlquileresCliente = (ListarAlquileresClienVehi) Controladores
 				.get("vistas/ListarAlquileresCliente.fxml", "ALQUILERES DEL CLIENTE", getEscenario());
 		try {
 			Cliente cliente = VistaGraficos.getInstancia().getControlador()
