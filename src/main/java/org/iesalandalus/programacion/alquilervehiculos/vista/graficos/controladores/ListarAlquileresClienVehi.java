@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controlador;
+import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controles.FormateadorCeldaFecha;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -35,7 +36,9 @@ public class ListarAlquileresClienVehi extends Controlador{
     	tcCliente.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getCliente().getDni()));
     	tcVehiculo.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getVehiculo().getMatricula()));
     	tcFechaAlquiler.setCellValueFactory(fila -> new SimpleObjectProperty<LocalDate>(fila.getValue().getFechaAlquiler()));
+    	tcFechaAlquiler.setCellFactory(columna -> new FormateadorCeldaFecha());
     	tcFechaDevolucion.setCellValueFactory(fila -> new SimpleObjectProperty<LocalDate>(fila.getValue().getFechaDevolucion()));
+    	tcFechaDevolucion.setCellFactory(columna -> new FormateadorCeldaFecha());
     }
     
     @FXML

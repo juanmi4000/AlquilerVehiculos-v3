@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores;
 
 import java.awt.Desktop;
+import java.util.Comparator;
 import java.util.List;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Autobus;
@@ -13,19 +14,38 @@ import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controles;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Dialogos;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class ListarVehiculos extends Controlador {
+public class ListarVehiculos extends Controlador{
+	
+	private static final String AUTOBUS = "Autobus";
+
+	private static final String FURGONETA = "Furgoneta";
+
+	private static final String TURISMO = "Turismo";
+
+	private static final String NO_ENCONTRADO = "-----------";
 
 	private static final String ERROR = "ERROR";
 
+    @FXML
+    private Button btBorrar;
+
+    @FXML
+    private Button btBuscar;
+    
+    @FXML
+    private Button btListVehi;
+
 	@FXML
-	private TableColumn<Vehiculo, Integer> tcCilindrada; // esto es de tipo promitivo o de objeto?
+	private TableColumn<Vehiculo, String> tcCilindrada; // esto es de tipo primitivo o de objeto?
 
 	@FXML
 	private TableColumn<Vehiculo, String> tcMarca;
@@ -37,94 +57,87 @@ public class ListarVehiculos extends Controlador {
 	private TableColumn<Vehiculo, String> tcModelo;
 
 	@FXML
-	private TableColumn<Vehiculo, Integer> tcPlazas;
+	private TableColumn<Vehiculo, String> tcPlazas;
 
 	@FXML
-	private TableColumn<Vehiculo, Integer> tcPma;
+	private TableColumn<Vehiculo, String> tcPma;
 
 	@FXML
 	private TableColumn<Vehiculo, String> tcTipo;
 
-	@FXML
-	private TextField tfCambiarCilindrada;
+    @FXML
+    private TextField tfCambiarCilindrada;
 
-	@FXML
-	private TextField tfCambiarMarca;
+    @FXML
+    private TextField tfCambiarMarca;
 
-	@FXML
-	private TextField tfCambiarMatricula;
+    @FXML
+    private TextField tfCambiarMatricula;
 
-	@FXML
-	private TextField tfCambiarModelo;
+    @FXML
+    private TextField tfCambiarModelo;
 
-	@FXML
-	private TextField tfCambiarPlazas;
+    @FXML
+    private TextField tfCambiarPlazas;
 
-	@FXML
-	private TextField tfCambiarPma;
+    @FXML
+    private TextField tfCambiarPma;
 
-	@FXML
-	private TextField tfCambiarTipo;
+    @FXML
+    private TextField tfCambiarTipo;
 
-	@FXML
-	private TextField tfCilindradaEncontrada;
+    @FXML
+    private TextField tfCilindradaEncontrada;
 
-	@FXML
-	private TextField tfListarAlquileresV;
+    @FXML
+    private TextField tfListarAlquileresV;
 
-	@FXML
-	private TextField tfMarcaEncontrada;
+    @FXML
+    private TextField tfMarcaEncontrada;
 
-	@FXML
-	private TextField tfMatricula;
+    @FXML
+    private TextField tfMatricula;
 
-	@FXML
-	private TextField tfMatriculaEncontrada;
+    @FXML
+    private TextField tfMatriculaEncontrada;
 
-	@FXML
-	private TextField tfModeloEncontrado;
+    @FXML
+    private TextField tfModeloEncontrado;
 
-	@FXML
-	private TextField tfPlazasEncontradas;
+    @FXML
+    private TextField tfPlazasEncontradas;
 
-	@FXML
-	private TextField tfPmaEncontrada;
+    @FXML
+    private TextField tfPmaEncontrada;
 
-	@FXML
-	private TextField tfTipoEncontrado;
+    @FXML
+    private TextField tfTipoEncontrado;
 
-	@FXML
-	private TableView<Vehiculo> tvListaVehiculos;
-
-	@FXML
+    @FXML
+    private TableView<Vehiculo> tvListaVehiculos;
+    
+    @FXML
 	private void initialize() {
 		deshabilitar();
+		tcTipo.setCellValueFactory(fila -> new SimpleStringProperty(cambiarTipo(fila.getValue())));
+		tcMarca.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getMarca()));
+		tcModelo.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getModelo()));
+		tcMatricula.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getMatricula()));
+		tcCilindrada.setCellValueFactory(fila -> new SimpleStringProperty(cambiarCilindrada(fila.getValue())));
+		tcPlazas.setCellValueFactory(fila -> new SimpleStringProperty(cambiarPlazas(fila.getValue())));
+		tcPma.setCellValueFactory(fila -> new SimpleStringProperty(cambiarCPma(fila.getValue())));
 		tvListaVehiculos.getSelectionModel().selectedItemProperty().addListener((ob, ol, ne) -> filaSeleccionada(ne));
 	}
 
-	@FXML
-	void acercaDe(ActionEvent event) {
-		AcercaDe acercaDe = (AcercaDe) Controladores.get("vistas/AcercaDe.fxml", "Acerca de", getEscenario());
+    @FXML
+    void acercaDe(ActionEvent event) {
+    	AcercaDe acercaDe = (AcercaDe) Controladores.get("vistas/AcercaDe.fxml", "Acerca de", getEscenario());
 		acercaDe.getEscenario().showAndWait();
-	}
+    }
 
-	@FXML
-	void borrarVehiculoTabla(ActionEvent event) {
-		Vehiculo vehiculo = tvListaVehiculos.getSelectionModel().getSelectedItem();
-		try {
-			VistaGraficos.getInstancia().getControlador().borrar(vehiculo);
-			tvListaVehiculos.getItems().remove(vehiculo);
-			Dialogos.mostrarDialogoAdvertencia("BORRAR VEHICULO", "El vehículo ha sido borrado correctamente.",
-					getEscenario());
-		} catch (Exception e) {
-			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
-		}
-	}
-
-	@FXML
-	void borrarVehiculo(ActionEvent event) {
-
-		try {
+    @FXML
+    void borrarVehiculo(ActionEvent event) {
+    	try {
 			Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
 					.buscar(Vehiculo.getVehiculoConMatricula(tfMatricula.getText()));
 			VistaGraficos.getInstancia().getControlador().borrar(vehiculo);
@@ -134,33 +147,54 @@ public class ListarVehiculos extends Controlador {
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
-	}
+    }
 
-	@FXML
-	void buscarVehiculo(ActionEvent event) {
+    @FXML
+    void borrarVehiculoTabla(ActionEvent event) {
+    	Vehiculo vehiculo = tvListaVehiculos.getSelectionModel().getSelectedItem();
 		try {
+			VistaGraficos.getInstancia().getControlador().borrar(vehiculo);
+			tvListaVehiculos.getItems().remove(vehiculo);
+			Dialogos.mostrarDialogoAdvertencia("BORRAR VEHICULO", "El vehículo ha sido borrado correctamente.",
+					getEscenario());
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
+		}
+    }
+
+    @FXML
+    void buscarVehiculo(ActionEvent event) {
+    	try {
 			Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
 					.buscar(Vehiculo.getVehiculoConMatricula(tfMatricula.getText()));
 			vehiculoEncontrado(vehiculo);
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
+    }
+    
+    @FXML
+    void comprobarAlquileresVehiculoCo(ActionEvent event) {
+    	if (tfListarAlquileresV.getText().equals("")) {
+			btListVehi.setDisable(true);
+		} else {
+			btListVehi.setDisable(false);
+		}
+    }
 
-	}
+    @FXML
+    void estadisticasAnuales(ActionEvent event) {
 
-	@FXML
-	void estadisticasAnuales(ActionEvent event) {
+    }
 
-	}
+    @FXML
+    void estadisticasMensuales(ActionEvent event) {
 
-	@FXML
-	void estadisticasMensuales(ActionEvent event) {
+    }
 
-	}
-
-	@FXML
-	void gitHub(ActionEvent event) {
-		String link = "https://github.com/juanmi4000/AlquilerVehiculos-v3.git";
+    @FXML
+    void gitHub(ActionEvent event) {
+    	String link = "https://github.com/juanmi4000/AlquilerVehiculos-v3.git";
 		try {
 			Desktop deskpot = Desktop.getDesktop();
 			deskpot.browse(java.net.URI.create(link));
@@ -169,11 +203,11 @@ public class ListarVehiculos extends Controlador {
 					getEscenario());
 			e.printStackTrace();
 		}
-	}
+    }
 
-	@FXML
-	void insertarVehiculo(ActionEvent event) {
-		LeerVehiculo controladorLeerVehiculo = (LeerVehiculo) Controladores.get("vistas/LeerVehiculo.fxml",
+    @FXML
+    void insertarVehiculo(ActionEvent event) {
+    	LeerVehiculo controladorLeerVehiculo = (LeerVehiculo) Controladores.get("vistas/LeerVehiculo.fxml",
 				"Leer Vehiculo", getEscenario());
 		controladorLeerVehiculo.limpiar();
 		controladorLeerVehiculo.getEscenario().showAndWait();
@@ -187,19 +221,19 @@ public class ListarVehiculos extends Controlador {
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
-	}
+    }
 
-	@FXML
-	void listarAlquileres(ActionEvent event) {
-		ListarAlquileres listarAlquileres = (ListarAlquileres) Controladores.get("vistas/ListarAlquileres.fxml",
+    @FXML
+    void listarAlquileres(ActionEvent event) {
+    	ListarAlquileres listarAlquileres = (ListarAlquileres) Controladores.get("vistas/ListarAlquileres.fxml",
 				"LISTAR ALQUILERES", getEscenario());
 		listarAlquileres.actualizar(VistaGraficos.getInstancia().getControlador().getAlquileres());
 		listarAlquileres.getEscenario().showAndWait();
-	}
+    }
 
-	@FXML
-	void listarAlquileresVehiculo(ActionEvent event) {
-		ListarAlquileresClienVehi listarAlquileresVehiculo = (ListarAlquileresClienVehi) Controladores
+    @FXML
+    void listarAlquileresVehiculo(ActionEvent event) {
+    	ListarAlquileresClienVehi listarAlquileresVehiculo = (ListarAlquileresClienVehi) Controladores
 				.get("vistas/ListarAlquileresClienVehi.fxml", "ALQUILERES VEHICULO", getEscenario());
 		try {
 			Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador().buscar(Vehiculo.getVehiculoConMatricula(tfListarAlquileresV.getText()));
@@ -208,33 +242,49 @@ public class ListarVehiculos extends Controlador {
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
-	}
+    }
 
-	@FXML
-	void listarClientes(ActionEvent event) {
-		ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
+    @FXML
+    void listarClientes(ActionEvent event) {
+    	ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
 				"Listar Clintes", getEscenario());
 		controladorListar.limpiar();
 		controladorListar.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
 		controladorListar.getEscenario().showAndWait();
-	}
+    }
 
-	@FXML
+    @FXML
+    void matriculaBusBor(ActionEvent event) {
+    	if (tfMatricula.getText().equals("")) {
+			btBuscar.setDisable(true);
+			btBorrar.setDisable(true);
+		} else {
+			btBuscar.setDisable(false);
+			btBorrar.setDisable(false);
+		}
+    }
+
+    @FXML
+    void salir(ActionEvent event) {
+    	getEscenario().close();
+    }
+    
+    @FXML
 	void actualizar(List<Vehiculo> vehiculos) {
+    	vehiculos.sort(Comparator.comparing(Vehiculo::getMarca).thenComparing(Vehiculo::getModelo)
+					.thenComparing(Vehiculo::getMatricula));
 		tvListaVehiculos.setItems(FXCollections.observableArrayList(vehiculos));
 	}
-
-	@FXML
-	void salir(ActionEvent event) {
-		getEscenario().close();
-	}
-
-	@FXML
+    
+    @FXML
 	void deshabilitar() {
 		Controles.deshabilitarCamposTexto(tfCambiarTipo, tfCambiarMarca, tfCambiarModelo, tfCambiarMatricula,
 				tfCambiarCilindrada, tfCambiarPlazas, tfCambiarPma);
 		Controles.deshabilitarCamposTexto(tfTipoEncontrado, tfMarcaEncontrada, tfModeloEncontrado,
 				tfMatriculaEncontrada, tfCilindradaEncontrada, tfPlazasEncontradas, tfPmaEncontrada);
+		btBorrar.setDisable(true);
+		btBuscar.setDisable(true);
+		btListVehi.setDisable(true);
 	}
 
 	@FXML
@@ -243,19 +293,19 @@ public class ListarVehiculos extends Controlador {
 		tfCambiarModelo.setText(vehiculo.getModelo());
 		tfCambiarMatricula.setText(vehiculo.getMatricula());
 		if (vehiculo instanceof Turismo turismo) {
-			tfCambiarTipo.setText("Turismo");
+			tfCambiarTipo.setText(TURISMO);
 			tfCambiarCilindrada.setText(String.format("%s", turismo.getCilindrada()));
-			tfCambiarPma.setText("-----------");
-			tfCambiarPlazas.setText("-----------");
+			tfCambiarPma.setText(NO_ENCONTRADO);
+			tfCambiarPlazas.setText(NO_ENCONTRADO);
 		} else if (vehiculo instanceof Furgoneta furgoneta) {
-			tfCambiarTipo.setText("Furgoneta");
-			tfCambiarCilindrada.setText("-----------");
+			tfCambiarTipo.setText(FURGONETA);
+			tfCambiarCilindrada.setText(NO_ENCONTRADO);
 			tfCambiarPma.setText(String.format("%s", furgoneta.getPma()));
 			tfCambiarPlazas.setText(String.format("%s", furgoneta.getPlazas()));
 		} else if (vehiculo instanceof Autobus autobus) {
-			tfCambiarTipo.setText("Autobus");
-			tfCambiarCilindrada.setText("-----------");
-			tfCambiarPma.setText("-----------");
+			tfCambiarTipo.setText(AUTOBUS);
+			tfCambiarCilindrada.setText(NO_ENCONTRADO);
+			tfCambiarPma.setText(NO_ENCONTRADO);
 			tfCambiarPlazas.setText(String.format("%s", autobus.getPlazas()));
 		}
 	}
@@ -266,21 +316,62 @@ public class ListarVehiculos extends Controlador {
 		tfModeloEncontrado.setText(vehiculo.getModelo());
 		tfMatriculaEncontrada.setText(vehiculo.getMatricula());
 		if (vehiculo instanceof Turismo turismo) {
-			tfTipoEncontrado.setText("Turismo");
+			tfTipoEncontrado.setText(TURISMO);
 			tfCilindradaEncontrada.setText(String.format("%s", turismo.getCilindrada()));
-			tfPmaEncontrada.setText("-----------");
-			tfPlazasEncontradas.setText("-----------");
+			tfPmaEncontrada.setText(NO_ENCONTRADO);
+			tfPlazasEncontradas.setText(NO_ENCONTRADO);
 		} else if (vehiculo instanceof Furgoneta furgoneta) {
-			tfTipoEncontrado.setText("Furgoneta");
-			tfCilindradaEncontrada.setText("-----------");
+			tfTipoEncontrado.setText(FURGONETA);
+			tfCilindradaEncontrada.setText(NO_ENCONTRADO);
 			tfPmaEncontrada.setText(String.format("%s", furgoneta.getPma()));
 			tfPlazasEncontradas.setText(String.format("%s", furgoneta.getPlazas()));
 		} else if (vehiculo instanceof Autobus autobus) {
-			tfTipoEncontrado.setText("Autobus");
-			tfCilindradaEncontrada.setText("-----------");
-			tfPmaEncontrada.setText("-----------");
+			tfTipoEncontrado.setText(AUTOBUS);
+			tfCilindradaEncontrada.setText(NO_ENCONTRADO);
+			tfPmaEncontrada.setText(NO_ENCONTRADO);
 			tfPlazasEncontradas.setText(String.format("%s", autobus.getPlazas()));
 		}
 	}
-
+	
+	@FXML 
+	private String cambiarTipo(Vehiculo vehiculo) {
+		String cadena = "";
+		if (vehiculo instanceof Turismo) {
+			cadena = TURISMO;	
+		}else if (vehiculo instanceof Furgoneta) {
+			cadena = FURGONETA;
+		} else {
+			cadena = AUTOBUS;
+		}
+		return cadena;
+	}
+	
+	@FXML 
+	private String cambiarCilindrada(Vehiculo vehiculo) {
+		String cadena = "";
+		if (vehiculo instanceof Turismo turismo) {
+			cadena = String.format("%s", turismo.getCilindrada());	
+		}
+		return cadena;
+	}
+	
+	@FXML
+	private String cambiarPlazas(Vehiculo vehiculo) {
+		String cadena = "";
+		if (vehiculo instanceof Furgoneta furgoneta) {
+			cadena = String.format("%s", furgoneta.getPlazas());
+		}else if (vehiculo instanceof Autobus autobus) {
+			cadena = String.format("%s", autobus.getPlazas());
+		}
+		return cadena;
+	}
+	
+	@FXML 
+	private String cambiarCPma(Vehiculo vehiculo) {
+		String cadena = "";
+		if (vehiculo instanceof Furgoneta furgoneta) {
+			cadena = String.format("%s", furgoneta.getPma());	
+		}
+		return cadena;
+	}
 }

@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores;
 
 import java.awt.Desktop;
+import java.util.Comparator;
 import java.util.List;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
@@ -20,7 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ListarClientes extends Controlador {
 
-	private static final String ERROR = "Ha ocurrido un error inesperado al abrir la página.";
+	private static final String ERROR = "ERROR";
 	private static final String MODIFICAR_CLIENTE = "Modificar cliente";
 
 	@FXML
@@ -90,7 +91,7 @@ public class ListarClientes extends Controlador {
 					getEscenario());
 			tvListaClientes.getItems().remove(cliente);
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 	}
 
@@ -102,7 +103,7 @@ public class ListarClientes extends Controlador {
 			tfDniEncontrado.setText(cliente.getDni());
 			tfTelefonoEncontrado.setText(cliente.getTelefono());
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 	}
 
@@ -113,7 +114,7 @@ public class ListarClientes extends Controlador {
 			Desktop deskpot = Desktop.getDesktop();
 			deskpot.browse(java.net.URI.create(link));
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("Error al abrir la URL", ERROR, getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, "Ha ocurrido un error inesperado al abrir la página.", getEscenario());
 			e.printStackTrace();
 		}
 	}
@@ -137,7 +138,7 @@ public class ListarClientes extends Controlador {
 			listarAlquileresCliente.getEscenario().showAndWait();
 			tfListarAlquileresCliente.setText("");
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 
 	}
@@ -195,7 +196,7 @@ public class ListarClientes extends Controlador {
 				tvListaClientes.getItems().add(cliente);
 			}
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("Error al insertar el cliente", e.getMessage(), getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 	}
 
@@ -208,7 +209,7 @@ public class ListarClientes extends Controlador {
 					getEscenario());
 			tvListaClientes.getItems().remove(tvListaClientes.getSelectionModel().getSelectedIndex());
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 
 	}
@@ -220,6 +221,7 @@ public class ListarClientes extends Controlador {
 
 	@FXML
 	void actualizar(List<Cliente> clientes) {
+		clientes.sort(Comparator.comparing(Cliente::getNombre).thenComparing(Cliente::getDni));
 		tvListaClientes.setItems(FXCollections.observableArrayList(clientes));
 	}
 

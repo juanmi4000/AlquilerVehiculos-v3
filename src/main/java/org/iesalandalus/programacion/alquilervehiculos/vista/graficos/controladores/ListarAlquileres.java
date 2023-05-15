@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controlad
 
 import java.awt.Desktop;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
@@ -14,6 +15,7 @@ import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.VistaGrafi
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controlador;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controladores;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controles;
+import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controles.FormateadorCeldaFecha;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Dialogos;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,6 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -30,9 +33,16 @@ import javafx.scene.control.TextField;
 
 public class ListarAlquileres extends Controlador {
 
+	private static final String GUIONES = "-----------";
 	private static final String ERROR = "ERROR";
 	private static final ObservableList<String> DEVOLVER = FXCollections.observableArrayList("Devolver por cliente",
 			"Devolver por vehiculo");
+	
+	@FXML
+    private Button btBorrar;
+
+    @FXML
+    private Button btBuscar;
 
 	@FXML
 	private ChoiceBox<String> cbDevolver;
@@ -42,12 +52,15 @@ public class ListarAlquileres extends Controlador {
 
 	@FXML
 	private DatePicker dpFechaDevolucion;
+	
+	@FXML
+    private TableColumn<Alquiler, String> tcPrecio;
 
 	@FXML
 	private TableColumn<Alquiler, String> tcCliente;
 
 	@FXML
-	private TableColumn<Alquiler, LocalDate> tcFechaAquiler;
+	private TableColumn<Alquiler, LocalDate> tcFechaAlquiler;
 
 	@FXML
 	private TableColumn<Alquiler, LocalDate> tcFechaDevolucion;
@@ -116,13 +129,15 @@ public class ListarAlquileres extends Controlador {
 		cbDevolver.valueProperty().addListener((ob, ol, ne) -> comprobarValor(ne));
 		tcCliente.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getCliente().getDni()));
 		tcVehiculo.setCellValueFactory(fila -> new SimpleStringProperty(fila.getValue().getVehiculo().getMatricula()));
-		tcFechaAquiler
+		tcFechaAlquiler
 				.setCellValueFactory(fila -> new SimpleObjectProperty<LocalDate>(fila.getValue().getFechaAlquiler()));
+		tcFechaAlquiler.setCellFactory(columna -> new FormateadorCeldaFecha());
 		tcFechaDevolucion
 				.setCellValueFactory(fila -> new SimpleObjectProperty<LocalDate>(fila.getValue().getFechaDevolucion()));
+		tcFechaDevolucion.setCellFactory(columna -> new FormateadorCeldaFecha());
+		tcPrecio.setCellValueFactory(fila -> new SimpleStringProperty(cambiarPrecio(fila.getValue())));
 		tvListarAlquiler.getSelectionModel().selectedItemProperty()
 				.addListener((ob, oldValue, newValue) -> filaSeleccionada(newValue));
-
 	}
 
 	@FXML
@@ -258,6 +273,10 @@ public class ListarAlquileres extends Controlador {
 
 	@FXML
 	void actualizar(List<Alquiler> alquileres) {
+		Comparator<Cliente> ordenadoCliente = Comparator.comparing(Cliente::getNombre)
+				.thenComparing(Cliente::getDni);
+		alquileres.sort(Comparator.comparing(Alquiler::getFechaAlquiler).thenComparing(Alquiler::getCliente,
+				ordenadoCliente));
 		tvListarAlquiler.setItems(FXCollections.observableArrayList(alquileres));
 	}
 
@@ -311,7 +330,7 @@ public class ListarAlquileres extends Controlador {
 			tfPrecio.setText("---------------");
 		} else {
 			tfCambiarFecDev.setText(String.format("%s", fechaDevolucion));
-			tfPrecio.setText(String.format("%s", vehiculo.getFactorPrecio()));
+			tfPrecio.setText(String.format("%s", alquiler.getPrecio()));
 		}
 	}
 
@@ -323,17 +342,17 @@ public class ListarAlquileres extends Controlador {
 		if (vehiculo instanceof Turismo turismo) {
 			tfCambiarTipo.setText("Turismo");
 			tfCambiarCilindrada.setText(String.format("%s", turismo.getCilindrada()));
-			tfCambiarPma.setText("-----------");
-			tfCambiarPlazas.setText("-----------");
+			tfCambiarPma.setText(GUIONES);
+			tfCambiarPlazas.setText(GUIONES);
 		} else if (vehiculo instanceof Furgoneta furgoneta) {
 			tfCambiarTipo.setText("Furgoneta");
-			tfCambiarCilindrada.setText("-----------");
+			tfCambiarCilindrada.setText(GUIONES);
 			tfCambiarPma.setText(String.format("%s", furgoneta.getPma()));
 			tfCambiarPlazas.setText(String.format("%s", furgoneta.getPlazas()));
 		} else if (vehiculo instanceof Autobus autobus) {
 			tfCambiarTipo.setText("Autobus");
-			tfCambiarCilindrada.setText("-----------");
-			tfCambiarPma.setText("-----------");
+			tfCambiarCilindrada.setText(GUIONES);
+			tfCambiarPma.setText(GUIONES);
 			tfCambiarPlazas.setText(String.format("%s", autobus.getPlazas()));
 
 		}
@@ -361,6 +380,15 @@ public class ListarAlquileres extends Controlador {
 	void limpiarOperaciones() {
 		Controles.limpiarCamposTexto(tfOpDni, tfOpMat);
 		dpFechaAlquiler.setValue(null);
+	}
+	
+	@FXML
+	private String cambiarPrecio (Alquiler alquiler) {
+		String cadena = "";
+		if (alquiler.getFechaDevolucion()!= null) {
+			cadena = String.format("%s", alquiler.getPrecio());
+		}
+		return cadena;
 	}
 
 }

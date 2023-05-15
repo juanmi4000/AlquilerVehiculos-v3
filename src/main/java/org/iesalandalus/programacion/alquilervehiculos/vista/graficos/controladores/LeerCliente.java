@@ -13,7 +13,7 @@ public class LeerCliente extends Controlador{
     @FXML private TextField tfNombre;
     @FXML private TextField tfTelefono;
     
-    private Boolean cancelado;
+    private boolean cancelado;
     
     @FXML
     void initialize () {

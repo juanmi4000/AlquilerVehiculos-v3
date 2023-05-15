@@ -47,9 +47,9 @@ public class LeerVehiculo extends Controlador {
 	void initialize() {
 		cbTipo.setItems(TIPOS_VEHICULOS);
 		cbTipo.getSelectionModel().select("Elige un vehiculo:");
-		tfCilindrada.setDisable(false);
-		tfPlazas.setDisable(false);
-		tfPma.setDisable(false);
+		tfCilindrada.setDisable(true);
+		tfPlazas.setDisable(true);
+		tfPma.setDisable(true);
 		cbTipo.valueProperty().addListener((ob, ol, ne) -> comprobarValor(ne));
 	}
 
@@ -86,19 +86,18 @@ public class LeerVehiculo extends Controlador {
 	}
 
 	private void comprobarValor(String cadena) {
-		//String valor = cbTipo.valueProperty().getValue();
 		if (cadena.equals(TURISMO)) {
-			tfCilindrada.setDisable(true);
-			tfPlazas.setDisable(false);
-			tfPma.setDisable(false);
-		} else if (cadena.equals(FURGONETA)) {
+			tfCilindrada.setDisable(false);
 			tfPlazas.setDisable(true);
 			tfPma.setDisable(true);
-			tfCilindrada.setDisable(false);
-		} else {
-			tfPlazas.setDisable(true);
+		} else if (cadena.equals(FURGONETA)) {
+			tfPlazas.setDisable(false);
 			tfPma.setDisable(false);
-			tfCilindrada.setDisable(false);
+			tfCilindrada.setDisable(true);
+		} else {
+			tfPlazas.setDisable(false);
+			tfPma.setDisable(true);
+			tfCilindrada.setDisable(true);
 		}
 
 	}
