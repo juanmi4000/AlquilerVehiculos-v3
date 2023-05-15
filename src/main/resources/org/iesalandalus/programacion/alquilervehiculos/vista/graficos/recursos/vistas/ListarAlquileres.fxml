@@ -53,7 +53,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="962.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.ListarAlquileres">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.ListarAlquileres">
    <children>
       <MenuBar>
          <menus>
@@ -141,14 +141,15 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </VBox>
-            <VBox prefHeight="578.0" prefWidth="461.0">
+            <VBox prefHeight="578.0" prefWidth="518.0">
                <children>
-                  <TableView fx:id="tvListarAlquiler" prefHeight="615.0" prefWidth="422.0">
+                  <TableView fx:id="tvListarAlquiler" prefHeight="578.0" prefWidth="490.0">
                     <columns>
-                      <TableColumn fx:id="tcCliente" prefWidth="112.80006408691406" text="Cliente" />
-                      <TableColumn fx:id="tcVehiculo" prefWidth="110.66665649414062" text="Vehiculo" />
-                        <TableColumn fx:id="tcFechaAquiler" prefWidth="112.33331298828125" text="Fecha alquiler" />
-                        <TableColumn fx:id="tcFechaDevolucion" minWidth="8.800048828125" prefWidth="125.66668701171875" text="Fecha devolución" />
+                      <TableColumn fx:id="tcCliente" prefWidth="103.0" text="Cliente" />
+                      <TableColumn fx:id="tcVehiculo" prefWidth="101.0" text="Vehiculo" />
+                        <TableColumn fx:id="tcFechaAlquiler" prefWidth="108.3333740234375" text="Fecha alquiler" />
+                        <TableColumn fx:id="tcFechaDevolucion" minWidth="8.800048828125" prefWidth="115.0" text="Fecha devolución" />
+                        <TableColumn fx:id="tcPrecio" prefWidth="87.0" text="Precio" />
                     </columns>
                      <contextMenu>
                         <ContextMenu>
