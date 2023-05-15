@@ -81,6 +81,20 @@ public class VentanaPrincipal extends Controlador {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 	}
+	
+	@FXML
+    void estadisticasAnuales(ActionEvent event) {
+		EstadisticasAnuales estadisticasAnuales = (EstadisticasAnuales) Controladores.get("vistas/EstadisticasAnuales.fxml", "ESTADISTICAS ANUALES", getEscenario());
+		estadisticasAnuales.limpiar();
+		estadisticasAnuales.getEscenario().showAndWait();
+    }
+
+    @FXML
+    void estadisticasMensuales(ActionEvent event) {
+    	EstadisticasMensuales estadisticasMensuales = (EstadisticasMensuales) Controladores.get("vistas/EstadisticasMensuales.fxml", "ESTADISTICAS MENSUALES", getEscenario());
+    	estadisticasMensuales.limpiar();
+		estadisticasMensuales.getEscenario().showAndWait();
+    }
 
 	@FXML
 	void listarAlquileres(ActionEvent event) {

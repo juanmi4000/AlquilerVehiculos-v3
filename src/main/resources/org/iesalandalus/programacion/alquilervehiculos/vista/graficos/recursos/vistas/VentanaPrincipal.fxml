@@ -14,9 +14,15 @@
    <children>
       <MenuBar>
          <menus>
-            <Menu mnemonicParsing="false" text="fichero">
+            <Menu mnemonicParsing="false" text="Fichero">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#salir" text="salir" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Estadísticas">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#estadisticasMensuales" text="Mensuales" />
+                  <MenuItem mnemonicParsing="false" onAction="#estadisticasAnuales" text="Anuales" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Ayuda">

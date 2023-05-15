@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.EstadisticasMensuales">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.EstadisticasAnuales">
    <children>
       <Label text="ESTADISTICAS">
          <font>
@@ -19,7 +19,7 @@
       <HBox alignment="CENTER" spacing="10.0">
          <children>
             <Label text="Introduce una fecha:" />
-            <TextField fx:id="tfFecha" maxWidth="100.0" promptText="MM/yyyy" />
+            <TextField fx:id="tfFecha" maxWidth="70.0" promptText="yyyy" />
          </children>
       </HBox>
       <Button mnemonicParsing="false" onAction="#mostrarEstadisticas" text="Mostrar estadisticas" />
