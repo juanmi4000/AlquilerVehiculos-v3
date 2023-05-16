@@ -57,10 +57,10 @@
                   <VBox alignment="CENTER" prefHeight="480.0" prefWidth="217.0" spacing="20.0">
                      <children>
                         <Label text="BUSCAR/BORRAR CLIENTE" />
-                        <HBox spacing="5.0">
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
                            <children>
                               <Label text="DNI:" />
-                              <TextField fx:id="tfDni" maxWidth="118.0" prefHeight="26.0" prefWidth="109.0" />
+                              <TextField fx:id="tfDni" maxWidth="118.0" onAction="#comprobarDni" prefHeight="26.0" prefWidth="109.0" promptText="11111111H" />
                            </children>
                            <padding>
                               <Insets left="15.0" />
@@ -68,8 +68,8 @@
                         </HBox>
                         <HBox spacing="20.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#buscarCliente" text="Buscar cliente" />
-                              <Button mnemonicParsing="false" onAction="#borrarCliente" text="Borrar cliente" />
+                              <Button fx:id="btBuscarCliente" mnemonicParsing="false" onAction="#buscarCliente" text="Buscar cliente" />
+                              <Button fx:id="btBorrarCliente" mnemonicParsing="false" onAction="#borrarCliente" text="Borrar cliente" />
                            </children>
                         </HBox>
                         <Separator prefWidth="200.0" />
@@ -92,7 +92,6 @@
                               <Label text="Telefono:" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
-                        <Separator prefWidth="200.0" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -153,10 +152,10 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="176.0" spacing="5.0">
                            <children>
                               <Label text="DNI:" />
-                              <TextField fx:id="tfListarAlquileresCliente" maxWidth="100.0" />
+                              <TextField fx:id="tfListarAlquileresCliente" maxWidth="100.0" onAction="#comprobarDniLC" promptText="11111111H" />
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" onAction="#listarAlquileresCliente" text="Listar alquileres cliente" />
+                        <Button fx:id="btListar" mnemonicParsing="false" onAction="#listarAlquileresCliente" text="Listar alquileres cliente" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

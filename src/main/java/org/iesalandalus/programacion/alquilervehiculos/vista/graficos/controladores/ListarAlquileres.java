@@ -256,18 +256,28 @@ public class ListarAlquileres extends Controlador {
 
 	@FXML
 	void listarClientes(ActionEvent event) {
-		ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
-				"Listar Clintes", getEscenario());
-		controladorListar.limpiar();
-		controladorListar.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
-		controladorListar.getEscenario().showAndWait();
+		try {
+			ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
+					"Listar Clintes", getEscenario());
+			controladorListar.limpiar();
+			controladorListar.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
+			controladorListar.getEscenario().showAndWait();
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError(ERROR, "Para abrir una nueva ventana cierre la anterior", getEscenario());
+		}	
 	}
 
 	@FXML
 	void listarVehiculos(ActionEvent event) {
-		ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos.fxml",
-				"LISTAR VEHICULOS", getEscenario());
-		listarVehiculos.getEscenario().showAndWait();
+		try {
+			ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos.fxml",
+					"LISTAR VEHICULOS", getEscenario());
+			listarVehiculos.actualizar(VistaGraficos.getInstancia().getControlador().getVehiculos());
+			listarVehiculos.getEscenario().showAndWait();
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError(ERROR, "Para abrir una nueva ventana cierre la anterior", getEscenario());
+		}
+		
 	}
 
 	@FXML

@@ -42,20 +42,15 @@ public class EstadisticasAnuales extends Controlador{
 				}
 			}
 		}
-		formarEsta(contadorTurismo, contadorFurgoneta, contadorAutobus);
-	}
-	
-	@FXML
-	private void formarEsta(int contT, int contF, int contA) {
-		PieChart.Data slTurismo = new PieChart.Data("Turismo", contT);
-		PieChart.Data slFurgoneta = new PieChart.Data("Furgoneta", contF);
-		PieChart.Data slAutobus = new PieChart.Data("Autobus", contA);
+		PieChart.Data slTurismo = new PieChart.Data("Turismo", contadorTurismo);
+		PieChart.Data slFurgoneta = new PieChart.Data("Furgoneta", contadorFurgoneta);
+		PieChart.Data slAutobus = new PieChart.Data("Autobus", contadorAutobus);
 		
 		pcEstadisticasMensuales.getData().addAll(slTurismo, slFurgoneta, slAutobus);
 		
-		Tooltip tpTurismo = new Tooltip(String.format("%s", contT));
-		Tooltip tpFurgoneta = new Tooltip(String.format("%s", contF));
-		Tooltip tpAutobus = new Tooltip(String.format("%s", contA));
+		Tooltip tpTurismo = new Tooltip(String.format("Turismo: %s", contadorTurismo));
+		Tooltip tpFurgoneta = new Tooltip(String.format("Furgoneta: %s", contadorFurgoneta));
+		Tooltip tpAutobus = new Tooltip(String.format("Autobus: %s", contadorAutobus));
 		
 		Tooltip.install(slTurismo.getNode(), tpTurismo);
 		Tooltip.install(slFurgoneta.getNode(), tpFurgoneta);
