@@ -13,46 +13,47 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-public class LeerAlquiler extends Controlador{
-	
+public class LeerAlquiler extends Controlador {
+
 	private boolean cancelado;
 
-    @FXML
-    private DatePicker dpFechaAlquiler;
+	@FXML
+	private DatePicker dpFechaAlquiler;
 
-    @FXML
-    private TextField tfCliente;
+	@FXML
+	private TextField tfCliente;
 
-    @FXML
-    private TextField tfVehiculo;
+	@FXML
+	private TextField tfVehiculo;
 
-    @FXML
-    void aceptar(ActionEvent event) {
-    	cancelado = false;
-    	getEscenario().close();
-    }
+	@FXML
+	void aceptar(ActionEvent event) {
+		cancelado = false;
+		getEscenario().close();
+	}
 
-    @FXML
-    void cancelar(ActionEvent event) {
-    	cancelado = true;
-    	getEscenario().close();
-    }
-    
-    @FXML
-    public Alquiler getAlquiler() {
-    	Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(tfCliente.getText()));
-    	Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador().buscar(Vehiculo.getVehiculoConMatricula(tfVehiculo.getText()));
-    	LocalDate fechaAlquiler = dpFechaAlquiler.getValue();
-    	return cancelado ? null : new Alquiler(cliente, vehiculo, fechaAlquiler);
-    }
-    
-    @FXML
-    void limpiar() {
-    	tfCliente.setText("");
-    	tfVehiculo.setText("");
-    	dpFechaAlquiler.setValue(null);
-    	cancelado = true;
-    }
+	@FXML
+	void cancelar(ActionEvent event) {
+		cancelado = true;
+		getEscenario().close();
+	}
+
+	@FXML
+	public Alquiler getAlquiler() {
+		Cliente cliente = VistaGraficos.getInstancia().getControlador()
+				.buscar(Cliente.getClienteConDni(tfCliente.getText()));
+		Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
+				.buscar(Vehiculo.getVehiculoConMatricula(tfVehiculo.getText()));
+		LocalDate fechaAlquiler = dpFechaAlquiler.getValue();
+		return cancelado ? null : new Alquiler(cliente, vehiculo, fechaAlquiler);
+	}
+
+	@FXML
+	void limpiar() {
+		tfCliente.setText("");
+		tfVehiculo.setText("");
+		dpFechaAlquiler.setValue(null);
+		cancelado = true;
+	}
 
 }
-

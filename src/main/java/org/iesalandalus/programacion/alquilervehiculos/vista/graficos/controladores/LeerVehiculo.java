@@ -14,11 +14,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 public class LeerVehiculo extends Controlador {
-	
+
 	private static final String FURGONETA = "Furgoneta";
 	private static final String TURISMO = "Turismo";
-	private static final ObservableList<String> TIPOS_VEHICULOS = FXCollections.observableArrayList(TURISMO,
-			FURGONETA, "Autobus");
+	private static final ObservableList<String> TIPOS_VEHICULOS = FXCollections.observableArrayList(TURISMO, FURGONETA,
+			"Autobus");
 
 	@FXML
 	private ChoiceBox<String> cbTipo;
@@ -101,15 +101,15 @@ public class LeerVehiculo extends Controlador {
 		}
 
 	}
-	
+
 	void limpiar() {
-    	tfMarca.setText("");
-    	tfModelo.setText("");
-    	tfMatricula.setText("");
-    	tfCilindrada.setText("");
-    	tfPlazas.setText("");
-    	tfPlazas.setText("");
-    	cancelado = true;
-    }
+		tfMarca.setText("");
+		tfModelo.setText("");
+		tfMatricula.setText("");
+		tfCilindrada.setText("");
+		tfPlazas.setText("");
+		tfPlazas.setText("");
+		cancelado = true;
+	}
 
 }

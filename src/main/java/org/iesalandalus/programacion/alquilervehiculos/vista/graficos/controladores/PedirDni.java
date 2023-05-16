@@ -8,34 +8,35 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class PedirDni extends Controlador{
-	
+public class PedirDni extends Controlador {
+
 	private boolean cancelado;
 
-    @FXML
-    private TextField tfDni;
+	@FXML
+	private TextField tfDni;
 
-    @FXML
-    void borrar(ActionEvent event) {
-    	cancelado = false;
-    	getEscenario().close();
-    }
+	@FXML
+	void borrar(ActionEvent event) {
+		cancelado = false;
+		getEscenario().close();
+	}
 
-    @FXML
-    void cancelar(ActionEvent event) {
-    	cancelado = true;
-    	getEscenario().close();
-    }
-    
-    @FXML
-    public Cliente getCliente() {
-    	return cancelado ? null : VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(tfDni.getText()));
-    }
+	@FXML
+	void cancelar(ActionEvent event) {
+		cancelado = true;
+		getEscenario().close();
+	}
 
-    @FXML
-    void limpiar() {
-    	tfDni.setText("");
-    	cancelado = true;
-    }
+	@FXML
+	public Cliente getCliente() {
+		return cancelado ? null
+				: VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(tfDni.getText()));
+	}
+
+	@FXML
+	void limpiar() {
+		tfDni.setText("");
+		cancelado = true;
+	}
 
 }

@@ -6,11 +6,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="549.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="347.0" prefWidth="549.0" spacing="40.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.VentanaPrincipal">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="549.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="388.0" prefWidth="549.0" spacing="40.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.VentanaPrincipal">
    <children>
       <MenuBar>
          <menus>
@@ -34,14 +35,17 @@
       </MenuBar>
       <HBox alignment="CENTER" prefHeight="290.0" prefWidth="522.0" spacing="30.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="258.0" prefWidth="144.0">
+            <VBox alignment="TOP_CENTER" prefHeight="277.0" prefWidth="144.0">
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" />
                </padding>
                <children>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="150.0" spacing="5.0">
+                  <HBox alignment="CENTER" prefHeight="68.0" prefWidth="104.0" spacing="10.0">
                      <children>
-                        <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/Clientes.png" />
+                           </image></ImageView>
                         <Label text="CLIENTES" />
                      </children>
                   </HBox>
@@ -52,9 +56,12 @@
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="258.0" prefWidth="144.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="150.0" spacing="5.0">
+                  <HBox alignment="CENTER" prefHeight="61.0" prefWidth="144.0" spacing="10.0">
                      <children>
-                        <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="43.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/Alquiler.png" />
+                           </image></ImageView>
                         <Label prefHeight="38.0" prefWidth="66.0" text="ALQUILERES" />
                      </children>
                   </HBox>
@@ -65,9 +72,12 @@
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="144.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="150.0" spacing="5.0">
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="150.0" spacing="10.0">
                      <children>
-                        <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="32.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/Vehiculo.png" />
+                           </image></ImageView>
                         <Label text="VEHICULOS" />
                      </children>
                   </HBox>
@@ -80,6 +90,19 @@
          <padding>
             <Insets left="10.0" right="10.0" />
          </padding>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="550.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#gitHub">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/GitHub.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
       </HBox>
    </children>
 </VBox>

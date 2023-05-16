@@ -37,12 +37,12 @@ public class ListarAlquileres extends Controlador {
 	private static final String ERROR = "ERROR";
 	private static final ObservableList<String> DEVOLVER = FXCollections.observableArrayList("Devolver por cliente",
 			"Devolver por vehiculo");
-	
-	@FXML
-    private Button btBorrar;
 
-    @FXML
-    private Button btBuscar;
+	@FXML
+	private Button btBorrar;
+
+	@FXML
+	private Button btBuscar;
 
 	@FXML
 	private ChoiceBox<String> cbDevolver;
@@ -52,9 +52,9 @@ public class ListarAlquileres extends Controlador {
 
 	@FXML
 	private DatePicker dpFechaDevolucion;
-	
+
 	@FXML
-    private TableColumn<Alquiler, String> tcPrecio;
+	private TableColumn<Alquiler, String> tcPrecio;
 
 	@FXML
 	private TableColumn<Alquiler, String> tcCliente;
@@ -148,16 +148,23 @@ public class ListarAlquileres extends Controlador {
 
 	@FXML
 	void borrarAlquiler(ActionEvent event) {
+
 		try {
 			Alquiler alquiler = getAlquiler(true);
-			VistaGraficos.getInstancia().getControlador().borrar(alquiler);
-			tvListarAlquiler.getItems().remove(alquiler);
-			Dialogos.mostrarDialogoAdvertencia("BORRAR ALQUILER", "El alquiler ha sido borrado correctamente.", getEscenario());
+			if (alquiler != null) {
+				if (Dialogos.mostrarDialogoConfirmacion("BORRAR ALQUILER",
+						"¿Estás seguro que desea eliminar el cliente?", getEscenario())) {
+					VistaGraficos.getInstancia().getControlador().borrar(alquiler);
+					tvListarAlquiler.getItems().remove(alquiler);
+					Dialogos.mostrarDialogoAdvertencia("BORRAR ALQUILER", "El alquiler ha sido borrado correctamente.",
+							getEscenario());
+				} else {
+					event.consume();
+				}
+			}
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
-		
-		
 		limpiarOperaciones();
 	}
 
@@ -165,10 +172,15 @@ public class ListarAlquileres extends Controlador {
 	void borrarAlquilerTablas(ActionEvent event) {
 		Alquiler alquiler = tvListarAlquiler.getSelectionModel().getSelectedItem();
 		try {
-			VistaGraficos.getInstancia().getControlador().borrar(alquiler);
-			tvListarAlquiler.getItems().remove(tvListarAlquiler.getSelectionModel().getSelectedIndex());
-			Dialogos.mostrarDialogoAdvertencia("BORRAR ALQUILER", "El alquiler se ha borrado correctamente.",
-					getEscenario());
+			if (Dialogos.mostrarDialogoConfirmacion("BORRAR ALQUILER", "¿Estás seguro que desea eliminar el cliente?",
+					getEscenario())) {
+				VistaGraficos.getInstancia().getControlador().borrar(alquiler);
+				tvListarAlquiler.getItems().remove(tvListarAlquiler.getSelectionModel().getSelectedIndex());
+				Dialogos.mostrarDialogoAdvertencia("BORRAR ALQUILER", "El alquiler se ha borrado correctamente.",
+						getEscenario());
+			} else {
+				event.consume();
+			}
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
@@ -197,13 +209,23 @@ public class ListarAlquileres extends Controlador {
 		String matricula = tfMatricula.getText();
 		LocalDate fechaDevolucion = dpFechaDevolucion.getValue();
 		try {
-			if (!dni.isBlank()) {
-				Cliente cliente = VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(dni));
-				VistaGraficos.getInstancia().getControlador().devolver(cliente, fechaDevolucion);
+			if (dni.isBlank() && matricula.isBlank()) {
+				Dialogos.mostrarDialogoError(ERROR, "Tiene que rellenar un campo dni/matricula.", getEscenario());
 			} else {
-				Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
-						.buscar(Vehiculo.getVehiculoConMatricula(matricula));
-				VistaGraficos.getInstancia().getControlador().devolver(vehiculo, fechaDevolucion);
+				if (Dialogos.mostrarDialogoConfirmacion("DEVOLVER ALQUILER",
+						"¿Estás seguro que desea eliminar el cliente?", getEscenario())) {
+					if (!dni.isBlank()) {
+						Cliente cliente = VistaGraficos.getInstancia().getControlador()
+								.buscar(Cliente.getClienteConDni(dni));
+						VistaGraficos.getInstancia().getControlador().devolver(cliente, fechaDevolucion);
+					} else {
+						Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
+								.buscar(Vehiculo.getVehiculoConMatricula(matricula));
+						VistaGraficos.getInstancia().getControlador().devolver(vehiculo, fechaDevolucion);
+					}
+				} else {
+					event.consume();
+				}
 			}
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
@@ -213,14 +235,16 @@ public class ListarAlquileres extends Controlador {
 
 	@FXML
 	void estadisticasAnuales(ActionEvent event) {
-		EstadisticasAnuales estadisticasAnuales = (EstadisticasAnuales) Controladores.get("vistas/EstadisticasAnuales.fxml", "ESTADISTICAS ANUALES", getEscenario());
+		EstadisticasAnuales estadisticasAnuales = (EstadisticasAnuales) Controladores
+				.get("vistas/EstadisticasAnuales.fxml", "ESTADISTICAS ANUALES", getEscenario());
 		estadisticasAnuales.limpiar();
 		estadisticasAnuales.getEscenario().showAndWait();
 	}
 
 	@FXML
 	void estadisticasMensuales(ActionEvent event) {
-		EstadisticasMensuales estadisticasMensuales = (EstadisticasMensuales) Controladores.get("vistas/EstadisticasMensuales.fxml", "ESTADISTICAS MENSUALES", getEscenario());
+		EstadisticasMensuales estadisticasMensuales = (EstadisticasMensuales) Controladores
+				.get("vistas/EstadisticasMensuales.fxml", "ESTADISTICAS MENSUALES", getEscenario());
 		estadisticasMensuales.limpiar();
 		estadisticasMensuales.getEscenario().showAndWait();
 	}
@@ -263,8 +287,8 @@ public class ListarAlquileres extends Controlador {
 			controladorListar.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
 			controladorListar.getEscenario().showAndWait();
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError(ERROR, "Para abrir una nueva ventana cierre la anterior", getEscenario());
-		}	
+			Dialogos.mostrarDialogoError(ERROR, "La ventana ya está abierta.", getEscenario());
+		}
 	}
 
 	@FXML
@@ -275,9 +299,9 @@ public class ListarAlquileres extends Controlador {
 			listarVehiculos.actualizar(VistaGraficos.getInstancia().getControlador().getVehiculos());
 			listarVehiculos.getEscenario().showAndWait();
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError(ERROR, "Para abrir una nueva ventana cierre la anterior", getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, "La ventana ya está abierta.", getEscenario());
 		}
-		
+
 	}
 
 	@FXML
@@ -287,31 +311,19 @@ public class ListarAlquileres extends Controlador {
 
 	@FXML
 	void actualizar(List<Alquiler> alquileres) {
-		Comparator<Cliente> ordenadoCliente = Comparator.comparing(Cliente::getNombre)
-				.thenComparing(Cliente::getDni);
-		alquileres.sort(Comparator.comparing(Alquiler::getFechaAlquiler).thenComparing(Alquiler::getCliente,
-				ordenadoCliente));
+		Comparator<Cliente> ordenadoCliente = Comparator.comparing(Cliente::getNombre).thenComparing(Cliente::getDni);
+		alquileres.sort(
+				Comparator.comparing(Alquiler::getFechaAlquiler).thenComparing(Alquiler::getCliente, ordenadoCliente));
 		tvListarAlquiler.setItems(FXCollections.observableArrayList(alquileres));
 	}
 
 	@FXML
 	void deshabilitar() {
-		tfDni.setDisable(true);
-		tfMatricula.setDisable(true);
+		Controles.deshabilitarCamposTexto(tfDni, tfMatricula, tfCambiarNombre, tfCambiarDni, tfCambiarTelefono,
+				tfCambiarTipo, tfCambiarMarca, tfCambiarModelo);
+		Controles.deshabilitarCamposTexto(tfCambiarMatricula, tfCambiarCilindrada, tfCambiarPma, tfCambiarPlazas,
+				tfCambiarFecAlq, tfCambiarFecDev, tfPrecio);
 		dpFechaDevolucion.setDisable(true);
-		tfCambiarNombre.setDisable(true);
-		tfCambiarDni.setDisable(true);
-		tfCambiarTelefono.setDisable(true);
-		tfCambiarTipo.setDisable(true);
-		tfCambiarMarca.setDisable(true);
-		tfCambiarModelo.setDisable(true);
-		tfCambiarMatricula.setDisable(true);
-		tfCambiarCilindrada.setDisable(true);
-		tfCambiarPma.setDisable(true);
-		tfCambiarPlazas.setDisable(true);
-		tfCambiarFecAlq.setDisable(true);
-		tfCambiarFecDev.setDisable(true);
-		tfPrecio.setDisable(true);
 		cbDevolver.getSelectionModel().select("Elige una opcion:");
 	}
 
@@ -380,7 +392,7 @@ public class ListarAlquileres extends Controlador {
 				.buscar(Vehiculo.getVehiculoConMatricula(tfOpMat.getText()));
 		LocalDate fechaAlquiler = dpFechaAlquiler.getValue();
 		Alquiler alquiler = new Alquiler(cliente, vehiculo, fechaAlquiler);
-		return buscar ? VistaGraficos.getInstancia().getControlador().buscar(alquiler) : alquiler ;
+		return buscar ? VistaGraficos.getInstancia().getControlador().buscar(alquiler) : alquiler;
 
 	}
 
@@ -395,11 +407,11 @@ public class ListarAlquileres extends Controlador {
 		Controles.limpiarCamposTexto(tfOpDni, tfOpMat);
 		dpFechaAlquiler.setValue(null);
 	}
-	
+
 	@FXML
-	private String cambiarPrecio (Alquiler alquiler) {
+	private String cambiarPrecio(Alquiler alquiler) {
 		String cadena = "";
-		if (alquiler.getFechaDevolucion()!= null) {
+		if (alquiler.getFechaDevolucion() != null) {
 			cadena = String.format("%s", alquiler.getPrecio());
 		}
 		return cadena;

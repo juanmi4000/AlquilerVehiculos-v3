@@ -90,7 +90,8 @@ public class ListarClientes extends Controlador {
 
 	@FXML
 	void borrarCliente(ActionEvent event) {
-		if (Dialogos.mostrarDialogoConfirmacion(BORRAR_CLIENTE, "¿Estás seguro que desea eliminar el cliente?", getEscenario())) {
+		if (Dialogos.mostrarDialogoConfirmacion(BORRAR_CLIENTE, "¿Estás seguro que desea eliminar el cliente?",
+				getEscenario())) {
 			try {
 				Cliente cliente = getCliente();
 				VistaGraficos.getInstancia().getControlador().borrar(cliente);
@@ -158,7 +159,7 @@ public class ListarClientes extends Controlador {
 			listarAlquileres.actualizar(VistaGraficos.getInstancia().getControlador().getAlquileres());
 			listarAlquileres.getEscenario().showAndWait();
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError(ERROR, "Para abrir una nueva ventana cierre la anterior", getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, "La ventana ya está abierta.", getEscenario());
 		}
 	}
 
@@ -186,9 +187,9 @@ public class ListarClientes extends Controlador {
 			listarVehiculos.actualizar(VistaGraficos.getInstancia().getControlador().getVehiculos());
 			listarVehiculos.getEscenario().showAndWait();
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError(ERROR, "Para abrir una nueva ventana cierre la anterior", getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, "La ventana ya está abierta.", getEscenario());
 		}
-		
+
 	}
 
 	@FXML
@@ -200,12 +201,18 @@ public class ListarClientes extends Controlador {
 		try {
 			Cliente cliente = modificarCliente.getCliente();
 			if (cliente != null) {
-				if (Dialogos.mostrarDialogoConfirmacion(MODIFICAR_CLIENTE, "¿Está seguro que desea modificar el ciente?", getEscenario())) {
-							String nombre = modificarCliente.getTelefono();
-							String telefono = modificarCliente.getNombre();
-							VistaGraficos.getInstancia().getControlador().modificar(cliente, nombre, telefono);
-							Dialogos.mostrarDialogoAdvertencia(MODIFICAR_CLIENTE, "El cliente se ha modificado correctamente",
-									getEscenario());
+				if (Dialogos.mostrarDialogoConfirmacion(MODIFICAR_CLIENTE,
+						"¿Está seguro que desea modificar el ciente?", getEscenario())) {
+					String nombre = modificarCliente.getTelefono();
+					String telefono = modificarCliente.getNombre();
+					if (nombre.isBlank() && telefono.isBlank()) {
+						Dialogos.mostrarDialogoAdvertencia(MODIFICAR_CLIENTE,
+								"El nombre y el telefono no pueden estar vacios", getEscenario());
+					} else {
+						VistaGraficos.getInstancia().getControlador().modificar(cliente, nombre, telefono);
+						Dialogos.mostrarDialogoAdvertencia(MODIFICAR_CLIENTE,
+								"El cliente se ha modificado correctamente", getEscenario());
+					}
 				} else {
 					event.consume();
 				}
@@ -252,7 +259,8 @@ public class ListarClientes extends Controlador {
 
 	@FXML
 	void borrarClienteTabla(ActionEvent event) {
-		if (Dialogos.mostrarDialogoConfirmacion(BORRAR_CLIENTE, "¿Estás seguro que desea eliminar el cliente?", getEscenario())) {
+		if (Dialogos.mostrarDialogoConfirmacion(BORRAR_CLIENTE, "¿Estás seguro que desea eliminar el cliente?",
+				getEscenario())) {
 			Cliente cliente = tvListaClientes.getSelectionModel().getSelectedItem();
 			try {
 				VistaGraficos.getInstancia().getControlador().borrar(cliente);
@@ -278,7 +286,7 @@ public class ListarClientes extends Controlador {
 		clientes.sort(Comparator.comparing(Cliente::getNombre).thenComparing(Cliente::getDni));
 		tvListaClientes.setItems(FXCollections.observableArrayList(clientes));
 	}
-	
+
 	@FXML
 	void limpiar() {
 		Controles.limpiarCamposTexto(tfDni, tfListarAlquileresCliente);
@@ -294,7 +302,7 @@ public class ListarClientes extends Controlador {
 			tfListarAlquileresCliente.setText("");
 			btListar.setDisable(true);
 		}
-		
+
 	}
 
 	@FXML

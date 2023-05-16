@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores;
 
+import java.awt.Desktop;
+
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
@@ -13,7 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 
 public class VentanaPrincipal extends Controlador {
-	
+
 	private static final String ERROR = "ERROR";
 
 	@FXML
@@ -38,6 +40,19 @@ public class VentanaPrincipal extends Controlador {
 	}
 
 	@FXML
+	void gitHub(ActionEvent event) {
+		String link = "https://github.com/juanmi4000/AlquilerVehiculos-v3.git";
+		try {
+			Desktop deskpot = Desktop.getDesktop();
+			deskpot.browse(java.net.URI.create(link));
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError("Error al abrir la URL", "Ha ocurrido un error inesperado al abrir la página.",
+					getEscenario());
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
 	void listarClientes(ActionEvent event) {
 		ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
 				"Listar Clintes", getEscenario());
@@ -54,10 +69,16 @@ public class VentanaPrincipal extends Controlador {
 		try {
 			Cliente cliente = pedirDni.getCliente();
 			if (cliente != null) {
-				VistaGraficos.getInstancia().getControlador().borrar(cliente);
-				Dialogos.mostrarDialogoAdvertencia("BORRAR CLIENTE", "El cliente se ha borrado correctamente.",
-						getEscenario());
+				if (Dialogos.mostrarDialogoConfirmacion("BORRAR CLIENTE",
+						"¿Estás seguro que desea eliminar el cliente?", getEscenario())) {
+					VistaGraficos.getInstancia().getControlador().borrar(cliente);
+					Dialogos.mostrarDialogoAdvertencia("BORRAR CLIENTE", "El cliente se ha borrado correctamente.",
+							getEscenario());
+				} else {
+					event.consume();
+				}
 			}
+
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
@@ -81,20 +102,22 @@ public class VentanaPrincipal extends Controlador {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
 	}
-	
+
 	@FXML
-    void estadisticasAnuales(ActionEvent event) {
-		EstadisticasAnuales estadisticasAnuales = (EstadisticasAnuales) Controladores.get("vistas/EstadisticasAnuales.fxml", "ESTADISTICAS ANUALES", getEscenario());
+	void estadisticasAnuales(ActionEvent event) {
+		EstadisticasAnuales estadisticasAnuales = (EstadisticasAnuales) Controladores
+				.get("vistas/EstadisticasAnuales.fxml", "ESTADISTICAS ANUALES", getEscenario());
 		estadisticasAnuales.limpiar();
 		estadisticasAnuales.getEscenario().showAndWait();
-    }
+	}
 
-    @FXML
-    void estadisticasMensuales(ActionEvent event) {
-    	EstadisticasMensuales estadisticasMensuales = (EstadisticasMensuales) Controladores.get("vistas/EstadisticasMensuales.fxml", "ESTADISTICAS MENSUALES", getEscenario());
-    	estadisticasMensuales.limpiar();
+	@FXML
+	void estadisticasMensuales(ActionEvent event) {
+		EstadisticasMensuales estadisticasMensuales = (EstadisticasMensuales) Controladores
+				.get("vistas/EstadisticasMensuales.fxml", "ESTADISTICAS MENSUALES", getEscenario());
+		estadisticasMensuales.limpiar();
 		estadisticasMensuales.getEscenario().showAndWait();
-    }
+	}
 
 	@FXML
 	void listarAlquileres(ActionEvent event) {
@@ -113,10 +136,16 @@ public class VentanaPrincipal extends Controlador {
 		try {
 			Alquiler alquiler = VistaGraficos.getInstancia().getControlador().buscar(leerAlquiler.getAlquiler());
 			if (alquiler != null) {
-				VistaGraficos.getInstancia().getControlador().borrar(alquiler);
-				Dialogos.mostrarDialogoAdvertencia("BORRAR ALQUILER", "El alquiler ha sido borrado correctamente.",
-						getEscenario());
+				if (Dialogos.mostrarDialogoConfirmacion("BORRAR ALQUILER",
+						"¿Estás seguro que desea eliminar el cliente?", getEscenario())) {
+					VistaGraficos.getInstancia().getControlador().borrar(alquiler);
+					Dialogos.mostrarDialogoAdvertencia("BORRAR ALQUILER", "El alquiler ha sido borrado correctamente.",
+							getEscenario());
+				} else {
+					event.consume();
+				}
 			}
+
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
@@ -151,15 +180,23 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void borrarVehiculo(ActionEvent event) {
-		PedirMatricula pedirMatricula = (PedirMatricula) Controladores.get("vistas/PedirMatricula.fxml", "BORRAR VEHICULO", getEscenario());
+		PedirMatricula pedirMatricula = (PedirMatricula) Controladores.get("vistas/PedirMatricula.fxml",
+				"BORRAR VEHICULO", getEscenario());
 		pedirMatricula.limpiar();
 		pedirMatricula.getEscenario().showAndWait();
 		try {
 			Vehiculo vehiculo = pedirMatricula.getVehiculo();
 			if (vehiculo != null) {
-				VistaGraficos.getInstancia().getControlador().borrar(vehiculo);
-				Dialogos.mostrarDialogoAdvertencia("BORRAR VEHICULO", "El vehículo ha sido borrado correctamente.", getEscenario());
+				if (Dialogos.mostrarDialogoConfirmacion("BORRAR VEHÍCULO",
+						"¿Estás seguro que desea eliminar el vehículo?", getEscenario())) {
+					VistaGraficos.getInstancia().getControlador().borrar(vehiculo);
+					Dialogos.mostrarDialogoAdvertencia("BORRAR VEHÍCULO", "El vehículo ha sido borrado correctamente.",
+							getEscenario());
+				} else {
+					event.consume();
+				}
 			}
+
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}

@@ -59,9 +59,9 @@ public class BuscarAlquiler extends Controlador {
 
 	@FXML
 	private TextField tfPrecio;
-	
+
 	@FXML
-    private Button btDevolver;
+	private Button btDevolver;
 
 	@FXML
 	private void initialize() {
@@ -79,17 +79,19 @@ public class BuscarAlquiler extends Controlador {
 	@FXML
 	void devolver(ActionEvent event) {
 		try {
-			DevolverAlquiler devolverAlquiler = (DevolverAlquiler) Controladores.get("vistas/DevolverAlquiler.fxml", "DEVOLVER ALQUILER", getEscenario());
+			DevolverAlquiler devolverAlquiler = (DevolverAlquiler) Controladores.get("vistas/DevolverAlquiler.fxml",
+					"DEVOLVER ALQUILER", getEscenario());
 			devolverAlquiler.getEscenario().showAndWait();
 			LocalDate fechaDevolucion = devolverAlquiler.getFechaDevolucion();
 			if (fechaDevolucion != null) {
 				VistaGraficos.getInstancia().getControlador().devolver(getCliente(), fechaDevolucion);
-				Dialogos.mostrarDialogoAdvertencia("DEVOLVER ALQUILER", "El alquiler ha sido devuelto correctamente.", getEscenario());
+				Dialogos.mostrarDialogoAdvertencia("DEVOLVER ALQUILER", "El alquiler ha sido devuelto correctamente.",
+						getEscenario());
 			}
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError("ERROR", e.getMessage(), getEscenario());
 		}
-		
+
 	}
 
 	@FXML
@@ -137,13 +139,13 @@ public class BuscarAlquiler extends Controlador {
 
 		}
 	}
-	
+
 	@FXML
 	Cliente getCliente() {
-		String dni = tfCambiarDni.getText(); 
+		String dni = tfCambiarDni.getText();
 		return VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(dni));
 	}
-	
+
 	@FXML
 	void limpiar() {
 		Controles.limpiarCamposTexto(tfCambiarNombre, tfCambiarDni, tfCambiarTelefono);

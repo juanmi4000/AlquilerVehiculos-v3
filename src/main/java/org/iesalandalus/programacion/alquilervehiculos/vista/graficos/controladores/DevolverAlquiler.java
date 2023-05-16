@@ -12,45 +12,45 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-public class DevolverAlquiler extends Controlador{
-	
+public class DevolverAlquiler extends Controlador {
+
 	private static final ObservableList<String> DEVOLVER = FXCollections.observableArrayList("Devolver por cliente",
 			"Devolver por vehiculo");
 	private boolean cancelado;
 
-    @FXML
-    private ChoiceBox<String> cbDevolver;
+	@FXML
+	private ChoiceBox<String> cbDevolver;
 
-    @FXML
-    private DatePicker dpFechaDevolucion;
+	@FXML
+	private DatePicker dpFechaDevolucion;
 
-    @FXML
-    private TextField tfDni;
+	@FXML
+	private TextField tfDni;
 
-    @FXML
-    private TextField tfMatricula;
-    
-    @FXML 
-    void initialize() {
-    	cbDevolver.getSelectionModel().select("Elige una opcion:");
-    	cbDevolver.setItems(DEVOLVER);
-    }
-    
-    @FXML
-    void cancelar(ActionEvent event) {
-    	cancelado = true;
-    	getEscenario().close();
-    }
+	@FXML
+	private TextField tfMatricula;
 
-    @FXML
-    void devolverAlquiler(ActionEvent event) {
-    	cancelado = false;
-    	getEscenario().close();
-    }
-    
-    @FXML
-    LocalDate getFechaDevolucion () {
-    	return cancelado ? null : dpFechaDevolucion.getValue();
-    }
+	@FXML
+	void initialize() {
+		cbDevolver.getSelectionModel().select("Elige una opcion:");
+		cbDevolver.setItems(DEVOLVER);
+	}
+
+	@FXML
+	void cancelar(ActionEvent event) {
+		cancelado = true;
+		getEscenario().close();
+	}
+
+	@FXML
+	void devolverAlquiler(ActionEvent event) {
+		cancelado = false;
+		getEscenario().close();
+	}
+
+	@FXML
+	LocalDate getFechaDevolucion() {
+		return cancelado ? null : dpFechaDevolucion.getValue();
+	}
 
 }

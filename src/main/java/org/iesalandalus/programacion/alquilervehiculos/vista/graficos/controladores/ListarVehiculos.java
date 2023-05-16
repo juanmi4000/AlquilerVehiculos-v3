@@ -23,8 +23,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class ListarVehiculos extends Controlador{
-	
+public class ListarVehiculos extends Controlador {
+
+	private static final String BORRAR_VEHICULO = "BORRAR VEHíCULO";
+
 	private static final String AUTOBUS = "Autobus";
 
 	private static final String FURGONETA = "Furgoneta";
@@ -35,17 +37,17 @@ public class ListarVehiculos extends Controlador{
 
 	private static final String ERROR = "ERROR";
 
-    @FXML
-    private Button btBorrar;
-
-    @FXML
-    private Button btBuscar;
-    
-    @FXML
-    private Button btListVehi;
+	@FXML
+	private Button btBorrar;
 
 	@FXML
-	private TableColumn<Vehiculo, String> tcCilindrada; // esto es de tipo primitivo o de objeto?
+	private Button btBuscar;
+
+	@FXML
+	private Button btListVehi;
+
+	@FXML
+	private TableColumn<Vehiculo, String> tcCilindrada;
 
 	@FXML
 	private TableColumn<Vehiculo, String> tcMarca;
@@ -65,58 +67,58 @@ public class ListarVehiculos extends Controlador{
 	@FXML
 	private TableColumn<Vehiculo, String> tcTipo;
 
-    @FXML
-    private TextField tfCambiarCilindrada;
+	@FXML
+	private TextField tfCambiarCilindrada;
 
-    @FXML
-    private TextField tfCambiarMarca;
+	@FXML
+	private TextField tfCambiarMarca;
 
-    @FXML
-    private TextField tfCambiarMatricula;
+	@FXML
+	private TextField tfCambiarMatricula;
 
-    @FXML
-    private TextField tfCambiarModelo;
+	@FXML
+	private TextField tfCambiarModelo;
 
-    @FXML
-    private TextField tfCambiarPlazas;
+	@FXML
+	private TextField tfCambiarPlazas;
 
-    @FXML
-    private TextField tfCambiarPma;
+	@FXML
+	private TextField tfCambiarPma;
 
-    @FXML
-    private TextField tfCambiarTipo;
+	@FXML
+	private TextField tfCambiarTipo;
 
-    @FXML
-    private TextField tfCilindradaEncontrada;
+	@FXML
+	private TextField tfCilindradaEncontrada;
 
-    @FXML
-    private TextField tfListarAlquileresV;
+	@FXML
+	private TextField tfListarAlquileresV;
 
-    @FXML
-    private TextField tfMarcaEncontrada;
+	@FXML
+	private TextField tfMarcaEncontrada;
 
-    @FXML
-    private TextField tfMatricula;
+	@FXML
+	private TextField tfMatricula;
 
-    @FXML
-    private TextField tfMatriculaEncontrada;
+	@FXML
+	private TextField tfMatriculaEncontrada;
 
-    @FXML
-    private TextField tfModeloEncontrado;
+	@FXML
+	private TextField tfModeloEncontrado;
 
-    @FXML
-    private TextField tfPlazasEncontradas;
+	@FXML
+	private TextField tfPlazasEncontradas;
 
-    @FXML
-    private TextField tfPmaEncontrada;
+	@FXML
+	private TextField tfPmaEncontrada;
 
-    @FXML
-    private TextField tfTipoEncontrado;
+	@FXML
+	private TextField tfTipoEncontrado;
 
-    @FXML
-    private TableView<Vehiculo> tvListaVehiculos;
-    
-    @FXML
+	@FXML
+	private TableView<Vehiculo> tvListaVehiculos;
+
+	@FXML
 	private void initialize() {
 		deshabilitar();
 		tcTipo.setCellValueFactory(fila -> new SimpleStringProperty(cambiarTipo(fila.getValue())));
@@ -129,76 +131,93 @@ public class ListarVehiculos extends Controlador{
 		tvListaVehiculos.getSelectionModel().selectedItemProperty().addListener((ob, ol, ne) -> filaSeleccionada(ne));
 	}
 
-    @FXML
-    void acercaDe(ActionEvent event) {
-    	AcercaDe acercaDe = (AcercaDe) Controladores.get("vistas/AcercaDe.fxml", "Acerca de", getEscenario());
+	@FXML
+	void acercaDe(ActionEvent event) {
+		AcercaDe acercaDe = (AcercaDe) Controladores.get("vistas/AcercaDe.fxml", "Acerca de", getEscenario());
 		acercaDe.getEscenario().showAndWait();
-    }
+	}
 
-    @FXML
-    void borrarVehiculo(ActionEvent event) {
-    	try {
-			Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
-					.buscar(Vehiculo.getVehiculoConMatricula(tfMatricula.getText()));
-			VistaGraficos.getInstancia().getControlador().borrar(vehiculo);
-			tvListaVehiculos.getItems().remove(vehiculo);
-			Dialogos.mostrarDialogoAdvertencia("BORRAR VEHICULO", "El vehículo ha sido borrado correctamente.",
-					getEscenario());
-		} catch (Exception e) {
-			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
-		}
-    }
-
-    @FXML
-    void borrarVehiculoTabla(ActionEvent event) {
-    	Vehiculo vehiculo = tvListaVehiculos.getSelectionModel().getSelectedItem();
+	@FXML
+	void borrarVehiculo(ActionEvent event) {
 		try {
-			VistaGraficos.getInstancia().getControlador().borrar(vehiculo);
-			tvListaVehiculos.getItems().remove(vehiculo);
-			Dialogos.mostrarDialogoAdvertencia("BORRAR VEHICULO", "El vehículo ha sido borrado correctamente.",
-					getEscenario());
+			String matricula = tfMatricula.getText();
+			if (!matricula.isBlank()) {
+				if (Dialogos.mostrarDialogoConfirmacion(BORRAR_VEHICULO, "¿Estás seguro que desea eliminar el cliente?",
+						getEscenario())) {
+					Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
+							.buscar(Vehiculo.getVehiculoConMatricula(matricula));
+					VistaGraficos.getInstancia().getControlador().borrar(vehiculo);
+					tvListaVehiculos.getItems().remove(vehiculo);
+					Dialogos.mostrarDialogoAdvertencia(BORRAR_VEHICULO, "El vehículo ha sido borrado correctamente.",
+							getEscenario());
+				} else {
+					event.consume();
+				}
+			}
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
-    }
+	}
 
-    @FXML
-    void buscarVehiculo(ActionEvent event) {
-    	try {
+	@FXML
+	void borrarVehiculoTabla(ActionEvent event) {
+		Vehiculo vehiculo = tvListaVehiculos.getSelectionModel().getSelectedItem();
+		try {
+			if (Dialogos.mostrarDialogoConfirmacion(BORRAR_VEHICULO, "¿Estás seguro que desea eliminar el cliente?",
+					getEscenario())) {
+				VistaGraficos.getInstancia().getControlador().borrar(vehiculo);
+				tvListaVehiculos.getItems().remove(vehiculo);
+				Dialogos.mostrarDialogoAdvertencia(BORRAR_VEHICULO, "El vehículo ha sido borrado correctamente.",
+						getEscenario());
+			} else {
+				event.consume();
+			}
+		} catch (Exception e) {
+			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
+		}
+	}
+
+	@FXML
+	void buscarVehiculo(ActionEvent event) {
+		try {
 			Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
 					.buscar(Vehiculo.getVehiculoConMatricula(tfMatricula.getText()));
 			vehiculoEncontrado(vehiculo);
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
-    }
-    
-    @FXML
-    void comprobarAlquileresVehiculoCo(ActionEvent event) {
-    	if (tfListarAlquileresV.getText().equals("")) {
+	}
+
+	@FXML
+	void comprobarAlquileresVehiculoCo(ActionEvent event) {
+		if (tfListarAlquileresV.getText().equals("")) {
+			Dialogos.mostrarDialogoError(ERROR,
+					"Para listar los alquileres, el campo de la matricula no puede estar vacia.", getEscenario());
 			btListVehi.setDisable(true);
 		} else {
 			btListVehi.setDisable(false);
 		}
-    }
+	}
 
-    @FXML
-    void estadisticasAnuales(ActionEvent event) {
-    	EstadisticasAnuales estadisticasAnuales = (EstadisticasAnuales) Controladores.get("vistas/EstadisticasAnuales.fxml", "ESTADISTICAS ANUALES", getEscenario());
+	@FXML
+	void estadisticasAnuales(ActionEvent event) {
+		EstadisticasAnuales estadisticasAnuales = (EstadisticasAnuales) Controladores
+				.get("vistas/EstadisticasAnuales.fxml", "ESTADISTICAS ANUALES", getEscenario());
 		estadisticasAnuales.limpiar();
 		estadisticasAnuales.getEscenario().showAndWait();
-    }
+	}
 
-    @FXML
-    void estadisticasMensuales(ActionEvent event) {
-    	EstadisticasMensuales estadisticasMensuales = (EstadisticasMensuales) Controladores.get("vistas/EstadisticasMensuales.fxml", "ESTADISTICAS MENSUALES", getEscenario());
+	@FXML
+	void estadisticasMensuales(ActionEvent event) {
+		EstadisticasMensuales estadisticasMensuales = (EstadisticasMensuales) Controladores
+				.get("vistas/EstadisticasMensuales.fxml", "ESTADISTICAS MENSUALES", getEscenario());
 		estadisticasMensuales.limpiar();
-    	estadisticasMensuales.getEscenario().showAndWait();
-    }
+		estadisticasMensuales.getEscenario().showAndWait();
+	}
 
-    @FXML
-    void gitHub(ActionEvent event) {
-    	String link = "https://github.com/juanmi4000/AlquilerVehiculos-v3.git";
+	@FXML
+	void gitHub(ActionEvent event) {
+		String link = "https://github.com/juanmi4000/AlquilerVehiculos-v3.git";
 		try {
 			Desktop deskpot = Desktop.getDesktop();
 			deskpot.browse(java.net.URI.create(link));
@@ -207,11 +226,11 @@ public class ListarVehiculos extends Controlador{
 					getEscenario());
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void insertarVehiculo(ActionEvent event) {
-    	LeerVehiculo controladorLeerVehiculo = (LeerVehiculo) Controladores.get("vistas/LeerVehiculo.fxml",
+	@FXML
+	void insertarVehiculo(ActionEvent event) {
+		LeerVehiculo controladorLeerVehiculo = (LeerVehiculo) Controladores.get("vistas/LeerVehiculo.fxml",
 				"Leer Vehiculo", getEscenario());
 		controladorLeerVehiculo.limpiar();
 		controladorLeerVehiculo.getEscenario().showAndWait();
@@ -225,71 +244,72 @@ public class ListarVehiculos extends Controlador{
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
-    }
+	}
 
-    @FXML
-    void listarAlquileres(ActionEvent event) {
-    	try {
-    		ListarAlquileres listarAlquileres = (ListarAlquileres) Controladores.get("vistas/ListarAlquileres.fxml",
-    				"LISTAR ALQUILERES", getEscenario());
-    		listarAlquileres.actualizar(VistaGraficos.getInstancia().getControlador().getAlquileres());
-    		listarAlquileres.getEscenario().showAndWait();
+	@FXML
+	void listarAlquileres(ActionEvent event) {
+		try {
+			ListarAlquileres listarAlquileres = (ListarAlquileres) Controladores.get("vistas/ListarAlquileres.fxml",
+					"LISTAR ALQUILERES", getEscenario());
+			listarAlquileres.actualizar(VistaGraficos.getInstancia().getControlador().getAlquileres());
+			listarAlquileres.getEscenario().showAndWait();
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError(ERROR, "Para abrir una nueva ventana cierre la anterior", getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, "La ventana ya está abierta.", getEscenario());
 		}
-    	
-    }
 
-    @FXML
-    void listarAlquileresVehiculo(ActionEvent event) {
-    	ListarAlquileresClienVehi listarAlquileresVehiculo = (ListarAlquileresClienVehi) Controladores
+	}
+
+	@FXML
+	void listarAlquileresVehiculo(ActionEvent event) {
+		ListarAlquileresClienVehi listarAlquileresVehiculo = (ListarAlquileresClienVehi) Controladores
 				.get("vistas/ListarAlquileresClienVehi.fxml", "ALQUILERES VEHICULO", getEscenario());
 		try {
-			Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador().buscar(Vehiculo.getVehiculoConMatricula(tfListarAlquileresV.getText()));
+			Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
+					.buscar(Vehiculo.getVehiculoConMatricula(tfListarAlquileresV.getText()));
 			listarAlquileresVehiculo.actualizar(VistaGraficos.getInstancia().getControlador().getAlquileres(vehiculo));
 			listarAlquileresVehiculo.getEscenario().showAndWait();
 		} catch (Exception e) {
 			Dialogos.mostrarDialogoError(ERROR, e.getMessage(), getEscenario());
 		}
-    }
+	}
 
-    @FXML
-    void listarClientes(ActionEvent event) {
-    	try {
-    		ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
-    				"Listar Clintes", getEscenario());
-    		controladorListar.limpiar();
-    		controladorListar.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
-    		controladorListar.getEscenario().showAndWait();
+	@FXML
+	void listarClientes(ActionEvent event) {
+		try {
+			ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
+					"Listar Clintes", getEscenario());
+			controladorListar.limpiar();
+			controladorListar.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
+			controladorListar.getEscenario().showAndWait();
 		} catch (Exception e) {
-			Dialogos.mostrarDialogoError(ERROR, "Para abrir una nueva ventana cierre la anterior", getEscenario());
+			Dialogos.mostrarDialogoError(ERROR, "La ventana ya está abierta.", getEscenario());
 		}
-    }
+	}
 
-    @FXML
-    void matriculaBusBor(ActionEvent event) {
-    	if (tfMatricula.getText().equals("")) {
+	@FXML
+	void matriculaBusBor(ActionEvent event) {
+		if (tfMatricula.getText().equals("")) {
 			btBuscar.setDisable(true);
 			btBorrar.setDisable(true);
 		} else {
 			btBuscar.setDisable(false);
 			btBorrar.setDisable(false);
 		}
-    }
+	}
 
-    @FXML
-    void salir(ActionEvent event) {
-    	getEscenario().close();
-    }
-    
-    @FXML
+	@FXML
+	void salir(ActionEvent event) {
+		getEscenario().close();
+	}
+
+	@FXML
 	void actualizar(List<Vehiculo> vehiculos) {
-    	vehiculos.sort(Comparator.comparing(Vehiculo::getMarca).thenComparing(Vehiculo::getModelo)
-					.thenComparing(Vehiculo::getMatricula));
+		vehiculos.sort(Comparator.comparing(Vehiculo::getMarca).thenComparing(Vehiculo::getModelo)
+				.thenComparing(Vehiculo::getMatricula));
 		tvListaVehiculos.setItems(FXCollections.observableArrayList(vehiculos));
 	}
-    
-    @FXML
+
+	@FXML
 	void deshabilitar() {
 		Controles.deshabilitarCamposTexto(tfCambiarTipo, tfCambiarMarca, tfCambiarModelo, tfCambiarMatricula,
 				tfCambiarCilindrada, tfCambiarPlazas, tfCambiarPma);
@@ -345,45 +365,45 @@ public class ListarVehiculos extends Controlador{
 			tfPlazasEncontradas.setText(String.format("%s", autobus.getPlazas()));
 		}
 	}
-	
-	@FXML 
+
+	@FXML
 	private String cambiarTipo(Vehiculo vehiculo) {
 		String cadena = "";
 		if (vehiculo instanceof Turismo) {
-			cadena = TURISMO;	
-		}else if (vehiculo instanceof Furgoneta) {
+			cadena = TURISMO;
+		} else if (vehiculo instanceof Furgoneta) {
 			cadena = FURGONETA;
 		} else {
 			cadena = AUTOBUS;
 		}
 		return cadena;
 	}
-	
-	@FXML 
+
+	@FXML
 	private String cambiarCilindrada(Vehiculo vehiculo) {
 		String cadena = "";
 		if (vehiculo instanceof Turismo turismo) {
-			cadena = String.format("%s", turismo.getCilindrada());	
+			cadena = String.format("%s", turismo.getCilindrada());
 		}
 		return cadena;
 	}
-	
+
 	@FXML
 	private String cambiarPlazas(Vehiculo vehiculo) {
 		String cadena = "";
 		if (vehiculo instanceof Furgoneta furgoneta) {
 			cadena = String.format("%s", furgoneta.getPlazas());
-		}else if (vehiculo instanceof Autobus autobus) {
+		} else if (vehiculo instanceof Autobus autobus) {
 			cadena = String.format("%s", autobus.getPlazas());
 		}
 		return cadena;
 	}
-	
-	@FXML 
+
+	@FXML
 	private String cambiarCPma(Vehiculo vehiculo) {
 		String cadena = "";
 		if (vehiculo instanceof Furgoneta furgoneta) {
-			cadena = String.format("%s", furgoneta.getPma());	
+			cadena = String.format("%s", furgoneta.getPma());
 		}
 		return cadena;
 	}

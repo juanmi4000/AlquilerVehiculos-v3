@@ -18,14 +18,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 
 public class EstadisticasMensuales extends Controlador {
-	
+
 	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	@FXML
 	ObservableList<PieChart.Data> estadistica = FXCollections.observableArrayList();
 
 	@FXML
-    private TextField tfFecha;
+	private TextField tfFecha;
 
 	@FXML
 	private PieChart pcEstadisticasMensuales;
@@ -51,19 +51,18 @@ public class EstadisticasMensuales extends Controlador {
 		PieChart.Data slTurismo = new PieChart.Data("Turismo", contadorTurismo);
 		PieChart.Data slFurgoneta = new PieChart.Data("Furgoneta", contadorFurgoneta);
 		PieChart.Data slAutobus = new PieChart.Data("Autobus", contadorAutobus);
-		
+
 		pcEstadisticasMensuales.getData().addAll(slTurismo, slFurgoneta, slAutobus);
-		
+
 		Tooltip tpTurismo = new Tooltip(String.format("Turismo: %s", contadorTurismo));
 		Tooltip tpFurgoneta = new Tooltip(String.format("Furgoneta: %s", contadorFurgoneta));
 		Tooltip tpAutobus = new Tooltip(String.format("Autobus: %s", contadorAutobus));
-		
+
 		Tooltip.install(slTurismo.getNode(), tpTurismo);
 		Tooltip.install(slFurgoneta.getNode(), tpFurgoneta);
 		Tooltip.install(slAutobus.getNode(), tpAutobus);
 	}
 
-	
 	@FXML
 	void limpiar() {
 		tfFecha.setText("");
