@@ -11,8 +11,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.LeerAlquiler">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="549.0" styleClass="fondo" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.LeerAlquiler">
    <children>
+      <Label styleClass="etiquetaVentana" text="INSERTAR ALQUILER" />
       <GridPane alignment="CENTER_RIGHT" hgap="10.0" maxWidth="519.0" prefHeight="174.0" prefWidth="300.0" vgap="10.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="294.4000244140625" minWidth="10.0" prefWidth="127.8000244140625" />
@@ -24,12 +25,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Cliente:" GridPane.valignment="CENTER" />
-            <Label text="Vehículo:" GridPane.rowIndex="1" />
-            <Label text="Fecha alquiler:" GridPane.rowIndex="2" />
-            <TextField fx:id="tfCliente" maxWidth="300.0" prefHeight="26.0" prefWidth="109.0" GridPane.columnIndex="1" />
-            <TextField fx:id="tfVehiculo" maxWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <DatePicker fx:id="dpFechaAlquiler" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label styleClass="etiqueta" text="Cliente:" GridPane.valignment="CENTER" />
+            <Label styleClass="etiqueta" text="Vehículo:" GridPane.rowIndex="1" />
+            <Label styleClass="etiqueta" text="Fecha alquiler:" GridPane.rowIndex="2" />
+            <TextField fx:id="tfCliente" maxWidth="300.0" prefHeight="26.0" prefWidth="109.0" promptText="DNI" styleClass="cajaTexto" GridPane.columnIndex="1" />
+            <TextField fx:id="tfVehiculo" maxWidth="200.0" promptText="matrícula" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dpFechaAlquiler" promptText="dd/MM/yyyy" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -37,8 +38,8 @@
       </GridPane>
       <HBox alignment="CENTER" maxWidth="521.0" prefHeight="27.0" prefWidth="521.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#aceptar" text="Aceptar" />
-            <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Button id="btAceptar" mnemonicParsing="false" onAction="#aceptar" text="Insertar alquiler" />
+            <Button id="btCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
          </children>
       </HBox>
    </children>

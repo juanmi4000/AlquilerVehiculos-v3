@@ -306,7 +306,11 @@ public class ListarAlquileres extends Controlador {
 
 	@FXML
 	void salir(ActionEvent event) {
-		getEscenario().close();
+		if (Dialogos.mostrarDialogoConfirmacion("SALIR", "¿Está seguro que desea salir?", getEscenario())) {
+			getEscenario().close();
+		} else {
+			event.consume();
+		}
 	}
 
 	@FXML

@@ -37,7 +37,8 @@ public class Controladores {
 			escenario.initModality(Modality.APPLICATION_MODAL);
 			escenario.setTitle(titulo);
 			escenario.setScene(new Scene(raiz));
-			escenario.getIcons().add(new Image(LocalizadorRecursos.class.getResourceAsStream("imagenes/Coche.jpg")));
+			escenario.getIcons().add(new Image(LocalizadorRecursos.class.getResourceAsStream("imagenes/Coche.png")));
+			escenario.getScene().getStylesheets().add(LocalizadorRecursos.class.getResource("estilos/escenarioPrincipal.css").toExternalForm());
 			controladoresCreados.put(vistaFxml, controlador);
 		} catch (IOException e) {
 			System.out.println("Error al cargar: " + vistaFxml);

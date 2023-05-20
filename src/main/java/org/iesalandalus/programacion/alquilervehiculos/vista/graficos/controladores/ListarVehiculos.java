@@ -299,7 +299,11 @@ public class ListarVehiculos extends Controlador {
 
 	@FXML
 	void salir(ActionEvent event) {
-		getEscenario().close();
+		if (Dialogos.mostrarDialogoConfirmacion("SALIR", "¿Está seguro que desea salir?", getEscenario())) {
+			getEscenario().close();
+		} else {
+			event.consume();
+		}
 	}
 
 	@FXML
@@ -381,11 +385,7 @@ public class ListarVehiculos extends Controlador {
 
 	@FXML
 	private String cambiarCilindrada(Vehiculo vehiculo) {
-		String cadena = "";
-		if (vehiculo instanceof Turismo turismo) {
-			cadena = String.format("%s", turismo.getCilindrada());
-		}
-		return cadena;
+		return vehiculo instanceof Turismo turismo ? String.format("%s", turismo.getCilindrada()) : "";
 	}
 
 	@FXML
@@ -401,10 +401,6 @@ public class ListarVehiculos extends Controlador {
 
 	@FXML
 	private String cambiarCPma(Vehiculo vehiculo) {
-		String cadena = "";
-		if (vehiculo instanceof Furgoneta furgoneta) {
-			cadena = String.format("%s", furgoneta.getPma());
-		}
-		return cadena;
+		return vehiculo instanceof Furgoneta furgoneta ? String.format("%s", furgoneta.getPma()) : "";
 	}
 }

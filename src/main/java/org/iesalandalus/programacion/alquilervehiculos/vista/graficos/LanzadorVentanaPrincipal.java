@@ -18,11 +18,8 @@ public class LanzadorVentanaPrincipal extends Application {
 			
 			Controlador ventanaPrincipal = Controladores.get("vistas/VentanaPrincipal.fxml", TITULO, null);
 			ventanaPrincipal.getEscenario().setOnCloseRequest(e -> confirmarSalida(ventanaPrincipal.getEscenario(), e));
+			//Dialogos.setHojaEstilos(ventanaPrincipal).getEscenario().getScene().getRoot().getStylesheets().get(0);
 			ventanaPrincipal.getEscenario().show();
-			// Dialogos.setHojasEstilos(ventanaPrincipal).getEscenario().getScene().getRoot().getStylesheets().get(0));
-			// Image icono = new Image
-			// (LocalizadorRecursos.class.getResourceAsStream("imagenes/iconoVehiculos.png"));
-			// ventanaPrincipal.getEscenario().getIcons().add(icono);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,7 +37,6 @@ public class LanzadorVentanaPrincipal extends Application {
 		} else {
 			e.consume();
 		}
-
 	}
 
 }

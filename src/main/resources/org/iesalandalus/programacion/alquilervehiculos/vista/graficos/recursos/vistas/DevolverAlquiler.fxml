@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxWidth="278.0" prefHeight="247.0" prefWidth="278.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.DevolverAlquiler">
+<VBox alignment="CENTER" maxWidth="293.0" prefHeight="247.0" prefWidth="293.0" spacing="20.0" styleClass="fondo" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.DevolverAlquiler">
    <children>
-      <Label text="DEVOLVER ALQUILER" />
+      <Label styleClass="etiquetaVentana" text="DEVOLVER ALQUILER" />
       <ChoiceBox fx:id="cbDevolver" prefWidth="150.0" />
-      <Separator prefWidth="200.0" />
+      <Separator prefWidth="200.0" styleClass="separador" />
       <GridPane hgap="5.0" prefHeight="45.0" prefWidth="258.0" vgap="15.0">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="72.0" />
@@ -26,14 +26,14 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <DatePicker fx:id="dpFechaDevolucion" maxWidth="136.0" prefHeight="25.0" prefWidth="101.0" GridPane.columnIndex="1" />
-            <Label text="Fecha devolución:" />
+            <DatePicker fx:id="dpFechaDevolucion" maxWidth="136.0" prefHeight="25.0" prefWidth="101.0" styleClass="cajaTexto" GridPane.columnIndex="1" />
+            <Label styleClass="etiqueta" text="Fecha devolución:" />
          </children>
       </GridPane>
       <HBox alignment="CENTER" spacing="15.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#devolverAlquiler" text="Devolver" />
-            <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Button id="btAceptar" mnemonicParsing="false" onAction="#devolverAlquiler" text="Devolver" />
+            <Button id="btCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
          </children>
       </HBox>
       <HBox alignment="CENTER" spacing="10.0" />

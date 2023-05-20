@@ -53,9 +53,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.ListarAlquileres">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.ListarAlquileres">
    <children>
-      <MenuBar>
+      <MenuBar styleClass="menuPrincipal">
          <menus>
             <Menu mnemonicParsing="false" text="Fichero">
                <items>
@@ -81,13 +81,13 @@
             </Menu>
          </menus>
       </MenuBar>
-      <HBox alignment="CENTER" prefHeight="578.0" prefWidth="806.0">
+      <HBox alignment="CENTER" prefHeight="623.0" prefWidth="1014.0">
          <children>
-            <VBox alignment="CENTER" maxWidth="241.0" prefHeight="578.0" prefWidth="241.0" spacing="20.0">
+            <VBox alignment="CENTER" maxWidth="241.0" prefHeight="578.0" prefWidth="241.0" spacing="20.0" styleClass="fondo">
                <children>
-                  <Label text="DEVOLVER ALQUILER" />
+                  <Label styleClass="etiquetaVentana" text="DEVOLVER ALQUILER" />
                   <ChoiceBox fx:id="cbDevolver" prefWidth="150.0" />
-                  <Separator prefWidth="200.0" />
+                  <Separator prefWidth="200.0" styleClass="separador" />
                   <GridPane hgap="5.0" prefHeight="84.0" prefWidth="219.0" vgap="15.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="72.0" />
@@ -101,15 +101,15 @@
                      <children>
                         <Label text="DNI:" />
                         <Label text="Matricula:" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfDni" prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="1" />
-                        <TextField fx:id="tfMatricula" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <DatePicker fx:id="dpFechaDevolucion" maxWidth="136.0" prefHeight="25.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfDni" prefHeight="25.0" prefWidth="98.0" styleClass="cajaTexto" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfMatricula" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="dpFechaDevolucion" maxWidth="136.0" prefHeight="25.0" prefWidth="101.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Fecha Devo:" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <Button mnemonicParsing="false" onAction="#devolverAlquiler" text="Devolver" />
-                  <Separator prefWidth="200.0" />
-                  <Label text="OPERACIONES" />
+                  <Button mnemonicParsing="false" onAction="#devolverAlquiler" styleClass="botones" text="Devolver" />
+                  <Separator prefWidth="200.0" styleClass="separador" />
+                  <Label styleClass="etiquetaVentana" text="OPERACIONES" />
                   <GridPane hgap="5.0" prefHeight="84.0" prefWidth="219.0" vgap="15.0">
                      <columnConstraints>
                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="72.0" />
@@ -123,17 +123,17 @@
                      <children>
                         <Label text="DNI:" />
                         <Label text="Matricula:" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfOpDni" prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="1" />
-                        <TextField fx:id="tfOpMat" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <DatePicker fx:id="dpFechaAlquiler" maxWidth="136.0" prefHeight="25.0" prefWidth="101.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfOpDni" prefHeight="25.0" prefWidth="98.0" styleClass="cajaTexto" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfOpMat" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="dpFechaAlquiler" maxWidth="136.0" prefHeight="25.0" prefWidth="101.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Fecha Alqui:" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <HBox alignment="CENTER" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Insertar" />
-                        <Button mnemonicParsing="false" onAction="#buscarAlquiler" text="Buscar" />
-                        <Button mnemonicParsing="false" onAction="#borrarAlquiler" text="Borrar" />
+                        <Button mnemonicParsing="false" styleClass="botones" text="Insertar" />
+                        <Button mnemonicParsing="false" onAction="#buscarAlquiler" styleClass="botones" text="Buscar" />
+                        <Button mnemonicParsing="false" onAction="#borrarAlquiler" styleClass="botones" text="Borrar" />
                      </children>
                   </HBox>
                </children>
@@ -143,10 +143,10 @@
             </VBox>
             <VBox prefHeight="578.0" prefWidth="518.0">
                <children>
-                  <TableView fx:id="tvListarAlquiler" prefHeight="578.0" prefWidth="490.0">
+                  <TableView fx:id="tvListarAlquiler" prefHeight="590.0" prefWidth="518.0" styleClass="tabla">
                     <columns>
                       <TableColumn fx:id="tcCliente" prefWidth="103.0" text="Cliente" />
-                      <TableColumn fx:id="tcVehiculo" prefWidth="101.0" text="Vehiculo" />
+                      <TableColumn fx:id="tcVehiculo" prefWidth="101.0" text="Vehículo" />
                         <TableColumn fx:id="tcFechaAlquiler" prefWidth="108.3333740234375" text="Fecha alquiler" />
                         <TableColumn fx:id="tcFechaDevolucion" minWidth="8.800048828125" prefWidth="115.0" text="Fecha devolución" />
                         <TableColumn fx:id="tcPrecio" prefWidth="87.0" text="Precio" />
@@ -161,9 +161,9 @@
                   </TableView>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="578.0" prefWidth="255.0" spacing="7.0">
+            <VBox alignment="TOP_CENTER" prefHeight="578.0" prefWidth="255.0" spacing="7.0" styleClass="fondo">
                <children>
-                  <Label text="CLIENTE SELECCIONADO" />
+                  <Label styleClass="etiquetaVentana" text="CLIENTE SELECCIONADO" />
                   <GridPane hgap="5.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="120.33331298828125" minWidth="10.0" prefWidth="61.5999755859375" />
@@ -175,20 +175,20 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="18.0" prefWidth="54.0" text="Nombre:" />
-                        <TextField fx:id="tfCambiarNombre" prefHeight="25.0" prefWidth="184.0" GridPane.columnIndex="1" />
-                        <Label prefHeight="18.0" prefWidth="30.0" text="Dni:" GridPane.rowIndex="1" />
-                        <Label text="Teléfono:" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfCambiarTelefono" maxWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfCambiarDni" maxWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label prefHeight="18.0" prefWidth="54.0" styleClass="etiqueta" text="Nombre:" />
+                        <TextField fx:id="tfCambiarNombre" prefHeight="25.0" prefWidth="184.0" styleClass="cajaTexto" GridPane.columnIndex="1" />
+                        <Label prefHeight="18.0" prefWidth="30.0" styleClass="etiqueta" text="Dni:" GridPane.rowIndex="1" />
+                        <Label styleClass="etiqueta" text="Teléfono:" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfCambiarTelefono" maxWidth="100.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfCambiarDni" maxWidth="100.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <Separator prefWidth="200.0" />
-                  <Label text="VEHICULO SELECCIONADO" />
+                  <Separator prefWidth="200.0" styleClass="separador" />
+                  <Label styleClass="etiquetaVentana" text="VEHICULO SELECCIONADO" />
                   <GridPane hgap="5.0" vgap="5.0">
                     <columnConstraints>
-                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="84.33333587646484" minWidth="10.0" prefWidth="61.6666259765625" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.66668701171875" minWidth="10.0" prefWidth="163.3333740234375" />
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="84.33333587646484" minWidth="10.0" prefWidth="76.1332763671875" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.66668701171875" minWidth="10.0" prefWidth="154.2667236328125" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -201,28 +201,28 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Tipo:" />
-                        <Label text="Marca:" GridPane.rowIndex="1" />
-                        <Label text="Modelo:" GridPane.rowIndex="2" />
-                        <Label text="Matricula:" GridPane.rowIndex="3" />
-                        <Label text="Cilindrada:" GridPane.rowIndex="5" />
-                        <Label text="P.M.A:" GridPane.rowIndex="6" />
-                        <Label text="Plazas:" GridPane.rowIndex="7" />
-                        <TextField fx:id="tfCambiarTipo" prefHeight="25.0" prefWidth="143.0" GridPane.columnIndex="1" />
-                        <TextField fx:id="tfCambiarMarca" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label styleClass="etiqueta" text="Tipo:" />
+                        <Label styleClass="etiqueta" text="Marca:" GridPane.rowIndex="1" />
+                        <Label styleClass="etiqueta" text="Modelo:" GridPane.rowIndex="2" />
+                        <Label styleClass="etiqueta" text="Matrícula:" GridPane.rowIndex="3" />
+                        <Label styleClass="etiqueta" text="Cilindrada:" GridPane.rowIndex="5" />
+                        <Label styleClass="etiqueta" text="P.M.A:" GridPane.rowIndex="6" />
+                        <Label styleClass="etiqueta" text="Plazas:" GridPane.rowIndex="7" />
+                        <TextField fx:id="tfCambiarTipo" prefHeight="25.0" prefWidth="143.0" styleClass="cajaTexto" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfCambiarMarca" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="tfCambiarMatricula" maxWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfCambiarCilindrada" maxWidth="70.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="tfCambiarPma" maxWidth="70.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="tfCambiarPlazas" maxWidth="70.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField fx:id="tfCambiarModelo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Separator maxWidth="50.0" prefHeight="0.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="tfCambiarCilindrada" maxWidth="70.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="tfCambiarPma" maxWidth="70.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="tfCambiarPlazas" maxWidth="70.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="tfCambiarModelo" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Separator maxWidth="50.0" prefHeight="0.0" prefWidth="58.0" styleClass="separador" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
-                  <Separator prefWidth="200.0" />
+                  <Separator prefWidth="200.0" styleClass="separador" />
                   <GridPane hgap="5.0" vgap="5.0">
                     <columnConstraints>
-                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="112.2000732421875" minWidth="10.0" prefWidth="98.5999755859375" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.4000244140625" minWidth="10.0" prefWidth="135.4000244140625" />
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="122.13338623046874" minWidth="10.0" prefWidth="113.6" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.4000244140625" minWidth="10.0" prefWidth="115.99999999999999" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -230,12 +230,12 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Fecha alquiler:" />
-                        <TextField fx:id="tfCambiarFecAlq" maxWidth="100.0" GridPane.columnIndex="1" />
-                        <TextField fx:id="tfCambiarFecDev" maxWidth="130.0" prefHeight="26.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfPrecio" maxWidth="90.0" prefHeight="26.0" prefWidth="119.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Precio:" GridPane.rowIndex="2" />
-                        <Label text="Fecha devolución:" GridPane.rowIndex="1" />
+                        <Label styleClass="etiqueta" text="Fecha alquiler:" />
+                        <TextField fx:id="tfCambiarFecAlq" maxWidth="100.0" styleClass="cajaTexto" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfCambiarFecDev" maxWidth="100.0" prefHeight="26.0" prefWidth="100.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfPrecio" maxWidth="90.0" prefHeight="26.0" prefWidth="119.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label styleClass="etiqueta" text="Precio:" GridPane.rowIndex="2" />
+                        <Label styleClass="etiqueta" text="Fecha devolución:" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
@@ -248,9 +248,9 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="952.0">
+      <HBox alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="952.0" styleClass="menuAbajo">
          <children>
-            <Button mnemonicParsing="false" onAction="#gitHub" prefHeight="26.0" prefWidth="26.0">
+            <Button mnemonicParsing="false" onAction="#gitHub" prefHeight="26.0" prefWidth="26.0" styleClass="botones">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>

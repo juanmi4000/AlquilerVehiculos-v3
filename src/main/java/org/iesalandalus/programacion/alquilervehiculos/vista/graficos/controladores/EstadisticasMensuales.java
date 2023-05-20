@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 
@@ -25,10 +26,18 @@ public class EstadisticasMensuales extends Controlador {
 	ObservableList<PieChart.Data> estadistica = FXCollections.observableArrayList();
 
 	@FXML
+	private Label lbFecha;
+
+	@FXML
 	private TextField tfFecha;
 
 	@FXML
 	private PieChart pcEstadisticasMensuales;
+
+	@FXML
+	private void initialize() {
+		lbFecha.setText("");
+	}
 
 	@FXML
 	void mostrarEstadisticas(ActionEvent event) {
@@ -48,6 +57,27 @@ public class EstadisticasMensuales extends Controlador {
 				}
 			}
 		}
+
+		if (contadorAutobus == 0 && contadorFurgoneta == 0 && contadorTurismo == 0) {
+			lbFecha.setText("En ese mes no hubo alquileres");
+		} else {
+			String mes = tfFecha.getText();
+			lbFecha.setText("Las estadísticas del mes " + mes + " son:");
+			PieChart.Data slTurismo = new PieChart.Data("Turismo", contadorTurismo);
+			PieChart.Data slFurgoneta = new PieChart.Data("Furgoneta", contadorFurgoneta);
+			PieChart.Data slAutobus = new PieChart.Data("Autobus", contadorAutobus);
+
+			pcEstadisticasMensuales.getData().addAll(slTurismo, slFurgoneta, slAutobus);
+
+			Tooltip tpTurismo = new Tooltip(String.format("Turismo: %s", contadorTurismo));
+			Tooltip tpFurgoneta = new Tooltip(String.format("Furgoneta: %s", contadorFurgoneta));
+			Tooltip tpAutobus = new Tooltip(String.format("Autobus: %s", contadorAutobus));
+
+			Tooltip.install(slTurismo.getNode(), tpTurismo);
+			Tooltip.install(slFurgoneta.getNode(), tpFurgoneta);
+			Tooltip.install(slAutobus.getNode(), tpAutobus);
+		}
+
 		PieChart.Data slTurismo = new PieChart.Data("Turismo", contadorTurismo);
 		PieChart.Data slFurgoneta = new PieChart.Data("Furgoneta", contadorFurgoneta);
 		PieChart.Data slAutobus = new PieChart.Data("Autobus", contadorAutobus);

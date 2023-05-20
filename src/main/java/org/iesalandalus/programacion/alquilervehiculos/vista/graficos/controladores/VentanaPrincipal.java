@@ -23,12 +23,12 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void leerCliente(ActionEvent event) {
-		LeerCliente controladorLeerCliente = (LeerCliente) Controladores.get("vistas/LeerCliente.fxml", "Leer cliente",
+		LeerCliente leerCliente = (LeerCliente) Controladores.get("vistas/LeerCliente.fxml", "Leer cliente",
 				getEscenario());
-		controladorLeerCliente.limpiar();
-		controladorLeerCliente.getEscenario().showAndWait();
+		leerCliente.limpiar();
+		leerCliente.getEscenario().showAndWait();
 		try {
-			Cliente cliente = controladorLeerCliente.getCliente();
+			Cliente cliente = leerCliente.getCliente();
 			if (cliente != null) {
 				VistaGraficos.getInstancia().getControlador().insertar(cliente);
 				Dialogos.mostrarDialogoAdvertencia("Insertar cliente", "El cliente se ha insertado correctamente",
@@ -54,11 +54,11 @@ public class VentanaPrincipal extends Controlador {
 
 	@FXML
 	void listarClientes(ActionEvent event) {
-		ListarClientes controladorListar = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
+		ListarClientes listarClientes = (ListarClientes) Controladores.get("vistas/ListarClientes.fxml",
 				"Listar Clintes", getEscenario());
-		controladorListar.limpiar();
-		controladorListar.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
-		controladorListar.getEscenario().showAndWait();
+		listarClientes.limpiar();
+		listarClientes.actualizar(VistaGraficos.getInstancia().getControlador().getClientes());
+		listarClientes.getEscenario().showAndWait();
 	}
 
 	@FXML

@@ -6,16 +6,18 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="549.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="388.0" prefWidth="549.0" spacing="40.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.VentanaPrincipal">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="675.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="322.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.VentanaPrincipal">
    <children>
-      <MenuBar>
+      <MenuBar styleClass="menuPrincipal" stylesheets="@../estilos/escenarioPrincipal.css">
          <menus>
-            <Menu mnemonicParsing="false" text="Fichero">
+            <Menu mnemonicParsing="false" styleClass="formatoValido" text="Fichero">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#salir" text="salir" />
                </items>
@@ -33,67 +35,87 @@
             </Menu>
          </menus>
       </MenuBar>
-      <HBox alignment="CENTER" prefHeight="290.0" prefWidth="522.0" spacing="30.0">
+      <HBox alignment="CENTER" prefHeight="262.0" prefWidth="596.0" spacing="20.0" styleClass="fondo">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="277.0" prefWidth="144.0">
+            <VBox alignment="TOP_CENTER" prefHeight="277.0" prefWidth="144.0" spacing="15.0">
                <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" />
+                  <Insets bottom="20.0" top="20.0" />
                </padding>
                <children>
-                  <HBox alignment="CENTER" prefHeight="68.0" prefWidth="104.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="105.0" spacing="10.0" styleClass="principal" stylesheets="@../estilos/escenarioPrincipal.css">
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/Clientes.png" />
                            </image></ImageView>
-                        <Label text="CLIENTES" />
+                        <Label prefHeight="18.0" prefWidth="88.0" styleClass="etiquetaVentana" text="CLIENTES" />
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#leerCliente" prefHeight="60.0" prefWidth="100.0" text="Insertar cliente" />
-                  <Button mnemonicParsing="false" onAction="#listarClientes" prefHeight="60.0" prefWidth="100.0" text="Listar clientes" />
-                  <Button mnemonicParsing="false" onAction="#borrarCliente" prefHeight="60.0" prefWidth="100.0" text="Borrar cliente" />
+                  <Separator prefWidth="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+                  <Button mnemonicParsing="false" onAction="#leerCliente" prefHeight="33.0" prefWidth="130.0" styleClass="botones" stylesheets="@../estilos/escenarioPrincipal.css" text="Insertar cliente" />
+                  <Separator prefWidth="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+                  <Button mnemonicParsing="false" onAction="#listarClientes" prefHeight="30.0" prefWidth="130.0" styleClass="botones" stylesheets="@../estilos/escenarioPrincipal.css" text="Listar clientes" />
+                  <Separator prefWidth="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+                  <Button mnemonicParsing="false" onAction="#borrarCliente" prefHeight="30.0" prefWidth="130.0" styleClass="botones" stylesheets="@../estilos/escenarioPrincipal.css" text="Borrar cliente" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="258.0" prefWidth="144.0">
+            <Separator orientation="VERTICAL" prefHeight="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+            <VBox alignment="TOP_CENTER" prefHeight="258.0" prefWidth="144.0" spacing="15.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="61.0" prefWidth="144.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="105.0" spacing="10.0" styleClass="principal" stylesheets="@../estilos/escenarioPrincipal.css">
                      <children>
                         <ImageView fitHeight="43.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/Alquiler.png" />
                            </image></ImageView>
-                        <Label prefHeight="38.0" prefWidth="66.0" text="ALQUILERES" />
+                        <Label prefHeight="18.0" prefWidth="96.0" styleClass="etiquetaVentana" text="ALQUILERES">
+                           <font>
+                              <Font name="Consolas Bold Italic" size="12.0" />
+                           </font></Label>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#leerAlquiler" prefHeight="60.0" prefWidth="100.0" text="Insertar alquiler" />
-                  <Button mnemonicParsing="false" onAction="#listarAlquileres" prefHeight="60.0" prefWidth="100.0" text="Listar alquileres" />
-                  <Button mnemonicParsing="false" onAction="#borrarAlquiler" prefHeight="60.0" prefWidth="100.0" text="Borrar alquiler" />
+                  <Separator prefWidth="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+                  <Button mnemonicParsing="false" onAction="#leerAlquiler" prefHeight="30.0" prefWidth="130.0" styleClass="botones" stylesheets="@../estilos/escenarioPrincipal.css" text="Insertar alquiler" />
+                  <Separator prefWidth="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+                  <Button mnemonicParsing="false" onAction="#listarAlquileres" prefHeight="30.0" prefWidth="130.0" styleClass="botones" stylesheets="@../estilos/escenarioPrincipal.css" text="Listar alquileres" />
+                  <Separator prefWidth="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+                  <Button mnemonicParsing="false" onAction="#borrarAlquiler" prefHeight="30.0" prefWidth="130.0" styleClass="botones" stylesheets="@../estilos/escenarioPrincipal.css" text="Borrar alquiler" />
                </children>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="144.0">
+            <Separator orientation="VERTICAL" prefHeight="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+            <VBox alignment="TOP_CENTER" prefHeight="258.0" prefWidth="146.0" spacing="15.0" styleClass="principal" stylesheets="@../estilos/escenarioPrincipal.css">
                <children>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="150.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="105.0" spacing="10.0" styleClass="principal" stylesheets="@../estilos/escenarioPrincipal.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/Vehiculo.png" />
                            </image></ImageView>
-                        <Label text="VEHICULOS" />
+                        <Label prefHeight="18.0" prefWidth="87.0" styleClass="etiquetaVentana" stylesheets="@../estilos/escenarioPrincipal.css" text="VEHICULOS" />
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#leerVehiculo" prefHeight="60.0" prefWidth="100.0" text="Insertar vehiculo" />
-                  <Button mnemonicParsing="false" onAction="#listarVehiculos" prefHeight="60.0" prefWidth="100.0" text="Listar vehiculos" />
-                  <Button mnemonicParsing="false" onAction="#borrarVehiculo" prefHeight="60.0" prefWidth="100.0" text="Borrar vehiculo" />
+                  <Separator prefWidth="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+                  <Button mnemonicParsing="false" onAction="#leerVehiculo" prefHeight="30.0" prefWidth="130.0" styleClass="botones" stylesheets="@../estilos/escenarioPrincipal.css" text="Insertar vehículo" />
+                  <Separator prefWidth="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+                  <Button mnemonicParsing="false" onAction="#listarVehiculos" prefHeight="30.0" prefWidth="130.0" styleClass="botones" stylesheets="@../estilos/escenarioPrincipal.css" text="Listar vehículos" />
+                  <Separator prefWidth="200.0" styleClass="separador" stylesheets="@../estilos/escenarioPrincipal.css" />
+                  <Button mnemonicParsing="false" onAction="#borrarVehiculo" prefHeight="30.0" prefWidth="130.0" styleClass="botones" stylesheets="@../estilos/escenarioPrincipal.css" text="Borrar vehículo" />
                </children>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
             </VBox>
          </children>
-         <padding>
-            <Insets left="10.0" right="10.0" />
-         </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="550.0">
+      <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="608.0" styleClass="menuAbajo" stylesheets="@../estilos/escenarioPrincipal.css">
          <children>
-            <Button mnemonicParsing="false" onAction="#gitHub">
+            <Button mnemonicParsing="false" onAction="#gitHub" styleClass="botones" stylesheets="@../estilos/escenarioPrincipal.css">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -103,6 +125,9 @@
                </graphic>
             </Button>
          </children>
+         <padding>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </padding>
       </HBox>
    </children>
 </VBox>
