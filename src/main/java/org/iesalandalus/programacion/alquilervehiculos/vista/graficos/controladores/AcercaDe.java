@@ -1,7 +1,9 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores;
 
 import java.awt.Desktop;
+import java.io.File;
 
+import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.recursos.LocalizadorRecursos;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controlador;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Dialogos;
 
@@ -23,4 +25,15 @@ public class AcercaDe extends Controlador {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML
+    void abrirPdf(ActionEvent event) {
+        try {
+        	String rutaPDF = LocalizadorRecursos.class.getResource("archivos/bibliografia.pdf").toURI().getPath();
+            File archivo = new File(rutaPDF);
+            Desktop.getDesktop().open(archivo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

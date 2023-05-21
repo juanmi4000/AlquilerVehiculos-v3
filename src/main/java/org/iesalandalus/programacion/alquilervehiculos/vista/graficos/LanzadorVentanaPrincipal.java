@@ -10,7 +10,7 @@ import javafx.stage.WindowEvent;
 
 public class LanzadorVentanaPrincipal extends Application {
 
-	private static final String TITULO = "Vista Ventana Alquiler de Vehículos";
+	private static final String TITULO = "Alquileres de Vehículos";
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

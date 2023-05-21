@@ -36,7 +36,7 @@ public class ListarAlquileres extends Controlador {
 	private static final String GUIONES = "-----------";
 	private static final String ERROR = "ERROR";
 	private static final ObservableList<String> DEVOLVER = FXCollections.observableArrayList("Devolver por cliente",
-			"Devolver por vehiculo");
+			"Devolver por vehículo");
 
 	@FXML
 	private Button btBorrar;
@@ -323,12 +323,11 @@ public class ListarAlquileres extends Controlador {
 
 	@FXML
 	void deshabilitar() {
-		Controles.deshabilitarCamposTexto(tfDni, tfMatricula, tfCambiarNombre, tfCambiarDni, tfCambiarTelefono,
+		Controles.deshabilitarCamposTexto(tfCambiarNombre, tfCambiarDni, tfCambiarTelefono,
 				tfCambiarTipo, tfCambiarMarca, tfCambiarModelo);
 		Controles.deshabilitarCamposTexto(tfCambiarMatricula, tfCambiarCilindrada, tfCambiarPma, tfCambiarPlazas,
 				tfCambiarFecAlq, tfCambiarFecDev, tfPrecio);
 		dpFechaDevolucion.setDisable(true);
-		cbDevolver.getSelectionModel().select("Elige una opcion:");
 	}
 
 	@FXML
@@ -398,6 +397,17 @@ public class ListarAlquileres extends Controlador {
 		Alquiler alquiler = new Alquiler(cliente, vehiculo, fechaAlquiler);
 		return buscar ? VistaGraficos.getInstancia().getControlador().buscar(alquiler) : alquiler;
 
+	}
+	
+	@FXML
+	void limpiar() {
+		cbDevolver.getSelectionModel().select("Elige una opcion:");
+		Controles.limpiarCamposTexto(tfDni, tfMatricula);
+		dpFechaDevolucion.setValue(null);
+		Controles.limpiarCamposTexto(tfOpDni, tfOpMat);
+		dpFechaAlquiler.setValue(null);
+		Controles.deshabilitarCamposTexto(tfDni, tfMatricula);
+		dpFechaDevolucion.setDisable(true);
 	}
 
 	@FXML

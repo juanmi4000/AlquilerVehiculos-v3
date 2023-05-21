@@ -201,6 +201,7 @@ public class ListarClientes extends Controlador {
 		try {
 			Cliente cliente = modificarCliente.getCliente();
 			if (cliente != null) {
+				cliente = VistaGraficos.getInstancia().getControlador().buscar(cliente);
 				if (Dialogos.mostrarDialogoConfirmacion(MODIFICAR_CLIENTE,
 						"¿Está seguro que desea modificar el ciente?", getEscenario())) {
 					String nombre = modificarCliente.getTelefono();
@@ -293,7 +294,7 @@ public class ListarClientes extends Controlador {
 
 	@FXML
 	void limpiar() {
-		Controles.limpiarCamposTexto(tfDni, tfListarAlquileresCliente);
+		Controles.limpiarCamposTexto(tfDni, tfListarAlquileresCliente, tfCambiarDni,tfCambiarNombre,tfCambiarTelefono);
 	}
 
 	@FXML
@@ -306,7 +307,6 @@ public class ListarClientes extends Controlador {
 			tfListarAlquileresCliente.setText("");
 			btListar.setDisable(true);
 		}
-
 	}
 
 	@FXML

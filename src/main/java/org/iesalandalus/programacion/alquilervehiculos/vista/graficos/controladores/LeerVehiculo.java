@@ -46,7 +46,6 @@ public class LeerVehiculo extends Controlador {
 	@FXML
 	void initialize() {
 		cbTipo.setItems(TIPOS_VEHICULOS);
-		cbTipo.getSelectionModel().select("Elige un vehiculo:");
 		tfCilindrada.setDisable(true);
 		tfPlazas.setDisable(true);
 		tfPma.setDisable(true);
@@ -72,15 +71,25 @@ public class LeerVehiculo extends Controlador {
 		String modelo = tfModelo.getText();
 		String matricula = tfMatricula.getText();
 		if (valor.equals(TURISMO)) {
-			int cilindrada = Integer.parseInt(tfCilindrada.getText());
-			vehiculo = new Turismo(marca, modelo, cilindrada, matricula);
+			String cilin = tfCilindrada.getText();
+			if (!cilin.isBlank()) {
+				int cilindrada = Integer.parseInt(cilin);
+				vehiculo = new Turismo(marca, modelo, cilindrada, matricula);
+			}
 		} else if (valor.equals(FURGONETA)) {
-			int plazas = Integer.parseInt(tfPlazas.getText());
-			int pma = Integer.parseInt(tfPma.getText());
-			vehiculo = new Furgoneta(marca, modelo, pma, plazas, matricula);
+			String plaz = tfPlazas.getText();
+			String pm = tfPma.getText();
+			if (!plaz.isBlank() && !pm.isBlank()) {
+				int plazas = Integer.parseInt(plaz);
+				int pma = Integer.parseInt(pm);
+				vehiculo = new Furgoneta(marca, modelo, pma, plazas, matricula);
+			}
 		} else {
-			int plazas = Integer.parseInt(tfPlazas.getText());
-			vehiculo = new Autobus(marca, modelo, plazas, matricula);
+			String plaz = tfPlazas.getText();
+			if (!plaz.isBlank()) {
+				int plazas = Integer.parseInt(plaz);
+				vehiculo = new Autobus(marca, modelo, plazas, matricula);
+			}
 		}
 		return cancelado ? null : vehiculo;
 	}
@@ -103,12 +112,14 @@ public class LeerVehiculo extends Controlador {
 	}
 
 	void limpiar() {
+		cbTipo.getSelectionModel().select("Elige un vehículo:");
 		tfMarca.setText("");
 		tfModelo.setText("");
 		tfMatricula.setText("");
 		tfCilindrada.setText("");
 		tfPlazas.setText("");
-		tfPlazas.setText("");
+		tfPma.setText("");
+		tfPlazas.setDisable(true);
 		cancelado = true;
 	}
 

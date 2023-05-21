@@ -19,9 +19,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.ListarClientes">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="986.0" styleClass="fondo" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores.ListarClientes">
    <children>
-      <MenuBar styleClass="menuPrincipal" stylesheets="@../estilos/escenarioPrincipal.css">
+      <MenuBar styleClass="menuPrincipal">
          <menus>
             <Menu mnemonicParsing="false" text="Fichero">
                <items>
@@ -54,13 +54,13 @@
                   <Insets />
                </HBox.margin>
                <children>
-                  <VBox alignment="CENTER" prefHeight="480.0" prefWidth="255.0" spacing="20.0" styleClass="fondo">
+                  <VBox alignment="TOP_CENTER" prefHeight="480.0" prefWidth="255.0" spacing="20.0" styleClass="fondo">
                      <children>
                         <Label styleClass="etiquetaVentana" text="BUSCAR/BORRAR CLIENTE" />
                         <HBox alignment="CENTER_LEFT" spacing="5.0">
                            <children>
                               <Label styleClass="etiqueta" text="DNI:" />
-                              <TextField fx:id="tfDni" maxWidth="118.0" onAction="#comprobarDni" prefHeight="26.0" prefWidth="109.0" promptText="11111111H" styleClass="cajasTexto" />
+                              <TextField fx:id="tfDni" maxWidth="118.0" onAction="#comprobarDni" prefHeight="26.0" prefWidth="109.0" promptText="11111111H" styleClass="cajaTexto" />
                            </children>
                            <padding>
                               <Insets left="15.0" />
@@ -75,8 +75,8 @@
                         <Separator prefWidth="200.0" />
                         <GridPane hgap="5.0" vgap="5.0">
                           <columnConstraints>
-                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="91.33333587646484" minWidth="10.0" prefWidth="51.33333206176758" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.66666793823242" minWidth="10.0" prefWidth="145.66666793823242" />
+                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="91.33333587646484" minWidth="10.0" prefWidth="68.00000610351563" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0000061035156" minWidth="10.0" prefWidth="151.1999938964844" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -85,11 +85,11 @@
                           </rowConstraints>
                            <children>
                               <Label styleClass="etiqueta" text="Nombre:" />
-                              <TextField fx:id="tfNombreEncontrado" prefHeight="25.0" prefWidth="142.0" styleClass="cajasTexto" GridPane.columnIndex="1" />
-                              <TextField fx:id="tfDniEncontrado" maxWidth="100.0" styleClass="cajasTexto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="tfTelefonoEncontrado" maxWidth="100.0" prefHeight="25.0" prefWidth="100.0" styleClass="cajasTexto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="tfNombreEncontrado" prefHeight="25.0" prefWidth="142.0" styleClass="cajaTexto" GridPane.columnIndex="1" />
+                              <TextField fx:id="tfDniEncontrado" maxWidth="100.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="tfTelefonoEncontrado" maxWidth="100.0" prefHeight="25.0" prefWidth="100.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label styleClass="etiqueta" text="Dni:" GridPane.rowIndex="1" />
-                              <Label styleClass="etiqueta" text="Teléfono:" GridPane.rowIndex="2" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="78.0" styleClass="etiqueta" text="Teléfono:" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children>
@@ -132,9 +132,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="tfCambiarNombre" prefHeight="25.0" prefWidth="141.0" styleClass="cajasTexto" GridPane.columnIndex="1" />
-                        <TextField fx:id="tfCambiarDni" maxWidth="100.0" prefHeight="25.0" prefWidth="138.0" styleClass="cajasTexto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfCambiarTelefono" maxWidth="100.0" styleClass="cajasTexto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tfCambiarNombre" prefHeight="25.0" prefWidth="141.0" styleClass="cajaTexto" GridPane.columnIndex="1" />
+                        <TextField fx:id="tfCambiarDni" maxWidth="100.0" prefHeight="25.0" prefWidth="138.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfCambiarTelefono" maxWidth="100.0" styleClass="cajaTexto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label styleClass="etiqueta" text="Nombre:" />
                         <Label styleClass="etiqueta" text="DNI:" GridPane.rowIndex="1" />
                         <Label styleClass="etiqueta" text="Teléfono:" GridPane.rowIndex="2" />
@@ -152,7 +152,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="176.0" spacing="5.0">
                            <children>
                               <Label styleClass="etiqueta" text="DNI:" />
-                              <TextField fx:id="tfListarAlquileresCliente" maxWidth="100.0" onAction="#comprobarDniLC" promptText="11111111H" styleClass="cajasTexto" />
+                              <TextField fx:id="tfListarAlquileresCliente" maxWidth="100.0" onAction="#comprobarDniLC" promptText="11111111H" styleClass="cajaTexto" />
                            </children>
                         </HBox>
                         <Button fx:id="btListar" mnemonicParsing="false" onAction="#listarAlquileresCliente" prefHeight="26.0" prefWidth="157.0" styleClass="botones" text="Listar alquileres cliente" />

@@ -403,4 +403,9 @@ public class ListarVehiculos extends Controlador {
 	private String cambiarCPma(Vehiculo vehiculo) {
 		return vehiculo instanceof Furgoneta furgoneta ? String.format("%s", furgoneta.getPma()) : "";
 	}
+	
+	@FXML
+	void limpiar() {
+		tfMatricula.setText("");
+	}
 }

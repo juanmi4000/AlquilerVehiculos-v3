@@ -1,7 +1,6 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.graficos.controladores;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.VistaGraficos;
 import org.iesalandalus.programacion.alquilervehiculos.vista.graficos.utilidades.Controlador;
 
 import javafx.event.ActionEvent;
@@ -48,7 +47,7 @@ public class ModificarCliente extends Controlador {
 	@FXML
 	public Cliente getCliente() {
 		String dni = tfDni.getText();
-		return VistaGraficos.getInstancia().getControlador().buscar(Cliente.getClienteConDni(dni));
+		return cancelado ? null: Cliente.getClienteConDni(dni);
 
 	}
 

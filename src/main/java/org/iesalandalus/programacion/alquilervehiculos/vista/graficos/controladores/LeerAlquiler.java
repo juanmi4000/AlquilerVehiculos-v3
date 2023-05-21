@@ -40,12 +40,21 @@ public class LeerAlquiler extends Controlador {
 
 	@FXML
 	public Alquiler getAlquiler() {
-		Cliente cliente = VistaGraficos.getInstancia().getControlador()
-				.buscar(Cliente.getClienteConDni(tfCliente.getText()));
-		Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
-				.buscar(Vehiculo.getVehiculoConMatricula(tfVehiculo.getText()));
-		LocalDate fechaAlquiler = dpFechaAlquiler.getValue();
-		return cancelado ? null : new Alquiler(cliente, vehiculo, fechaAlquiler);
+		String strCliente = tfCliente.getText();
+		String strVehiculo = tfVehiculo.getText();
+		Alquiler alquiler = null;
+		if (!strCliente.isBlank() && !strVehiculo.isBlank()) {
+			Cliente cliente = VistaGraficos.getInstancia().getControlador()
+					.buscar(Cliente.getClienteConDni(strCliente));
+			Vehiculo vehiculo = VistaGraficos.getInstancia().getControlador()
+					.buscar(Vehiculo.getVehiculoConMatricula(strVehiculo));
+			LocalDate fechaAlquiler = dpFechaAlquiler.getValue();
+			alquiler = new Alquiler(cliente, vehiculo, fechaAlquiler);
+		} else {
+			cancelado = true;
+		}
+		
+		return cancelado ? null : alquiler;
 	}
 
 	@FXML

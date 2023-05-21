@@ -123,6 +123,7 @@ public class VentanaPrincipal extends Controlador {
 	void listarAlquileres(ActionEvent event) {
 		ListarAlquileres listarAlquileres = (ListarAlquileres) Controladores.get("vistas/ListarAlquileres.fxml",
 				"LISTAR ALQUILERES", getEscenario());
+		listarAlquileres.limpiar();
 		listarAlquileres.actualizar(VistaGraficos.getInstancia().getControlador().getAlquileres());
 		listarAlquileres.getEscenario().showAndWait();
 	}
@@ -134,8 +135,9 @@ public class VentanaPrincipal extends Controlador {
 		leerAlquiler.limpiar();
 		leerAlquiler.getEscenario().showAndWait();
 		try {
-			Alquiler alquiler = VistaGraficos.getInstancia().getControlador().buscar(leerAlquiler.getAlquiler());
+			Alquiler alquiler = leerAlquiler.getAlquiler();
 			if (alquiler != null) {
+				alquiler = VistaGraficos.getInstancia().getControlador().buscar(alquiler);
 				if (Dialogos.mostrarDialogoConfirmacion("BORRAR ALQUILER",
 						"¿Estás seguro que desea eliminar el cliente?", getEscenario())) {
 					VistaGraficos.getInstancia().getControlador().borrar(alquiler);
@@ -174,6 +176,7 @@ public class VentanaPrincipal extends Controlador {
 	void listarVehiculos(ActionEvent event) {
 		ListarVehiculos listarVehiculos = (ListarVehiculos) Controladores.get("vistas/ListarVehiculos.fxml",
 				"LISTAR VEHICULOS", getEscenario());
+		listarVehiculos.limpiar();
 		listarVehiculos.actualizar(VistaGraficos.getInstancia().getControlador().getVehiculos());
 		listarVehiculos.getEscenario().showAndWait();
 	}
