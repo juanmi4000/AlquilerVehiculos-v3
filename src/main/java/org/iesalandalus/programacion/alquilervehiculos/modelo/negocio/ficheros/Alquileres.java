@@ -70,7 +70,7 @@ public class Alquileres implements IAlquileres {
 				} catch (DateTimeParseException e) {
 					System.out.println("ERROR: no se ha podido poner la fecha.");
 					System.out.print(cadenaError);
-				} catch (Exception e) {
+				} catch (NullPointerException | IllegalArgumentException | OperationNotSupportedException e) {
 					System.out.println(e.getMessage());
 					System.out.print(cadenaError);
 				}
@@ -91,7 +91,6 @@ public class Alquileres implements IAlquileres {
 		if (vehiculoEncontrado == null) {
 			throw new NullPointerException("ERROR: no existe ningún vehiculo con esa matricula");
 		}
-		// fecha de alquiler lo pongo en una variable para que no me salga un chorizo
 		LocalDate fechaAlquiler = LocalDate.parse(elemento.getAttribute(FECHA_ALQUILER), FORMATO_FECHA);
 		Alquiler alquiler = new Alquiler(clienteEncontrado, vehiculoEncontrado, fechaAlquiler);
 		if (elemento.hasAttribute(FECHA_DEVOLUCION)) {
@@ -123,11 +122,10 @@ public class Alquileres implements IAlquileres {
 	private Element getElemento(Document documentoXml, Alquiler alquiler) {
 		Element elementoAlquiler = documentoXml.createElement(ALQUILER);
 		elementoAlquiler.setAttribute(CLIENTE, alquiler.getCliente().getDni());
-		elementoAlquiler.setAttribute(FECHA_ALQUILER,
-				String.format("%s", alquiler.getFechaAlquiler().format(FORMATO_FECHA)));
+		elementoAlquiler.setAttribute(FECHA_ALQUILER, alquiler.getFechaAlquiler().format(FORMATO_FECHA));
 		LocalDate fechaDevolucion = alquiler.getFechaDevolucion();
 		if (fechaDevolucion != null) {
-			elementoAlquiler.setAttribute(FECHA_DEVOLUCION, String.format("%s", fechaDevolucion.format(FORMATO_FECHA)));
+			elementoAlquiler.setAttribute(FECHA_DEVOLUCION, fechaDevolucion.format(FORMATO_FECHA));
 		}
 		elementoAlquiler.setAttribute(VEHICULO, alquiler.getVehiculo().getMatricula());
 		return elementoAlquiler;
@@ -270,4 +268,3 @@ public class Alquileres implements IAlquileres {
 		coleccionAlquileres.remove(alquiler);
 	}
 }
-
